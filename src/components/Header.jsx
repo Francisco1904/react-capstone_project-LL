@@ -1,7 +1,11 @@
+import logo from "../assets/Logo.svg";
+import Nav from "./Nav";
+
 function Header() {
   return (
     <header>
-      <h1>Little Lemon</h1>
+      <img src={logo} alt="Little Lemon Logo" width="150" />
+      <Nav />
     </header>
   );
 }
