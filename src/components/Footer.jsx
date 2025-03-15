@@ -1,15 +1,12 @@
-import logo from "../assets/Logo.svg"; // Adjust path if needed
+import logo from "../assets/lemon_logo.png";
 
 function Footer() {
   return (
-    <footer>
+    <footer className="footer">
       <div className="footer-container">
-        {/* Logo Section */}
         <div className="footer-logo">
           <img src={logo} alt="Little Lemon Logo" width="120" />
         </div>
-
-        {/* Doormat Navigation */}
         <nav className="footer-nav">
           <h3>Site</h3>
           <ul>
@@ -33,16 +30,12 @@ function Footer() {
             </li>
           </ul>
         </nav>
-
-        {/* Contact Information */}
         <div className="footer-contact">
           <h3>Contact</h3>
           <p>123 Lemon Street, Food City</p>
           <p>Phone: (123) 456-7890</p>
           <p>Email: contact@littlelemon.com</p>
         </div>
-
-        {/* Social Media Links */}
         <div className="footer-social">
           <h3>Social Media</h3>
           <ul>

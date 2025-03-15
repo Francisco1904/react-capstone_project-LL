@@ -1,6 +1,6 @@
 function Nav() {
   return (
-    <nav>
+    <nav className="main-nav">
       <ul>
         <li>
           <a href="#">Home</a>

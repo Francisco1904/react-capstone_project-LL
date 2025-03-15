@@ -1,0 +1,108 @@
+/* 1) IMPORT YOUR FONTS (Karla & Markazi Text) */
+@import url("https://fonts.googleapis.com/css2?family=Karla:wght@400;700&family=Markazi+Text:wght@400;700&display=swap");
+
+/* 2) DEFINE COLOR & FONT VARIABLES */
+:root {
+  /* BRAND FONTS */
+  --font-heading: "Markazi Text", serif;
+  --font-body: "Karla", sans-serif;
+
+  /* LITTLE LEMON COLOR PALETTE */
+  --color-dark-green: #495e57; /* Could be used for nav/hero background */
+  --color-highlight: #f4ce14; /* Accent color (buttons, etc.) */
+  --color-salmon: #ee9972; /* Another accent or section bg */
+  --color-cream: #fbdabb; /* Light background accent */
+  --color-light-grey: #edefee; /* Base page background */
+  --color-dark-grey: #333333; /* Text or footer background */
+
+  /* BASE TYPOGRAPHY & SPACING */
+  font-family: var(--font-body);
+  line-height: 1.5;
+  font-weight: 400;
+
+  /* SYSTEM COLOR SCHEME (existing code) */
+  color-scheme: light dark;
+
+  /* DEFAULT TEXT & BACKGROUND */
+  color: var(--color-dark-grey);
+  background-color: var(--color-light-grey);
+
+  /* OTHER SETTINGS (existing) */
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 3) GLOBAL LINK STYLES (existing) */
+a {
+  font-weight: 500;
+  color: #646cff; /* You could replace this with var(--color-highlight) if desired */
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+/* 4) BODY STYLES (existing) */
+body {
+  margin: 0;
+  /* If you want a typical page layout, remove the next 3 lines.
+     Otherwise, the page is centered both vertically & horizontally. */
+  display: flex;
+  place-items: center;
+  min-height: 100vh;
+
+  /* Let the body naturally fill the width; remove if you want full-bleed layout. */
+  min-width: 320px;
+}
+
+/* 5) HEADINGS */
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+  /* Use heading font */
+  font-family: var(--font-heading);
+}
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  margin: 1rem 0 0.5rem;
+}
+
+/* 6) BUTTONS (existing code) */
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a; /* Could swap for var(--color-dark-green) or var(--color-highlight) */
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+/* 7) LIGHT MODE OVERRIDES (existing) */
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff; /* If you prefer var(--color-light-grey), remove or override here */
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
