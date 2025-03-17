@@ -2,8 +2,8 @@ import React from "react";
 
 function ReservationsPage() {
   return (
-    <main className="container">
-      <section className="reservations-section">
+    <main className="page-container">
+      <section className="reservations-section container">
         <h1>Reservations</h1>
         <p>
           Book your table at Little Lemon and enjoy our delicious Mediterranean

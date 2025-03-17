@@ -119,33 +119,35 @@ function MainSection() {
 
       {/* About */}
       <section className="about">
-        <div className="about-content">
-          <h2>Little Lemon</h2>
-          <h3>Chicago</h3>
-          <p>
-            Little Lemon is a charming Mediterranean restaurant located in the
-            heart of Chicago. Founded by two Italian brothers, Mario and Adrian,
-            who moved to the United States to pursue their shared dream of
-            owning a restaurant.
-          </p>
-          <p>
-            Our cuisine is inspired by Mediterranean family recipes that have
-            been passed down through generations, focusing on fresh ingredients
-            and authentic flavors with a modern twist. We look forward to
-            welcoming you to our cozy establishment!
-          </p>
-        </div>
-        <div className="about-images">
-          <img
-            src={restaurant}
-            alt="Little Lemon Restaurant Interior"
-            className="about-image-1"
-          />
-          <img
-            src={owners}
-            alt="Mario and Adrian, the owners"
-            className="about-image-2"
-          />
+        <div className="about-container">
+          <div className="about-content">
+            <h2>Little Lemon</h2>
+            <h3>Chicago</h3>
+            <p>
+              Little Lemon is a charming Mediterranean restaurant located in the
+              heart of Chicago. Founded by two Italian brothers, Mario and
+              Adrian, who moved to the United States to pursue their shared
+              dream of owning a restaurant.
+            </p>
+            <p>
+              Our cuisine is inspired by Mediterranean family recipes that have
+              been passed down through generations, focusing on fresh
+              ingredients and authentic flavors with a modern twist. We look
+              forward to welcoming you to our cozy establishment!
+            </p>
+          </div>
+          <div className="about-images">
+            <img
+              src={restaurant}
+              alt="Little Lemon Restaurant Interior"
+              className="about-image-1"
+            />
+            <img
+              src={owners}
+              alt="Mario and Adrian, the owners"
+              className="about-image-2"
+            />
+          </div>
         </div>
       </section>
     </main>

@@ -1,6 +1,10 @@
 /* 1) IMPORT YOUR FONTS (Karla & Markazi Text) */
 @import url("https://fonts.googleapis.com/css2?family=Karla:wght@400;700&family=Markazi+Text:wght@400;700&display=swap");
 
+* {
+  box-sizing: border-box;
+}
+
 /* 2) DEFINE COLOR & FONT VARIABLES */
 :root {
   /* BRAND FONTS */

@@ -4,25 +4,31 @@
 
 **Project Name:** "Little Lemon Restaurant App"
 
-**Description:**
-This project was built using **React.js** to showcase my skills as a **Junior Front-End Developer**. The application demonstrates best practices in UI/UX design, component-based architecture, scalability, and maintainability.
+## ✨ Description
 
-**Key Features:**
+This project was built using **React.js** to showcase my skills as a **Junior Front-End Developer**. It highlights best practices in UI/UX design, component-based architecture, scalability, and maintainability.
 
-- [Feature 1]
-- [Feature 2]
-- [Feature 3]
-- Responsive design for both desktop and mobile
+### Key Features
+
+- Intuitive navigation and user-friendly interface
+- Dynamic state management using React Context API
+- Responsive design optimized for both desktop and mobile devices
+- Modular and reusable components for scalability
+- Integration with modern tools like Vite and Tailwind CSS
+- Deployed on Vercel for seamless accessibility
+- Demonstrates best practices in UI/UX design and component-based architecture
+- Highlights maintainability and scalability for modern web applications
 
 ## 📑 Table of Contents
 
-1. [Installation Guide](#installation-guide)
-2. [Usage Instructions](#usage-instructions)
-3. [Project Architecture](#project-architecture)
-4. [Challenges & Solutions](#challenges--solutions)
-5. [Deployment](#deployment)
-6. [License](#license)
-7. [Contact Information](#contact-information)
+1. [Installation Guide](#-installation-guide)
+2. [Project Architecture](#-project-architecture)
+3. [Challenges & Solutions](#-challenges--solutions)
+4. [Deployment](#-deployment)
+5. [License](#-license)
+6. [Contact Information](#-contact-information)
+7. [Acknowledgments](#-acknowledgments)
+8. [Additional Resources](#-additional-resources)
 
 ---
 
@@ -30,16 +36,16 @@ This project was built using **React.js** to showcase my skills as a **Junior Fr
 
 ### Prerequisites
 
-- **Node.js** (vXX.X.X or higher)
+- **Node.js** (v18.0.0 or higher)
 - **Git** (for cloning the repository)
-- **React.js** (Latest version)
+- **React.js** (v19.0.0 or higher)
 
 ### Setup Instructions
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/your-username/your-repository.git
-   cd your-repository
+   git clone https://github.com/Francisco1904/little-lemon-app-full.git
+   cd little-lemon-app-full
    ```
 2. Install dependencies:
    ```sh
@@ -47,16 +53,9 @@ This project was built using **React.js** to showcase my skills as a **Junior Fr
    ```
 3. Start the development server:
    ```sh
-   npm start
+   npm run dev
    ```
-
----
-
-## 🚀 Usage Instructions
-
-- Run `npm start` to launch the application in development mode.
-- Access the application via `http://localhost:3000/`.
-- Navigate through the various pages and interact with UI components.
+4. Open your browser and navigate to `http://localhost:5173/` to view the application.
 
 ---
 
@@ -65,8 +64,20 @@ This project was built using **React.js** to showcase my skills as a **Junior Fr
 ### Tech Stack
 
 - **Frontend:** React.js, React Router, Tailwind CSS
-- **State Management:** React Context API / Redux (if used)
+- **State Management:** React Context API
 - **Version Control:** Git & GitHub
+- **Build Tool:** Vite (or Webpack, if applicable)
+- **Deployment Platform:** Vercel (or Netlify, if applicable)
+
+### Architecture Overview
+
+The project follows a **component-based architecture** to ensure modularity and reusability. Each feature is broken down into smaller, manageable components, making the application scalable and maintainable.
+
+### Key Design Patterns
+
+1. **Container-Presenter Pattern:** Separation of logic (container) and UI (presenter) for better maintainability.
+2. **Custom Hooks:** Encapsulation of reusable logic to simplify component code.
+3. **Atomic Design Principles:** Components are categorized into atoms, molecules, and organisms for a structured hierarchy.
 
 ### Folder Structure
 
@@ -75,11 +86,12 @@ This project was built using **React.js** to showcase my skills as a **Junior Fr
 │   ├── components  # Reusable UI components
 │   ├── pages       # Different views/screens
 │   ├── assets      # Images and static files
-│   ├── hooks       # Custom React hooks (if any)
+│   ├── hooks       # Custom React hooks
 │   ├── utils       # Utility functions
+│   ├── context     # Context API for state management
 │   ├── App.js      # Main application entry point
 │   ├── index.js    # React DOM rendering
-└── public          # Static assets
+
 ```
 
 ---
@@ -115,15 +127,15 @@ This project was built using **React.js** to showcase my skills as a **Junior Fr
 
 ## 📝 License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT). Feel free to use, modify, and distribute this project as per the terms of the license.
 
 ---
 
 ## 📬 Contact Information
 
-- **GitHub:** [Your GitHub Profile](https://github.com/your-username)
-- **LinkedIn:** [Your LinkedIn Profile](https://linkedin.com/in/your-profile)
-- **Email:** [Your Email]
+- **GitHub:** [Francisco1904](https://github.com/Francisco1904)
+- **LinkedIn:** [Your LinkedIn Profile]
+- **Email:** [franciscopontes94@gmail.com](mailto:franciscopontes94@gmail.com)
 
 ---
 
