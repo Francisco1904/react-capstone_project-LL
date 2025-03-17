@@ -366,6 +366,15 @@ main {
   height: 100%;
   display: flex;
   flex-direction: column;
+  transition: transform var(--transition-normal),
+    box-shadow var(--transition-normal);
+  position: relative; /* Added for absolute positioning */
+  cursor: pointer; /* Show pointer cursor over the entire card */
+}
+
+.menu-card:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow-medium);
 }
 
 .menu-card-image {
@@ -412,6 +421,8 @@ main {
   justify-content: space-between;
   align-items: center;
   font-weight: 700;
+  position: relative; /* Ensure proper stacking */
+  z-index: 2; /* Keep above the pseudo-element */
 }
 
 .menu-card-footer a {
@@ -421,6 +432,28 @@ main {
   align-items: center;
   gap: 0.5rem;
   font-weight: 700;
+  position: relative; /* For proper stacking context */
+  z-index: 2;
+}
+
+/* Create clickable overlay for the entire card */
+.menu-card-footer a::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  /* Extend beyond the link to cover the entire card */
+  transform: scale(20); /* Large enough to cover the card */
+  transform-origin: bottom left; /* Start from the link's position */
+}
+
+/* Keep emoji and text properly visible above the overlay */
+.menu-card-footer a span {
+  position: relative;
+  z-index: 3;
 }
 
 /* Review Card Styles */

@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
-import logo from "../assets/lemon_logo.png";
+import logo from "../assets/lemon_logo.svg";
 
 function Footer() {
   return (
     <footer className="footer">
       <div className="footer-container">
         <div className="footer-logo">
-          <img src={logo} alt="Little Lemon Logo" width="120" />
+          <img src={logo} alt="Little Lemon Logo" width="220" />
         </div>
         <nav className="footer-nav">
           <h3>Site</h3>
