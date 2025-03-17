@@ -2,7 +2,7 @@ import React from "react";
 
 function Card({ title, price, description, imageSrc, imageAlt }) {
   return (
-    <div className="menu-card">
+    <article className="menu-card">
       <img src={imageSrc} alt={imageAlt} className="menu-card-image" />
       <div className="menu-card-content">
         <div className="menu-card-header">
@@ -17,7 +17,7 @@ function Card({ title, price, description, imageSrc, imageAlt }) {
           </a>
         </div>
       </div>
-    </div>
+    </article>
   );
 }
 

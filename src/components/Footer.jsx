@@ -31,13 +31,13 @@ function Footer() {
             </li>
           </ul>
         </nav>
-        <div className="footer-contact">
+        <aside className="footer-contact">
           <h3>Contact</h3>
           <p>123 Lemon Street, Food City</p>
           <p>Phone: (123) 456-7890</p>
           <p>Email: contact@littlelemon.com</p>
-        </div>
-        <div className="footer-social">
+        </aside>
+        <aside className="footer-social">
           <h3>Social Media</h3>
           <ul>
             <li>
@@ -68,7 +68,7 @@ function Footer() {
               </a>
             </li>
           </ul>
-        </div>
+        </aside>
       </div>
     </footer>
   );

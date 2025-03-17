@@ -15,14 +15,14 @@ function ReviewCard({ name, rating, text, avatar }) {
   };
 
   return (
-    <div className="review-card">
+    <article className="review-card">
       <div className="review-rating">{renderStars(rating)}</div>
       <div className="review-user">
         <img src={avatar} alt={name} className="review-avatar" />
         <div className="review-name">{name}</div>
       </div>
       <p className="review-text">{text}</p>
-    </div>
+    </article>
   );
 }
 
