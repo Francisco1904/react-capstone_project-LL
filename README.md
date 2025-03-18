@@ -11,13 +11,15 @@ This project was built using **React.js** to showcase my skills as a **Junior Fr
 ### Key Features
 
 - Intuitive navigation and user-friendly interface
-- Dynamic state management using React Context API
-- Responsive design optimized for both desktop and mobile devices
-- Modular and reusable components for scalability
-- Integration with modern tools like Vite and Tailwind CSS
-- Deployed on Vercel for seamless accessibility
-- Demonstrates best practices in UI/UX design and component-based architecture
-- Highlights maintainability and scalability for modern web applications
+- Responsive design with custom breakpoints for mobile, tablet and desktop
+- Consistent branded component styling using CSS variables
+- Interactive reservation form with validation
+- Featured menu items with dynamic card components
+- Customer testimonials section with star ratings
+- Modular and reusable components (Cards, Hero section, Review cards)
+- Clear information architecture with dedicated page routes
+- About section highlighting the restaurant's story and owners
+- Integration with modern tools like Vite for faster development
 
 ## 📑 Table of Contents
 
@@ -63,35 +65,43 @@ This project was built using **React.js** to showcase my skills as a **Junior Fr
 
 ### Tech Stack
 
-- **Frontend:** React.js, React Router, Tailwind CSS
-- **State Management:** React Context API
+- **Frontend:**
+  - React.js (v19.0.0)
+  - React Router (v7.3.0) for page navigation
+  - CSS Custom Properties for theming
+- **Build Tool:** Vite (v6.2.0)
 - **Version Control:** Git & GitHub
-- **Build Tool:** Vite (or Webpack, if applicable)
 - **Deployment Platform:** Vercel (or Netlify, if applicable)
 
 ### Architecture Overview
 
-The project follows a **component-based architecture** to ensure modularity and reusability. Each feature is broken down into smaller, manageable components, making the application scalable and maintainable.
+The project follows a **component-based architecture** with clear separation of concerns:
+
+- **Pages:** Container components that represent full pages in the application
+- **Components:** Reusable UI elements that compose the pages
+- **Assets:** Static resources like images and logos
+- **Styles:** Global and component-specific styling
 
 ### Key Design Patterns
 
-1. **Container-Presenter Pattern:** Separation of logic (container) and UI (presenter) for better maintainability.
-2. **Custom Hooks:** Encapsulation of reusable logic to simplify component code.
-3. **Atomic Design Principles:** Components are categorized into atoms, molecules, and organisms for a structured hierarchy.
+1. **Component Composition:** Building complex UIs from smaller, focused components
+2. **Prop Drilling:** Passing data to child components through props
+3. **CSS Variables:** Using custom properties for consistent styling across components
+4. **Responsive Design:** Mobile-first approach with flexible grid layouts
 
 ### Folder Structure
 
 ```
 ├── src
-│   ├── components  # Reusable UI components
-│   ├── pages       # Different views/screens
-│   ├── assets      # Images and static files
-│   ├── hooks       # Custom React hooks
-│   ├── utils       # Utility functions
-│   ├── context     # Context API for state management
-│   ├── App.js      # Main application entry point
-│   ├── index.js    # React DOM rendering
-
+│   ├── Components        # Reusable UI components (Header, Footer, Card, etc.)
+│   ├── pages             # Page components (HomePage, ReservationsPage, etc.)
+│   ├── assets            # Images and static resources
+│   ├── styles            # CSS files for styling
+│   │   ├── App.css       # Main application styles
+│   │   ├── index.css     # Base styles and resets
+│   │   └── variables.css # CSS custom properties for theming
+│   ├── App.jsx           # Main application component
+│   └── main.jsx          # Application entry point
 ```
 
 ---
