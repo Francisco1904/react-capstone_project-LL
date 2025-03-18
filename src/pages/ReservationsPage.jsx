@@ -76,7 +76,7 @@ function ReservationsPage() {
   };
 
   return (
-    <main className="page-container">
+    <main className="page-container" role="main">
       <section className="reservations-section container">
         <h1>Reservations</h1>
         <p>
@@ -86,7 +86,7 @@ function ReservationsPage() {
 
         {/* Show success message when form is submitted */}
         {submitResult && submitResult.success && (
-          <div className="success-message">
+          <div className="success-message" role="status" aria-live="polite">
             <h2>Reservation Confirmed!</h2>
             <p>{submitResult.message}</p>
             <p>Reservation ID: {submitResult.reservationId}</p>
@@ -95,14 +95,22 @@ function ReservationsPage() {
 
         {/* Show error message when submission fails */}
         {submitResult && !submitResult.success && (
-          <div className="error-message">
+          <div className="error-message" role="alert" aria-live="assertive">
             <p>{submitResult.message}</p>
           </div>
         )}
 
         {/* Only show form if not submitted successfully */}
         {(!submitResult || !submitResult.success) && (
-          <form className="reservation-form" onSubmit={handleSubmit}>
+          <form
+            className="reservation-form"
+            onSubmit={handleSubmit}
+            aria-labelledby="reservation-form-title"
+          >
+            <h2 id="reservation-form-title" className="visually-hidden">
+              Reservation Form
+            </h2>
+
             <div className="form-group">
               <label htmlFor="name">
                 Full Name{" "}
@@ -118,6 +126,7 @@ function ReservationsPage() {
                 value={formData.name}
                 onChange={handleInputChange}
                 required
+                aria-required="true"
               />
             </div>
 
@@ -136,6 +145,7 @@ function ReservationsPage() {
                 value={formData.email}
                 onChange={handleInputChange}
                 required
+                aria-required="true"
               />
             </div>
 
@@ -154,6 +164,7 @@ function ReservationsPage() {
                 value={formData.phone}
                 onChange={handleInputChange}
                 required
+                aria-required="true"
               />
             </div>
 
@@ -173,6 +184,7 @@ function ReservationsPage() {
                   onChange={handleInputChange}
                   min={new Date().toISOString().split("T")[0]} // Prevent past date selection
                   required
+                  aria-required="true"
                 />
               </div>
 
@@ -189,6 +201,7 @@ function ReservationsPage() {
                   value={formData.time}
                   onChange={handleInputChange}
                   required
+                  aria-required="true"
                   disabled={!formData.date} // Disable until date is selected
                 >
                   <option value="">Select a time</option>
@@ -222,6 +235,7 @@ function ReservationsPage() {
                 value={formData.guests}
                 onChange={handleInputChange}
                 required
+                aria-required="true"
               >
                 <option value="">Select number of guests</option>
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
@@ -263,6 +277,7 @@ function ReservationsPage() {
               type="submit"
               className="btn-primary"
               disabled={isSubmitting}
+              aria-busy={isSubmitting}
             >
               {isSubmitting ? "Submitting..." : "Reserve a Table"}
             </button>
