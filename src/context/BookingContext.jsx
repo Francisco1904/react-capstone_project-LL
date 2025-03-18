@@ -4,6 +4,7 @@ import React, { createContext, useState, useContext, useCallback } from "react";
 const BookingContext = createContext();
 
 // Custom hook for consuming the booking context
+// This hook is tightly coupled to the BookingContext and should only be used within it.
 export function useBooking() {
   const context = useContext(BookingContext);
   if (!context) {
