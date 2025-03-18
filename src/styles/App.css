@@ -366,6 +366,7 @@ main {
   height: 100%;
   display: flex;
   flex-direction: column;
+  box-shadow: var(--shadow-medium);
   transition: transform var(--transition-normal),
     box-shadow var(--transition-normal);
   position: relative; /* Added for absolute positioning */
@@ -461,7 +462,7 @@ main {
   background-color: white;
   border-radius: var(--border-radius-medium);
   padding: 1.5rem;
-  box-shadow: var(--shadow-small);
+  box-shadow: var(--shadow-medium);
   text-align: left;
   height: 100%;
   display: flex;
