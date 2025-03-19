@@ -1,28 +1,19 @@
-// Import variables first (they're used by other partials)
-@import "variables";
+// Using modern @use instead of deprecated @import
+// Load variables first since they're used by everything else
+@use "variables";
 
-// Import mixins (after variables, before other styles)
-@import "mixins";
+// Use mixins after variables are loaded
+@use "mixins";
 
-// Import reset to normalize browser styles
-@import "reset";
+// Load base styles
+@use "reset";
+@use "global";
+@use "typography";
+@use "buttons";
 
-// Import base styles
-@import "global";
-@import "typography";
-@import "buttons";
-
-// Import component styles
-@import "components/header";
-@import "components/footer";
-@import "components/hero";
-@import "components/cards";
-@import "components/testimonials";
-@import "components/about";
-
-// Import page-specific styles
-@import "pages/reservations";
-@import "pages/confirmation";
+// Use component and page index files
+@use "components";
+@use "pages";
 
 // Global styles
 body {

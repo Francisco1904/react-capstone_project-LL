@@ -1,4 +1,5 @@
 {
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/package.json",
   "name": "little-lemon-app-full",
   "private": true,
   "version": "0.0.0",
@@ -11,8 +12,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "coverage": "vitest run --coverage",
-    "scss": "sass --watch src/styles/scss/main.scss:src/styles/css/main.css",
-    "scss:build": "sass src/styles/scss/main.scss:src/styles/css/main.css --style compressed",
+    "scss": "sass --quiet-deps --no-source-map --watch src/styles/scss:src/styles/css",
+    "scss:build": "sass --quiet-deps --no-source-map src/styles/scss:src/styles/css --style compressed",
     "prebuild": "npm run scss:build"
   },
   "dependencies": {
