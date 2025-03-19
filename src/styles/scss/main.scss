@@ -1,8 +1,6 @@
-// Using modern @use instead of deprecated @import
-// Load variables first since they're used by everything else
+// Use modern @use instead of deprecated @import
+// Load variables and mixins first since they're used by everything else
 @use "variables";
-
-// Use mixins after variables are loaded
 @use "mixins";
 
 // Load base styles

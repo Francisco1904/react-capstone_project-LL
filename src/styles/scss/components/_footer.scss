@@ -1,3 +1,7 @@
+// Import mixins and variables
+@use "../mixins" as *;
+@use "../variables" as *;
+
 // Footer Styles
 .footer {
   background-color: var(--color-dark-grey);

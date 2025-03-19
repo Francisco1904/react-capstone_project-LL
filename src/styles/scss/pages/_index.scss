@@ -1,3 +1,4 @@
-// Forward all page-specific partials for easy inclusion from main.scss
+// Forward all page-specific partials
+// Each page must @use '../mixins' and '../variables' directly
 @forward "reservations";
 @forward "confirmation";

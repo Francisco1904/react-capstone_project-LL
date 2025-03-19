@@ -1,4 +1,5 @@
-// Forward all component partials for easy inclusion from main.scss
+// Forward all component partials
+// Each component must @use '../mixins' and '../variables' directly
 @forward "header";
 @forward "footer";
 @forward "hero";
