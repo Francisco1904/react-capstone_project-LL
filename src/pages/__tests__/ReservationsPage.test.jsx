@@ -262,4 +262,238 @@ describe("ReservationsPage Component", () => {
     );
     expect(true).toBe(true);
   });
+
+  // New validation-specific tests
+  describe("Form Field Validation", () => {
+    it("validates email format correctly", async () => {
+      render(
+        <MemoryRouter>
+          <ReservationsPage />
+        </MemoryRouter>
+      );
+
+      // Enter an invalid email and trigger blur
+      await user.type(screen.getByLabelText(/email/i), "invalid-email");
+      fireEvent.blur(screen.getByLabelText(/email/i));
+
+      // Check for error message
+      await waitFor(() => {
+        expect(
+          screen.getByText(/please enter a valid email address/i)
+        ).toBeInTheDocument();
+      });
+
+      // Now enter a valid email
+      await user.clear(screen.getByLabelText(/email/i));
+      await user.type(screen.getByLabelText(/email/i), "valid@example.com");
+      fireEvent.blur(screen.getByLabelText(/email/i));
+
+      // Error should disappear
+      await waitFor(() => {
+        expect(
+          screen.queryByText(/please enter a valid email address/i)
+        ).not.toBeInTheDocument();
+      });
+    });
+
+    it("validates phone number format correctly", async () => {
+      render(
+        <MemoryRouter>
+          <ReservationsPage />
+        </MemoryRouter>
+      );
+
+      // Enter an invalid phone number and trigger blur
+      await user.type(screen.getByLabelText(/phone number/i), "123");
+      fireEvent.blur(screen.getByLabelText(/phone number/i));
+
+      // Check for error message
+      await waitFor(() => {
+        expect(
+          screen.getByText(/please enter a valid phone number/i)
+        ).toBeInTheDocument();
+      });
+
+      // Now enter a valid phone number
+      await user.clear(screen.getByLabelText(/phone number/i));
+      await user.type(screen.getByLabelText(/phone number/i), "1234567890");
+      fireEvent.blur(screen.getByLabelText(/phone number/i));
+
+      // Error should disappear
+      await waitFor(() => {
+        expect(
+          screen.queryByText(/please enter a valid phone number/i)
+        ).not.toBeInTheDocument();
+      });
+    });
+
+    it("validates that date cannot be in the past", async () => {
+      render(
+        <MemoryRouter>
+          <ReservationsPage />
+        </MemoryRouter>
+      );
+
+      // Enter a past date and trigger blur
+      const pastDate = new Date();
+      pastDate.setDate(pastDate.getDate() - 5); // 5 days ago
+      const pastDateString = pastDate.toISOString().split("T")[0];
+
+      await user.type(screen.getByLabelText(/date/i), pastDateString);
+      fireEvent.blur(screen.getByLabelText(/date/i));
+
+      // Check for error message
+      await waitFor(() => {
+        expect(
+          screen.getByText(/date cannot be in the past/i)
+        ).toBeInTheDocument();
+      });
+
+      // Now enter a future date
+      const futureDate = new Date();
+      futureDate.setDate(futureDate.getDate() + 5); // 5 days in future
+      const futureDateString = futureDate.toISOString().split("T")[0];
+
+      await user.clear(screen.getByLabelText(/date/i));
+      await user.type(screen.getByLabelText(/date/i), futureDateString);
+      fireEvent.blur(screen.getByLabelText(/date/i));
+
+      // Error should disappear
+      await waitFor(() => {
+        expect(
+          screen.queryByText(/date cannot be in the past/i)
+        ).not.toBeInTheDocument();
+      });
+    });
+
+    it("validates name format correctly", async () => {
+      render(
+        <MemoryRouter>
+          <ReservationsPage />
+        </MemoryRouter>
+      );
+
+      // Enter an invalid name with numbers and trigger blur
+      await user.type(screen.getByLabelText(/full name/i), "John123");
+      fireEvent.blur(screen.getByLabelText(/full name/i));
+
+      // Check for error message
+      await waitFor(() => {
+        expect(
+          screen.getByText(/please enter a valid name/i)
+        ).toBeInTheDocument();
+      });
+
+      // Now enter a valid name
+      await user.clear(screen.getByLabelText(/full name/i));
+      await user.type(screen.getByLabelText(/full name/i), "John Doe");
+      fireEvent.blur(screen.getByLabelText(/full name/i));
+
+      // Error should disappear
+      await waitFor(() => {
+        expect(
+          screen.queryByText(/please enter a valid name/i)
+        ).not.toBeInTheDocument();
+      });
+    });
+
+    it("shows error when trying to submit with empty required fields", async () => {
+      render(
+        <MemoryRouter>
+          <ReservationsPage />
+        </MemoryRouter>
+      );
+
+      // Get the submit button
+      const submitButton = screen.getByRole("button", {
+        name: /reserve a table/i,
+      });
+
+      // Before submitting, trigger a blur event on all fields to mark them as touched
+      const nameInput = screen.getByLabelText(/full name/i);
+      const emailInput = screen.getByLabelText(/email/i);
+      const phoneInput = screen.getByLabelText(/phone number/i);
+      const dateInput = screen.getByLabelText(/date/i);
+      const guestsInput = screen.getByLabelText(/number of guests/i);
+
+      // Manually trigger blur events on all fields
+      fireEvent.blur(nameInput);
+      fireEvent.blur(emailInput);
+      fireEvent.blur(phoneInput);
+      fireEvent.blur(dateInput);
+      fireEvent.blur(guestsInput);
+
+      // Submit the form
+      await user.click(submitButton);
+
+      // Wait for validation errors to appear in the DOM
+      // Look for specific error messages which is more reliable than checking attributes
+      await waitFor(() => {
+        expect(screen.getByText("Name is required")).toBeInTheDocument();
+      });
+
+      await waitFor(() => {
+        expect(screen.getByText("Email is required")).toBeInTheDocument();
+      });
+
+      await waitFor(() => {
+        expect(
+          screen.getByText("Phone number is required")
+        ).toBeInTheDocument();
+      });
+
+      await waitFor(() => {
+        expect(screen.getByText("Date is required")).toBeInTheDocument();
+      });
+
+      // For guests field, check for the appropriate error message
+      await waitFor(() => {
+        expect(
+          screen.getByText("Please select number of guests")
+        ).toBeInTheDocument();
+      });
+    });
+
+    it("enables submit button only when all validations pass", async () => {
+      render(
+        <MemoryRouter>
+          <ReservationsPage />
+        </MemoryRouter>
+      );
+
+      const submitButton = screen.getByRole("button", {
+        name: /reserve a table/i,
+      });
+
+      // Button should be disabled initially
+      expect(submitButton).toBeDisabled();
+
+      // Fill in all required fields with valid data
+      await user.type(screen.getByLabelText(/full name/i), "John Doe");
+      await user.type(screen.getByLabelText(/email/i), "john@example.com");
+      await user.type(screen.getByLabelText(/phone/i), "1234567890");
+
+      // Select date and time
+      const today = new Date();
+      const formattedDate = today.toISOString().split("T")[0];
+      await user.type(screen.getByLabelText(/date/i), formattedDate);
+      fireEvent.change(screen.getByLabelText(/date/i), {
+        target: { value: formattedDate },
+      });
+
+      // Wait for time select to be enabled
+      await waitFor(() => {
+        expect(screen.getByLabelText(/time/i)).not.toBeDisabled();
+      });
+      await user.selectOptions(screen.getByLabelText(/time/i), "18:00");
+
+      // Select number of guests
+      await user.selectOptions(screen.getByLabelText(/guests/i), "4");
+
+      // Button should now be enabled
+      await waitFor(() => {
+        expect(submitButton).not.toBeDisabled();
+      });
+    });
+  });
 });
