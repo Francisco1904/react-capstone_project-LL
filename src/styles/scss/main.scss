@@ -1,0 +1,39 @@
+// Import variables first (they're used by other partials)
+@import "variables";
+
+// Import mixins (after variables, before other styles)
+@import "mixins";
+
+// Import reset to normalize browser styles
+@import "reset";
+
+// Import base styles
+@import "global";
+@import "typography";
+@import "buttons";
+
+// Import component styles
+@import "components/header";
+@import "components/footer";
+@import "components/hero";
+@import "components/cards";
+@import "components/testimonials";
+@import "components/about";
+
+// Import page-specific styles
+@import "pages/reservations";
+@import "pages/confirmation";
+
+// Global styles
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--font-secondary);
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+// Import fonts (to ensure they're always available)
+@import url("https://fonts.googleapis.com/css2?family=Karla:wght@400;700&family=Markazi+Text:wght@400;700&display=swap");

@@ -1,0 +1,80 @@
+// About Section Styles
+
+.about {
+  width: auto;
+  padding: 32px;
+  background-color: white;
+
+  &-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    align-items: center;
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  &-content {
+    h2 {
+      font-size: var(--font-size-heading-2);
+      color: var(--color-dark-grey);
+      margin-bottom: 1rem;
+    }
+
+    h3 {
+      color: var(--highlight-dark);
+      margin-bottom: 1.5rem;
+    }
+
+    p {
+      margin-bottom: 1.5rem;
+      line-height: var(--line-height-normal);
+    }
+  }
+
+  &-images {
+    position: relative;
+    height: 400px;
+  }
+
+  &-image-1,
+  &-image-2 {
+    width: 60%;
+    height: 70%;
+    object-fit: cover;
+    position: absolute;
+    border-radius: var(--border-radius-medium);
+    box-shadow: var(--shadow-medium);
+  }
+
+  &-image-1 {
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+
+  &-image-2 {
+    bottom: 0;
+    right: 0;
+    z-index: 2;
+  }
+}
+
+// Media Queries
+@media (max-width: 768px) {
+  .about {
+    &-container {
+      grid-template-columns: 1fr;
+    }
+
+    &-content {
+      order: 2;
+    }
+
+    &-images {
+      order: 1;
+      margin-bottom: 2rem;
+    }
+  }
+}

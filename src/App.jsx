@@ -9,8 +9,9 @@ import ReservationsPage from "./pages/ReservationsPage";
 import OrderOnlinePage from "./pages/OrderOnlinePage";
 import ConfirmedBooking from "./Components/ConfirmedBooking";
 import { BookingProvider } from "./context/BookingContext";
-import "./styles/App.css";
-import "./styles/variables.css";
+// Remove these CSS imports since we now use the compiled main.css
+// import "./styles/App.css";
+// import "./styles/variables.css";
 
 function App() {
   return (

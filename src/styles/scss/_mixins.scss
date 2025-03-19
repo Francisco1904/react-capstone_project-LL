@@ -1,0 +1,154 @@
+// Responsive Breakpoint Mixins
+// Use breakpoint variables from _variables.scss for consistency
+@mixin breakpoint($point) {
+  @if $point == xl {
+    @media (max-width: $breakpoint-xl) {
+      @content;
+    }
+  } @else if $point == lg {
+    @media (max-width: $breakpoint-lg) {
+      @content;
+    }
+  } @else if $point == md {
+    @media (max-width: $breakpoint-md) {
+      @content;
+    }
+  } @else if $point == sm {
+    @media (max-width: $breakpoint-sm) {
+      @content;
+    }
+  }
+}
+
+// Card styling mixin
+// Creates a consistent card appearance across components
+@mixin card(
+  $padding: 1.5rem,
+  $radius: var(--border-radius-medium),
+  $bg-color: white
+) {
+  background-color: $bg-color;
+  border-radius: $radius;
+  padding: $padding;
+  box-shadow: var(--shadow-medium);
+  transition: transform var(--transition-normal),
+    box-shadow var(--transition-normal);
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-large);
+  }
+}
+
+// Form field styling mixin
+// Creates consistent form field appearance
+@mixin form-field {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: var(--border-radius-small);
+  font-family: var(--font-secondary);
+  font-size: var(--font-size-body);
+  background-color: #f9f9f9;
+  color: var(--highlight-dark);
+
+  &:focus {
+    outline: 2px solid var(--primary-yellow);
+    border-color: var(--primary-yellow);
+  }
+}
+
+// Button styling mixin
+// Creates consistent button styling with variants
+@mixin button(
+  $bg-color: var(--primary-yellow),
+  $text-color: var(--highlight-dark)
+) {
+  background-color: $bg-color;
+  color: $text-color;
+  border: none;
+  padding: 0.75rem 2rem;
+  font-size: var(--font-size-body);
+  font-weight: 700;
+  border-radius: var(--border-radius-medium);
+  cursor: pointer;
+  font-family: var(--font-secondary);
+  transition: background-color var(--transition-fast),
+    transform var(--transition-fast), box-shadow var(--transition-fast);
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+}
+
+// Flex container mixin
+// Quickly create flex layouts with common patterns
+@mixin flex($direction: row, $justify: center, $align: center, $gap: 1rem) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+  gap: $gap;
+}
+
+// Grid container mixin
+// Quickly create grid layouts
+@mixin grid($columns: 1fr, $gap: 1rem) {
+  display: grid;
+  grid-template-columns: $columns;
+  gap: $gap;
+}
+
+// Text truncation mixin
+// Single or multi-line text truncation with ellipsis
+@mixin truncate($lines: 1) {
+  @if $lines == 1 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  } @else {
+    display: -webkit-box;
+    -webkit-line-clamp: $lines;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+// Container mixin
+// Standard container with responsive padding
+@mixin container {
+  width: 100%;
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 2rem;
+  box-sizing: border-box;
+
+  @include breakpoint(md) {
+    padding: 0 1rem;
+  }
+}
+
+// Section padding mixin
+// Consistent padding for page sections
+@mixin section-padding($top: 3rem, $bottom: 3rem) {
+  padding: $top 0 $bottom;
+}
+
+// Visually hidden but accessible elements
+@mixin visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

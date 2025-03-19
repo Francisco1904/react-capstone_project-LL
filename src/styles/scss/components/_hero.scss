@@ -1,0 +1,118 @@
+// Hero Section Styles
+.hero {
+  width: 100%;
+  height: 565px;
+  max-width: 1440px;
+  background-color: var(--primary-green);
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  margin: 0 auto;
+}
+
+.hero-container {
+  width: 100%;
+  max-width: var(--container-width);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  padding: 0 2rem;
+  box-sizing: border-box;
+  height: 100%;
+  align-items: center;
+}
+
+.hero-text {
+  padding: 2rem 0;
+
+  h1 {
+    font-size: var(--font-size-display);
+    color: var(--primary-yellow);
+    margin: 0 0 0.25rem 0;
+    font-family: var(--font-primary);
+    font-weight: 700;
+  }
+
+  h2 {
+    font-size: var(--font-size-heading-2);
+    margin: 0 0 1rem 0;
+    font-family: var(--font-primary);
+    font-weight: 400;
+    color: white;
+  }
+
+  p {
+    margin-bottom: 2rem;
+    max-width: 70%;
+    font-family: var(--font-primary);
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    color: var(--highlight-light);
+  }
+
+  button {
+    background-color: var(--primary-yellow);
+    color: var(--color-dark-grey);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: var(--font-size-body);
+    font-weight: 700;
+    border-radius: var(--border-radius-medium);
+    cursor: pointer;
+    font-family: var(--font-secondary);
+    transition: background-color var(--transition-fast),
+      transform var(--transition-fast);
+
+    &:hover {
+      background-color: #e0bb00;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-medium);
+    }
+  }
+}
+
+.hero-image {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  img {
+    width: 100%;
+    max-width: 380px;
+    height: auto;
+    object-fit: cover;
+    border-radius: var(--border-radius-medium);
+    transform: translateY(2rem);
+    box-shadow: var(--shadow-medium);
+  }
+}
+
+// Media queries
+@media (max-width: 768px) {
+  .hero {
+    height: auto;
+    padding: 15px 40px;
+  }
+
+  .hero-text {
+    text-align: center;
+    padding: 1rem 0;
+
+    p {
+      max-width: 100%;
+      font-size: 32px;
+    }
+  }
+
+  .hero-image {
+    order: -1;
+
+    img {
+      transform: translateY(0);
+      max-width: 300px;
+    }
+  }
+}

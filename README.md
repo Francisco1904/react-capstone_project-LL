@@ -12,7 +12,7 @@ This project was built using **React.js** to showcase my skills as a **Junior Fr
 
 - Intuitive navigation and user-friendly interface
 - Responsive design with custom breakpoints for mobile, tablet and desktop
-- Consistent branded component styling using CSS variables
+- Consistent branded component styling using SCSS with variables and mixins
 - Interactive reservation form with validation
 - Featured menu items with dynamic card components
 - Customer testimonials section with star ratings
@@ -25,12 +25,13 @@ This project was built using **React.js** to showcase my skills as a **Junior Fr
 
 1. [Installation Guide](#-installation-guide)
 2. [Project Architecture](#-project-architecture)
-3. [Challenges & Solutions](#-challenges--solutions)
-4. [Deployment](#-deployment)
-5. [License](#-license)
-6. [Contact Information](#-contact-information)
-7. [Acknowledgments](#-acknowledgments)
-8. [Additional Resources](#-additional-resources)
+3. [Styling Architecture](#-styling-architecture)
+4. [Challenges & Solutions](#-challenges--solutions)
+5. [Deployment](#-deployment)
+6. [License](#-license)
+7. [Contact Information](#-contact-information)
+8. [Acknowledgments](#-acknowledgments)
+9. [Additional Resources](#-additional-resources)
 
 ---
 
@@ -53,11 +54,15 @@ This project was built using **React.js** to showcase my skills as a **Junior Fr
    ```sh
    npm install
    ```
-3. Start the development server:
+3. Compile SCSS to CSS:
+   ```sh
+   npm run scss:build
+   ```
+4. Start the development server:
    ```sh
    npm run dev
    ```
-4. Open your browser and navigate to `http://localhost:5173/` to view the application.
+5. Open your browser and navigate to `http://localhost:5173/` to view the application.
 
 ---
 
@@ -68,6 +73,7 @@ This project was built using **React.js** to showcase my skills as a **Junior Fr
 - **Frontend:**
   - React.js (v19.0.0)
   - React Router (v7.3.0) for page navigation
+  - SCSS for enhanced styling capabilities
   - CSS Custom Properties for theming
 - **Build Tool:** Vite (v6.2.0)
 - **Version Control:** Git & GitHub
@@ -80,14 +86,16 @@ The project follows a **component-based architecture** with clear separation of 
 - **Pages:** Container components that represent full pages in the application
 - **Components:** Reusable UI elements that compose the pages
 - **Assets:** Static resources like images and logos
-- **Styles:** Global and component-specific styling
+- **Styles:** Global and component-specific styling using SCSS
+- **Context:** State management for booking functionality
 
 ### Key Design Patterns
 
 1. **Component Composition:** Building complex UIs from smaller, focused components
 2. **Prop Drilling:** Passing data to child components through props
-3. **CSS Variables:** Using custom properties for consistent styling across components
+3. **SCSS Variables & Mixins:** Using SCSS features for consistent styling
 4. **Responsive Design:** Mobile-first approach with flexible grid layouts
+5. **BEM-style Naming:** For component organization in SCSS
 
 ### Folder Structure
 
@@ -96,13 +104,62 @@ The project follows a **component-based architecture** with clear separation of 
 │   ├── Components        # Reusable UI components (Header, Footer, Card, etc.)
 │   ├── pages             # Page components (HomePage, ReservationsPage, etc.)
 │   ├── assets            # Images and static resources
-│   ├── styles            # CSS files for styling
-│   │   ├── App.css       # Main application styles
-│   │   ├── index.css     # Base styles and resets
-│   │   └── variables.css # CSS custom properties for theming
+│   ├── context           # Context providers for state management
+│   ├── utils             # Utility functions
+│   ├── styles            # Styling files
+│   │   ├── scss/         # Source SCSS files
+│   │   │   ├── _variables.scss  # Design tokens and variables
+│   │   │   ├── _mixins.scss     # Reusable patterns and functions
+│   │   │   ├── _reset.scss      # CSS reset
+│   │   │   ├── components/      # Component-specific styles
+│   │   │   ├── pages/           # Page-specific styles
+│   │   │   └── main.scss        # Main SCSS file that imports all partials
+│   │   └── css/          # Compiled CSS (generated from SCSS)
 │   ├── App.jsx           # Main application component
 │   └── main.jsx          # Application entry point
 ```
+
+---
+
+## 🎨 Styling Architecture
+
+The project uses SCSS for enhanced CSS capabilities and better organization:
+
+### SCSS Structure
+
+```
+styles/
+├── scss/                  # Source SCSS files
+│   ├── _variables.scss    # Design tokens and variables
+│   ├── _mixins.scss       # Reusable patterns and functions
+│   ├── _reset.scss        # CSS reset/normalize
+│   ├── _global.scss       # Global styles
+│   ├── _typography.scss   # Text styling
+│   ├── _buttons.scss      # Button components
+│   ├── components/        # Component-specific styles
+│   │   ├── _header.scss
+│   │   ├── _footer.scss
+│   │   └── ...etc
+│   ├── pages/             # Page-specific styles
+│   │   ├── _reservations.scss
+│   │   └── ...etc
+│   └── main.scss          # Main entry point that imports all partials
+├── css/                   # Compiled CSS (don't edit directly)
+    └── main.css           # The compiled stylesheet
+```
+
+### SCSS Features Used
+
+- **Variables**: Defined in `_variables.scss` for consistent tokens
+- **Nesting**: For cleaner, more readable selectors
+- **Mixins**: For reusable style patterns
+- **Partials**: Split styles into maintainable chunks
+- **BEM-style naming**: For component organization
+
+### Development Workflow
+
+Run `npm run scss` to watch SCSS files and compile changes automatically during development.
+Run `npm run scss:build` to compile a production-ready version for deployment.
 
 ---
 
@@ -114,7 +171,11 @@ The project follows a **component-based architecture** with clear separation of 
    - ✅ **Solution:** Applied CSS flexbox adjustments and ensured consistent max-width across components.
 2. **Issue: Component state not updating correctly**
    - ✅ **Solution:** Used controlled components and React's `useState` hook to manage state effectively.
-3. **Issue: Git conflicts during collaborative work**
+3. **Issue: CSS maintainability with growing codebase**
+   - ✅ **Solution:** Migrated to SCSS with partials, mixins, and variables for better organization.
+4. **Issue: Form validation complexities**
+   - ✅ **Solution:** Created custom validation system with error handling and accessibility features.
+5. **Issue: Git conflicts during collaborative work**
    - ✅ **Solution:** Implemented proper Git branching strategies and resolved merge conflicts.
 
 ---
@@ -125,7 +186,7 @@ The project follows a **component-based architecture** with clear separation of 
 
 1. Build the project:
    ```sh
-   npm run build
+   npm run scss:build && npm run build
    ```
 2. Deploy using Vercel CLI:
    ```sh

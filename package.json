@@ -10,7 +10,10 @@
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
-    "coverage": "vitest run --coverage"
+    "coverage": "vitest run --coverage",
+    "scss": "sass --watch src/styles/scss/main.scss:src/styles/css/main.css",
+    "scss:build": "sass src/styles/scss/main.scss:src/styles/css/main.css --style compressed",
+    "prebuild": "npm run scss:build"
   },
   "dependencies": {
     "react": "^18.3.1",

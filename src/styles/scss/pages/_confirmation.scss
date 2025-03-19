@@ -1,0 +1,68 @@
+// Booking Confirmation Page Styles
+
+// Container
+.confirmation-container {
+  max-width: 800px;
+  margin: 4rem auto;
+  padding: 2rem;
+  background-color: white;
+  border-radius: var(--border-radius-medium);
+  box-shadow: var(--shadow-medium);
+
+  h1 {
+    color: var(--primary-green);
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    margin-bottom: 1.5rem;
+  }
+}
+
+// Reservation details section
+.reservation-details {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background-color: var(--highlight-light);
+  border-radius: var(--border-radius-small);
+
+  h2 {
+    margin-top: 0;
+    color: var(--color-dark-grey);
+    margin-bottom: 1.5rem;
+  }
+
+  p {
+    margin-bottom: 0.75rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  strong {
+    font-weight: 700;
+    color: var(--primary-green);
+  }
+}
+
+// Confirmation actions
+.confirmation-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .confirmation-container {
+    margin: 2rem auto;
+    padding: 1.5rem;
+  }
+
+  .confirmation-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+}
