@@ -117,6 +117,10 @@ function ReservationsPage() {
               value={formData.name}
               onChange={handleInputChange}
               required
+              minLength="2"
+              maxLength="50"
+              pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$"
+              title="Please enter your full name (first and last name)"
               aria-required="true"
             />
           </div>
@@ -136,6 +140,8 @@ function ReservationsPage() {
               value={formData.email}
               onChange={handleInputChange}
               required
+              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+              title="Please enter a valid email address"
               aria-required="true"
             />
           </div>
@@ -155,6 +161,9 @@ function ReservationsPage() {
               value={formData.phone}
               onChange={handleInputChange}
               required
+              pattern="[0-9]{9,15}"
+              maxLength="15"
+              title="Please enter a valid phone number (9-15 digits)"
               aria-required="true"
             />
           </div>
@@ -174,7 +183,13 @@ function ReservationsPage() {
                 value={formData.date}
                 onChange={handleInputChange}
                 min={new Date().toISOString().split("T")[0]} // Prevent past date selection
+                max={
+                  new Date(new Date().setFullYear(new Date().getFullYear() + 1))
+                    .toISOString()
+                    .split("T")[0]
+                }
                 required
+                title="Please select a valid date"
                 aria-required="true"
               />
             </div>
@@ -259,6 +274,8 @@ function ReservationsPage() {
               value={formData.comments}
               onChange={handleInputChange}
               rows="3"
+              maxLength="500"
+              title="You can enter up to 500 characters"
             ></textarea>
           </div>
 
