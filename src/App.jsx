@@ -7,6 +7,7 @@ import AboutPage from "./pages/AboutPage";
 import MenuPage from "./pages/MenuPage";
 import ReservationsPage from "./pages/ReservationsPage";
 import OrderOnlinePage from "./pages/OrderOnlinePage";
+import ConfirmedBooking from "./Components/ConfirmedBooking";
 import { BookingProvider } from "./context/BookingContext";
 import "./styles/App.css";
 import "./styles/variables.css";
@@ -29,6 +30,7 @@ function App() {
                 </BookingProvider>
               }
             />
+            <Route path="/confirmed-booking" element={<ConfirmedBooking />} />
             <Route path="/order-online" element={<OrderOnlinePage />} />
           </Routes>
         </main>

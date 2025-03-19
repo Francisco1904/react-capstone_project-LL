@@ -3,7 +3,18 @@ import userEvent from "@testing-library/user-event";
 import { vi, describe, it, expect, beforeEach } from "vitest";
 import ReservationsPage from "../ReservationsPage";
 import * as BookingContext from "../../context/BookingContext";
-import { BookingProvider } from "../../context/BookingContext";
+import * as RouterDom from "react-router-dom";
+import { MemoryRouter } from "react-router-dom";
+
+// Mock the useNavigate hook
+const mockNavigate = vi.fn();
+vi.mock("react-router-dom", async () => {
+  const actual = await vi.importActual("react-router-dom");
+  return {
+    ...actual,
+    useNavigate: () => mockNavigate,
+  };
+});
 
 // Mock the BookingContext hook
 vi.mock("../../context/BookingContext", async () => {
@@ -31,10 +42,15 @@ describe("ReservationsPage Component", () => {
     user = userEvent.setup();
     // Reset mocks before each test
     vi.clearAllMocks();
+    mockNavigate.mockClear();
   });
 
   it("renders the reservation form with all required fields", () => {
-    render(<ReservationsPage />);
+    render(
+      <MemoryRouter>
+        <ReservationsPage />
+      </MemoryRouter>
+    );
 
     // Check for page title
     expect(
@@ -68,7 +84,11 @@ describe("ReservationsPage Component", () => {
       submitReservation: vi.fn(),
     }));
 
-    render(<ReservationsPage />);
+    render(
+      <MemoryRouter>
+        <ReservationsPage />
+      </MemoryRouter>
+    );
 
     const dateInput = screen.getByLabelText(/date/i);
     const timeSelect = screen.getByLabelText(/time/i);
@@ -93,7 +113,7 @@ describe("ReservationsPage Component", () => {
     expect(fetchTimesSpy).toHaveBeenCalledWith(formattedDate);
   });
 
-  it("submits the form with all required data", async () => {
+  it("submits the form with all required data and navigates to confirmation", async () => {
     const mockSubmit = vi.fn().mockResolvedValue({
       success: true,
       message: "Success!",
@@ -107,7 +127,11 @@ describe("ReservationsPage Component", () => {
       submitReservation: mockSubmit,
     }));
 
-    render(<ReservationsPage />);
+    render(
+      <MemoryRouter>
+        <ReservationsPage />
+      </MemoryRouter>
+    );
 
     // Fill out the form (same as before)
     await user.type(screen.getByLabelText(/full name/i), "John Doe");
@@ -135,8 +159,7 @@ describe("ReservationsPage Component", () => {
     });
     await user.click(submitButton);
 
-    // INSTEAD OF checking for "Submitting..." text, just check that:
-    // 1. The function was called with correct data
+    // 1. Check that the submitReservation function was called with the correct data
     await waitFor(() => {
       expect(mockSubmit).toHaveBeenCalledWith({
         name: "John Doe",
@@ -150,14 +173,28 @@ describe("ReservationsPage Component", () => {
       });
     });
 
-    // 2. Success message appears
+    // 2. Check that navigation was called to the confirmation page with correct data
     await waitFor(() => {
-      expect(screen.getByRole("status")).toBeInTheDocument();
+      expect(mockNavigate).toHaveBeenCalledWith(
+        "/confirmed-booking",
+        expect.objectContaining({
+          state: expect.objectContaining({
+            reservationData: expect.objectContaining({
+              name: "John Doe",
+              reservationId: 12345,
+            }),
+          }),
+        })
+      );
     });
   });
 
   it("displays form validation errors for empty required fields", async () => {
-    render(<ReservationsPage />);
+    render(
+      <MemoryRouter>
+        <ReservationsPage />
+      </MemoryRouter>
+    );
 
     // Try to submit the form without filling any fields
     await user.click(screen.getByRole("button", { name: /reserve a table/i }));
@@ -183,7 +220,11 @@ describe("ReservationsPage Component", () => {
         .mockRejectedValue(new Error("Submission failed")),
     }));
 
-    render(<ReservationsPage />);
+    render(
+      <MemoryRouter>
+        <ReservationsPage />
+      </MemoryRouter>
+    );
 
     // Fill out the minimal required form data
     await user.type(screen.getByLabelText(/full name/i), "Jane Smith");
@@ -214,7 +255,11 @@ describe("ReservationsPage Component", () => {
   });
 
   it("renders without crashing", () => {
-    render(<ReservationsPage />);
+    render(
+      <MemoryRouter>
+        <ReservationsPage />
+      </MemoryRouter>
+    );
     expect(true).toBe(true);
   });
 });

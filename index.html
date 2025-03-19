@@ -24,7 +24,61 @@
       href="https://fonts.googleapis.com/css2?family=Karla:wght@400;700&family=Markazi+Text:wght@400;700&display=swap"
       rel="stylesheet"
     />
-    <!-- Little Lemon API -->
+    <!-- Fix the API script loading - use a direct script instead of raw.githubusercontent.com -->
+    <script>
+      // Define fallback API functions in case the external script fails to load
+      window.fetchAPI = function (date) {
+        console.log("Fallback fetchAPI called with date:", date);
+        const day = new Date(date).getDay();
+
+        if (day === 5 || day === 6) {
+          return [
+            "16:00",
+            "16:30",
+            "17:00",
+            "17:30",
+            "18:00",
+            "18:30",
+            "19:00",
+            "19:30",
+            "20:00",
+            "20:30",
+            "21:00",
+            "21:30",
+            "22:00",
+          ];
+        } else if (day === 1) {
+          return [
+            "17:00",
+            "17:30",
+            "18:00",
+            "18:30",
+            "19:00",
+            "19:30",
+            "20:00",
+          ];
+        } else {
+          return [
+            "17:00",
+            "17:30",
+            "18:00",
+            "18:30",
+            "19:00",
+            "19:30",
+            "20:00",
+            "20:30",
+            "21:00",
+            "21:30",
+          ];
+        }
+      };
+
+      window.submitAPI = function (formData) {
+        console.log("Fallback submitAPI called with data:", formData);
+        // Always return true for the fallback
+        return true;
+      };
+    </script>
     <script src="https://raw.githubusercontent.com/courseraap/capstone/main/api.js"></script>
 
     <title>Little Lemon</title>

@@ -597,6 +597,58 @@ main {
   margin-top: 0;
 }
 
+/* Confirmation Page Styles */
+.confirmation-container {
+  max-width: 800px;
+  margin: 4rem auto;
+  padding: 2rem;
+  background-color: white;
+  border-radius: var(--border-radius-medium);
+  box-shadow: var(--shadow-medium);
+}
+
+.confirmation-container h1 {
+  color: var(--primary-green);
+  margin-top: 0;
+}
+
+.reservation-details {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background-color: var(--highlight-light);
+  border-radius: var(--border-radius-small);
+}
+
+.reservation-details h2 {
+  margin-top: 0;
+  color: var(--color-dark-grey);
+}
+
+.confirmation-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.btn-secondary {
+  background-color: white;
+  color: var(--primary-green);
+  border: 2px solid var(--primary-green);
+  padding: 0.75rem 2rem;
+  font-size: var(--font-size-body);
+  font-weight: 700;
+  border-radius: var(--border-radius-medium);
+  cursor: pointer;
+  font-family: var(--font-secondary);
+  text-decoration: none;
+  display: inline-block;
+  transition: background-color var(--transition-fast);
+}
+
+.btn-secondary:hover {
+  background-color: var(--highlight-light);
+}
+
 /* RESPONSIVE BREAKPOINTS */
 @media (max-width: 1200px) {
   .specials-grid {
