@@ -4,7 +4,6 @@ import React, { createContext, useState, useContext, useCallback } from "react";
 const BookingContext = createContext();
 
 // Custom hook for consuming the booking context
-// This hook is tightly coupled to the BookingContext and should only be used within it.
 export function useBooking() {
   const context = useContext(BookingContext);
   if (!context) {
@@ -30,82 +29,92 @@ export function BookingProvider({ children }) {
     "22:00",
   ]);
 
-  // Simulated API call to fetch available times based on date
+  // Use the actual fetchAPI function from the included script
   const fetchAvailableTimes = useCallback((date) => {
-    // In a real application, this would be an API call
-    console.log(`Fetching available times for: ${date}`);
+    try {
+      // Call the API function from the included script
+      const times = window.fetchAPI(date);
+      setAvailableTimes(times);
+    } catch (error) {
+      console.error("Error fetching available times:", error);
 
-    // Simulate different availability based on day of week
-    const selectedDate = new Date(date);
-    const dayOfWeek = selectedDate.getDay();
+      // Fallback to the simulated logic if API call fails
+      const selectedDate = new Date(date);
+      const dayOfWeek = selectedDate.getDay();
 
-    let updatedTimes = [];
+      let fallbackTimes = [];
 
-    // Weekend (Friday, Saturday) - more time slots
-    if (dayOfWeek === 5 || dayOfWeek === 6) {
-      updatedTimes = [
-        "16:00",
-        "16:30",
-        "17:00",
-        "17:30",
-        "18:00",
-        "18:30",
-        "19:00",
-        "19:30",
-        "20:00",
-        "20:30",
-        "21:00",
-        "21:30",
-        "22:00",
-      ];
+      // Weekend (Friday, Saturday) - more time slots
+      if (dayOfWeek === 5 || dayOfWeek === 6) {
+        fallbackTimes = [
+          "16:00",
+          "16:30",
+          "17:00",
+          "17:30",
+          "18:00",
+          "18:30",
+          "19:00",
+          "19:30",
+          "20:00",
+          "20:30",
+          "21:00",
+          "21:30",
+          "22:00",
+        ];
+      }
+      // Monday - fewer time slots
+      else if (dayOfWeek === 1) {
+        fallbackTimes = [
+          "17:00",
+          "17:30",
+          "18:00",
+          "18:30",
+          "19:00",
+          "19:30",
+          "20:00",
+        ];
+      }
+      // Regular weekdays
+      else {
+        fallbackTimes = [
+          "17:00",
+          "17:30",
+          "18:00",
+          "18:30",
+          "19:00",
+          "19:30",
+          "20:00",
+          "20:30",
+          "21:00",
+          "21:30",
+        ];
+      }
+
+      setAvailableTimes(fallbackTimes);
     }
-    // Monday - fewer time slots
-    else if (dayOfWeek === 1) {
-      updatedTimes = [
-        "17:00",
-        "17:30",
-        "18:00",
-        "18:30",
-        "19:00",
-        "19:30",
-        "20:00",
-      ];
-    }
-    // Regular weekdays
-    else {
-      updatedTimes = [
-        "17:00",
-        "17:30",
-        "18:00",
-        "18:30",
-        "19:00",
-        "19:30",
-        "20:00",
-        "20:30",
-        "21:00",
-        "21:30",
-      ];
-    }
-
-    setAvailableTimes(updatedTimes);
   }, []);
 
-  // Create a submission function that could later connect to a real API
+  // Use the actual submitAPI function from the included script
   const submitReservation = useCallback((formData) => {
-    return new Promise((resolve) => {
-      // Simulate API call
-      console.log("Submitting reservation:", formData);
+    return new Promise((resolve, reject) => {
+      try {
+        // Call the API function from the included script
+        const success = window.submitAPI(formData);
 
-      // Simulate processing delay
-      setTimeout(() => {
-        // Return success response
-        resolve({
-          success: true,
-          message: "Reservation submitted successfully!",
-          reservationId: Math.floor(Math.random() * 100000),
-          formData,
-        });
-      }, 800);
+        if (success) {
+          resolve({
+            success: true,
+            message: "Reservation submitted successfully!",
+            reservationId: Math.floor(Math.random() * 100000),
+            formData,
+          });
+        } else {
+          reject(new Error("Submission failed"));
+        }
+      } catch (error) {
+        console.error("Error submitting reservation:", error);
+        reject(error);
+      }
     });
   }, []);
 
