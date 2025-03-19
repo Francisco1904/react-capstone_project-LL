@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useBooking } from "../context/BookingContext";
 
@@ -7,6 +7,16 @@ function ReservationsPage() {
   const { availableTimes, fetchAvailableTimes, submitReservation } =
     useBooking();
   const navigate = useNavigate();
+
+  // Create refs for form elements to enable focus management
+  const formRefs = {
+    name: useRef(null),
+    email: useRef(null),
+    phone: useRef(null),
+    date: useRef(null),
+    time: useRef(null),
+    guests: useRef(null),
+  };
 
   // Local state for form and submission
   const [formData, setFormData] = useState({
@@ -22,6 +32,29 @@ function ReservationsPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitResult, setSubmitResult] = useState(null);
 
+  // Add validation state
+  const [errors, setErrors] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    date: "",
+    time: "",
+    guests: "",
+  });
+
+  // Track which fields have been touched (visited/blurred)
+  const [touched, setTouched] = useState({
+    name: false,
+    email: false,
+    phone: false,
+    date: false,
+    time: false,
+    guests: false,
+  });
+
+  // Add state to track form validity
+  const [isFormValid, setIsFormValid] = useState(false);
+
   // Update times when date changes
   useEffect(() => {
     if (formData.date) {
@@ -29,7 +62,82 @@ function ReservationsPage() {
     }
   }, [formData.date, fetchAvailableTimes]);
 
-  // Handle input changes
+  // Check form validity whenever form data or errors change
+  useEffect(() => {
+    // Check if all required fields are filled and have no errors
+    const requiredFields = ["name", "email", "phone", "date", "time", "guests"];
+    const hasErrors = Object.values(errors).some((error) => error !== "");
+    const allFieldsFilled = requiredFields.every(
+      (field) => formData[field] && formData[field].toString().trim() !== ""
+    );
+
+    setIsFormValid(allFieldsFilled && !hasErrors);
+  }, [formData, errors]);
+
+  // Validation function for each field
+  const validateField = (name, value) => {
+    let errorMessage = "";
+
+    switch (name) {
+      case "name":
+        if (!value) {
+          errorMessage = "Name is required";
+        } else if (!/^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/.test(value)) {
+          errorMessage = "Please enter a valid name";
+        }
+        break;
+
+      case "email":
+        if (!value) {
+          errorMessage = "Email is required";
+        } else if (!/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/.test(value)) {
+          errorMessage =
+            "Please enter a valid email address. Example: user@example.com";
+        }
+        break;
+
+      case "phone":
+        if (!value) {
+          errorMessage = "Phone number is required";
+        } else if (!/[0-9]{9,15}/.test(value)) {
+          errorMessage = "Please enter a valid phone number (9-15 digits)";
+        }
+        break;
+
+      case "date":
+        if (!value) {
+          errorMessage = "Date is required";
+        } else {
+          const selectedDate = new Date(value);
+          const today = new Date();
+          today.setHours(0, 0, 0, 0);
+
+          if (selectedDate < today) {
+            errorMessage = "Date cannot be in the past";
+          }
+        }
+        break;
+
+      case "time":
+        if (!value && formData.date) {
+          errorMessage = "Please select a time";
+        }
+        break;
+
+      case "guests":
+        if (!value) {
+          errorMessage = "Please select number of guests";
+        }
+        break;
+
+      default:
+        break;
+    }
+
+    return errorMessage;
+  };
+
+  // Handle input changes - update form data and re-validate if field has errors or is touched
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
@@ -41,11 +149,84 @@ function ReservationsPage() {
       }
       return { ...prevData, [name]: value };
     });
+
+    // Re-validate the field if it has been touched or has errors
+    if (touched[name] || errors[name]) {
+      const errorMessage = validateField(name, value);
+
+      setErrors((prev) => ({
+        ...prev,
+        [name]: errorMessage,
+      }));
+    }
   };
 
-  // Handle form submission
+  // Handle blur events - validate when user leaves a field
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+
+    // Mark the field as touched
+    setTouched((prev) => ({
+      ...prev,
+      [name]: true,
+    }));
+
+    // Validate the field
+    const errorMessage = validateField(name, value);
+
+    // Update errors state
+    setErrors((prev) => ({
+      ...prev,
+      [name]: errorMessage,
+    }));
+  };
+
+  // Focus the first field with an error
+  const focusFirstError = (errorFields) => {
+    for (const field of Object.keys(errorFields)) {
+      if (errorFields[field] && formRefs[field]?.current) {
+        formRefs[field].current.focus();
+        break;
+      }
+    }
+  };
+
+  // Handle form submission with validation
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Mark all fields as touched on submit
+    const allTouched = {};
+    Object.keys(formData).forEach((field) => {
+      if (field !== "occasion" && field !== "comments") {
+        allTouched[field] = true;
+      }
+    });
+    setTouched(allTouched);
+
+    // Validate all fields before submission
+    let formIsValid = true;
+    const newErrors = {};
+
+    Object.keys(formData).forEach((field) => {
+      if (field === "occasion" || field === "comments") return; // Skip optional fields
+
+      const errorMessage = validateField(field, formData[field]);
+      if (errorMessage) {
+        formIsValid = false;
+        newErrors[field] = errorMessage;
+      }
+    });
+
+    // Update errors state
+    setErrors(newErrors);
+
+    // If form is invalid, focus the first field with an error and stop submission
+    if (!formIsValid) {
+      focusFirstError(newErrors);
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -76,6 +257,36 @@ function ReservationsPage() {
     }
   };
 
+  // Handle error message navigation with keyboard
+  const handleErrorKeyDown = (e, fieldName) => {
+    if (e.key === "Enter" || e.key === " ") {
+      // If user presses enter or space on the error message, focus the associated field
+      formRefs[fieldName]?.current?.focus();
+    }
+  };
+
+  // Make the whole date input clickable with fallback for testing environments
+  const handleDateFieldClick = () => {
+    try {
+      // Only try to use showPicker if the ref exists and the method is available
+      if (
+        formRefs.date.current &&
+        typeof formRefs.date.current.showPicker === "function"
+      ) {
+        formRefs.date.current.showPicker();
+      } else {
+        // Fallback for environments that don't support showPicker (like Jest/JSDOM)
+        formRefs.date.current?.focus();
+      }
+    } catch (error) {
+      // If any error occurs, just focus the input as fallback
+      console.log(
+        "Date picker not supported in this environment, using focus instead"
+      );
+      formRefs.date.current?.focus();
+    }
+  };
+
   return (
     <main className="page-container" role="main">
       <section className="reservations-section container">
@@ -92,11 +303,12 @@ function ReservationsPage() {
           </div>
         )}
 
-        {/* Form is always shown unless navigation occurs */}
+        {/* Form with validation */}
         <form
           className="reservation-form"
           onSubmit={handleSubmit}
           aria-labelledby="reservation-form-title"
+          noValidate
         >
           <h2 id="reservation-form-title" className="visually-hidden">
             Reservation Form
@@ -109,20 +321,34 @@ function ReservationsPage() {
                 *
               </span>
             </label>
-            <input
-              type="text"
-              placeholder="Enter your full name"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleInputChange}
-              required
-              minLength="2"
-              maxLength="50"
-              pattern="^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$"
-              title="Please enter your full name (first and last name)"
-              aria-required="true"
-            />
+            <div className="input-with-validation">
+              <input
+                type="text"
+                placeholder="Enter your full name"
+                id="name"
+                name="name"
+                ref={formRefs.name}
+                value={formData.name}
+                onChange={handleInputChange}
+                onBlur={handleBlur}
+                aria-invalid={touched.name && errors.name ? "true" : "false"}
+                aria-describedby={
+                  touched.name && errors.name ? "name-error" : undefined
+                }
+                required
+              />
+              {touched.name && errors.name && (
+                <span
+                  className="validation-error"
+                  id="name-error"
+                  role="alert"
+                  tabIndex={0}
+                  onKeyDown={(e) => handleErrorKeyDown(e, "name")}
+                >
+                  {errors.name}
+                </span>
+              )}
+            </div>
           </div>
 
           <div className="form-group">
@@ -132,18 +358,35 @@ function ReservationsPage() {
                 *
               </span>
             </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="Enter your email address"
-              value={formData.email}
-              onChange={handleInputChange}
-              required
-              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-              title="Please enter a valid email address"
-              aria-required="true"
-            />
+            <div className="input-with-validation">
+              <input
+                type="email"
+                id="email"
+                name="email"
+                ref={formRefs.email}
+                autoCapitalize="none"
+                placeholder="Enter your email address"
+                value={formData.email}
+                onChange={handleInputChange}
+                onBlur={handleBlur}
+                aria-invalid={touched.email && errors.email ? "true" : "false"}
+                aria-describedby={
+                  touched.email && errors.email ? "email-error" : undefined
+                }
+                required
+              />
+              {touched.email && errors.email && (
+                <span
+                  className="validation-error"
+                  id="email-error"
+                  role="alert"
+                  tabIndex={0}
+                  onKeyDown={(e) => handleErrorKeyDown(e, "email")}
+                >
+                  {errors.email}
+                </span>
+              )}
+            </div>
           </div>
 
           <div className="form-group">
@@ -153,19 +396,35 @@ function ReservationsPage() {
                 *
               </span>
             </label>
-            <input
-              type="tel"
-              id="phone"
-              name="phone"
-              placeholder="Enter your phone number"
-              value={formData.phone}
-              onChange={handleInputChange}
-              required
-              pattern="[0-9]{9,15}"
-              maxLength="15"
-              title="Please enter a valid phone number (9-15 digits)"
-              aria-required="true"
-            />
+            <div className="input-with-validation">
+              <input
+                type="tel"
+                inputMode="numeric"
+                id="phone"
+                name="phone"
+                ref={formRefs.phone}
+                placeholder="Enter your phone number"
+                value={formData.phone}
+                onChange={handleInputChange}
+                onBlur={handleBlur}
+                aria-invalid={touched.phone && errors.phone ? "true" : "false"}
+                aria-describedby={
+                  touched.phone && errors.phone ? "phone-error" : undefined
+                }
+                required
+              />
+              {touched.phone && errors.phone && (
+                <span
+                  className="validation-error"
+                  id="phone-error"
+                  role="alert"
+                  tabIndex={0}
+                  onKeyDown={(e) => handleErrorKeyDown(e, "phone")}
+                >
+                  {errors.phone}
+                </span>
+              )}
+            </div>
           </div>
 
           <div className="form-row">
@@ -176,22 +435,45 @@ function ReservationsPage() {
                   *
                 </span>
               </label>
-              <input
-                type="date"
-                id="date"
-                name="date"
-                value={formData.date}
-                onChange={handleInputChange}
-                min={new Date().toISOString().split("T")[0]} // Prevent past date selection
-                max={
-                  new Date(new Date().setFullYear(new Date().getFullYear() + 1))
-                    .toISOString()
-                    .split("T")[0]
-                }
-                required
-                title="Please select a valid date"
-                aria-required="true"
-              />
+              <div
+                className="input-with-validation"
+                onClick={handleDateFieldClick}
+              >
+                <input
+                  type="date"
+                  id="date"
+                  name="date"
+                  ref={formRefs.date}
+                  value={formData.date}
+                  onChange={handleInputChange}
+                  onBlur={handleBlur}
+                  min={new Date().toISOString().split("T")[0]}
+                  max={
+                    new Date(
+                      new Date().setFullYear(new Date().getFullYear() + 1)
+                    )
+                      .toISOString()
+                      .split("T")[0]
+                  }
+                  aria-invalid={touched.date && errors.date ? "true" : "false"}
+                  aria-describedby={
+                    touched.date && errors.date ? "date-error" : undefined
+                  }
+                  required
+                />
+                {touched.date && errors.date && (
+                  <span
+                    className="validation-error"
+                    id="date-error"
+                    role="alert"
+                    tabIndex={0}
+                    onKeyDown={(e) => handleErrorKeyDown(e, "date")}
+                    onClick={(e) => e.stopPropagation()} // Prevent opening the date picker when clicking on error
+                  >
+                    {errors.date}
+                  </span>
+                )}
+              </div>
             </div>
 
             <div className="form-group">
@@ -201,28 +483,48 @@ function ReservationsPage() {
                   *
                 </span>
               </label>
-              <select
-                id="time"
-                name="time"
-                value={formData.time}
-                onChange={handleInputChange}
-                required
-                aria-required="true"
-                disabled={!formData.date} // Disable until date is selected
-              >
-                <option value="">Select a time</option>
-                {availableTimes.map((time) => (
-                  <option key={time} value={time}>
-                    {new Date(`2023-01-01T${time}`).toLocaleTimeString([], {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })}
-                  </option>
-                ))}
-              </select>
-              {!formData.date && (
-                <span className="helper-text">Please select a date first</span>
-              )}
+              <div className="input-with-validation">
+                <select
+                  id="time"
+                  name="time"
+                  ref={formRefs.time}
+                  value={formData.time}
+                  onChange={handleInputChange}
+                  onBlur={handleBlur}
+                  aria-invalid={touched.time && errors.time ? "true" : "false"}
+                  aria-describedby={
+                    touched.time && errors.time ? "time-error" : undefined
+                  }
+                  required
+                  disabled={!formData.date}
+                >
+                  <option value="">Select a time</option>
+                  {availableTimes.map((time) => (
+                    <option key={time} value={time}>
+                      {new Date(`2023-01-01T${time}`).toLocaleTimeString([], {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
+                    </option>
+                  ))}
+                </select>
+                {touched.time && errors.time && (
+                  <span
+                    className="validation-error"
+                    id="time-error"
+                    role="alert"
+                    tabIndex={0}
+                    onKeyDown={(e) => handleErrorKeyDown(e, "time")}
+                  >
+                    {errors.time}
+                  </span>
+                )}
+                {!formData.date && (
+                  <span className="helper-text">
+                    Please select a date first
+                  </span>
+                )}
+              </div>
             </div>
           </div>
 
@@ -233,21 +535,41 @@ function ReservationsPage() {
                 *
               </span>
             </label>
-            <select
-              id="guests"
-              name="guests"
-              value={formData.guests}
-              onChange={handleInputChange}
-              required
-              aria-required="true"
-            >
-              <option value="">Select number of guests</option>
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
-                <option key={num} value={num}>
-                  {num}
-                </option>
-              ))}
-            </select>
+            <div className="input-with-validation">
+              <select
+                id="guests"
+                name="guests"
+                ref={formRefs.guests}
+                value={formData.guests}
+                onChange={handleInputChange}
+                onBlur={handleBlur}
+                aria-invalid={
+                  touched.guests && errors.guests ? "true" : "false"
+                }
+                aria-describedby={
+                  touched.guests && errors.guests ? "guests-error" : undefined
+                }
+                required
+              >
+                <option value="">Select number of guests</option>
+                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
+                  <option key={num} value={num}>
+                    {num}
+                  </option>
+                ))}
+              </select>
+              {touched.guests && errors.guests && (
+                <span
+                  className="validation-error"
+                  id="guests-error"
+                  role="alert"
+                  tabIndex={0}
+                  onKeyDown={(e) => handleErrorKeyDown(e, "guests")}
+                >
+                  {errors.guests}
+                </span>
+              )}
+            </div>
           </div>
 
           <div className="form-group">
@@ -275,14 +597,13 @@ function ReservationsPage() {
               onChange={handleInputChange}
               rows="3"
               maxLength="500"
-              title="You can enter up to 500 characters"
             ></textarea>
           </div>
 
           <button
             type="submit"
             className="btn-primary"
-            disabled={isSubmitting}
+            disabled={isSubmitting || !isFormValid}
             aria-busy={isSubmitting}
           >
             {isSubmitting ? "Submitting..." : "Reserve a Table"}

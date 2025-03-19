@@ -226,7 +226,7 @@ main {
   cursor: pointer;
   font-family: var(--font-secondary);
   transition: background-color var(--transition-fast),
-    transform var(--transition-fast);
+    transform var (--transition-fast);
 }
 
 .specials-header button:hover {
@@ -251,7 +251,7 @@ main {
 .testimonials h2 {
   font-size: var(--font-size-heading-3);
   margin-bottom: 2.5rem;
-  color: var(--color-dark-grey);
+  color: var (--color-dark-grey);
 }
 
 .testimonials-grid {
@@ -524,10 +524,13 @@ main {
 .form-group textarea {
   width: 100%;
   padding: 0.75rem;
+  resize: none;
   border: 1px solid #ddd;
   border-radius: var(--border-radius-small);
   font-family: var(--font-secondary);
   font-size: var(--font-size-body);
+  background-color: #f9f9f9; /* Light gray background */
+  color: var(--highlight-dark); /* Dark text */
 }
 
 .form-group select:disabled {
@@ -647,6 +650,72 @@ main {
 
 .btn-secondary:hover {
   background-color: var(--highlight-light);
+}
+
+/* Form validation styling */
+.input-with-validation {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.validation-error {
+  color: #d32f2f;
+  font-size: 0.85rem;
+  margin-top: 5px;
+  margin-left: 0;
+  background-color: rgba(211, 47, 47, 0.08);
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: normal;
+  font-weight: 500;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s ease;
+  max-width: 100%;
+}
+
+.validation-error:focus {
+  box-shadow: 0 0 0 2px rgba(211, 47, 47, 0.4);
+  outline: 2px solid transparent;
+}
+
+.validation-error:hover {
+  background-color: rgba(211, 47, 47, 0.15);
+}
+
+/* Visual indicator for fields with errors */
+input[aria-invalid="true"],
+select[aria-invalid="true"] {
+  border: 2px solid #d32f2f; /* Keep the red border */
+  background-color: #f9f9f9; /* Same as normal state */
+  box-shadow: 0 0 0 1px rgba(211, 47, 47, 0.2); /* Add a subtle red glow */
+}
+
+/* Special styling for date input to make the entire field clickable while keeping the icon visible */
+input[type="date"] {
+  position: relative;
+  cursor: pointer;
+  padding-right: 2.5rem; /* Extra padding on the right for the calendar icon */
+}
+
+/* Fix the calendar icon styling - this replaces both previous calendar picker styles */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 1;
+  filter: invert(0.5); /* Makes the icon darker */
+  background-color: transparent;
+  cursor: pointer;
+  padding: 8px;
+  position: absolute;
+  right: 0.5rem; /* Position it on the right side */
+  top: 50%;
+  transform: translateY(-50%); /* Center vertically */
+  width: 20px;
+  height: 20px;
+  z-index: 2; /* Ensure it's above any other elements */
+  pointer-events: auto; /* Make sure it's clickable */
 }
 
 /* RESPONSIVE BREAKPOINTS */
