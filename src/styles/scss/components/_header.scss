@@ -19,7 +19,7 @@ header {
 
   // Apply shadow instantly when scrolled
   &.scrolled {
-    box-shadow: var(--shadow-small);
+    box-shadow: var(--shadow-medium);
   }
 
   .header-wrapper {
@@ -123,6 +123,20 @@ nav[aria-label="Main navigation"] {
 
     &:hover {
       color: var(--primary-yellow);
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    // Style for active navigation item - text only highlight
+    &.active {
+      color: var(--primary-yellow);
+      // Remove any background/box properties that were here
+      background-color: transparent;
+      box-shadow: none;
+      border: none;
+      outline: none;
     }
   }
 }

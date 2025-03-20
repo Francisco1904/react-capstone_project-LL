@@ -288,7 +288,7 @@ function ReservationsPage() {
   };
 
   return (
-    <main className="page-container" role="main">
+    <main id="main-content" className="page-container" role="main">
       <section className="reservations-section container">
         <h1>Reservations</h1>
         <p>
@@ -298,7 +298,12 @@ function ReservationsPage() {
 
         {/* Show error message when submission fails */}
         {submitResult && !submitResult.success && (
-          <div className="error-message" role="alert" aria-live="assertive">
+          <div
+            className="error-message"
+            role="alert"
+            aria-live="assertive"
+            tabIndex={0}
+          >
             <p>{submitResult.message}</p>
           </div>
         )}
@@ -314,12 +319,58 @@ function ReservationsPage() {
             Reservation Form
           </h2>
 
+          {/* Error summary for screen readers - only show when there are actual errors */}
+          {Object.values(errors).some((error) => error !== "") && (
+            <div className="error-summary" role="alert" aria-live="polite">
+              <h3>Please fix the following errors:</h3>
+              <ul>
+                {Object.entries(errors)
+                  .filter(([_, message]) => message !== "")
+                  .map(([field, message]) => {
+                    // Create simplified error messages for the summary
+                    let summaryMessage = "";
+                    if (message.includes("required")) {
+                      summaryMessage = "Required field";
+                    } else if (message.includes("valid")) {
+                      summaryMessage = "Invalid format";
+                    } else if (message.includes("past")) {
+                      summaryMessage = "Invalid date";
+                    } else {
+                      summaryMessage = "Error";
+                    }
+
+                    return (
+                      <li key={field}>
+                        <a href={`#${field}`}>
+                          {field === "name"
+                            ? "Full Name"
+                            : field === "email"
+                            ? "Email Address"
+                            : field === "phone"
+                            ? "Phone Number"
+                            : field === "date"
+                            ? "Reservation Date"
+                            : field === "time"
+                            ? "Reservation Time"
+                            : field === "guests"
+                            ? "Guest Count"
+                            : field.charAt(0).toUpperCase() + field.slice(1)}
+                          : {summaryMessage}
+                        </a>
+                      </li>
+                    );
+                  })}
+              </ul>
+            </div>
+          )}
+
           <div className="form-group">
             <label htmlFor="name">
               Full Name{" "}
               <span style={{ color: "red" }} aria-hidden="true">
                 *
               </span>
+              <span className="visually-hidden">(required)</span>
             </label>
             <div className="input-with-validation">
               <input
@@ -331,6 +382,7 @@ function ReservationsPage() {
                 value={formData.name}
                 onChange={handleInputChange}
                 onBlur={handleBlur}
+                aria-required="true"
                 aria-invalid={touched.name && errors.name ? "true" : "false"}
                 aria-describedby={
                   touched.name && errors.name ? "name-error" : undefined
@@ -482,6 +534,7 @@ function ReservationsPage() {
                 <span style={{ color: "red" }} aria-hidden="true">
                   *
                 </span>
+                <span className="visually-hidden">(required)</span>
               </label>
               <div className="input-with-validation">
                 <select
@@ -491,9 +544,14 @@ function ReservationsPage() {
                   value={formData.time}
                   onChange={handleInputChange}
                   onBlur={handleBlur}
+                  aria-required="true"
                   aria-invalid={touched.time && errors.time ? "true" : "false"}
                   aria-describedby={
-                    touched.time && errors.time ? "time-error" : undefined
+                    touched.time && errors.time
+                      ? "time-error"
+                      : !formData.date
+                      ? "time-hint"
+                      : undefined
                   }
                   required
                   disabled={!formData.date}
@@ -508,6 +566,11 @@ function ReservationsPage() {
                     </option>
                   ))}
                 </select>
+                {!formData.date && (
+                  <span className="helper-text" id="time-hint">
+                    Please select a date first
+                  </span>
+                )}
                 {touched.time && errors.time && (
                   <span
                     className="validation-error"
@@ -517,11 +580,6 @@ function ReservationsPage() {
                     onKeyDown={(e) => handleErrorKeyDown(e, "time")}
                   >
                     {errors.time}
-                  </span>
-                )}
-                {!formData.date && (
-                  <span className="helper-text">
-                    Please select a date first
                   </span>
                 )}
               </div>
@@ -604,7 +662,7 @@ function ReservationsPage() {
             type="submit"
             className="btn-primary"
             disabled={isSubmitting || !isFormValid}
-            aria-busy={isSubmitting}
+            aria-busy={isSubmitting ? "true" : "false"}
           >
             {isSubmitting ? "Submitting..." : "Reserve a Table"}
           </button>

@@ -9,6 +9,7 @@
 @use "global";
 @use "typography";
 @use "buttons";
+@use "accessibility"; // Add accessibility styles
 
 // Use component and page index files
 @use "components";

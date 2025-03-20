@@ -76,13 +76,13 @@ function MainSection() {
   ];
 
   return (
-    <main>
+    <main id="main-content">
       {/* Specials Section */}
-      <section className="specials">
+      <section className="specials" aria-labelledby="specials-heading">
         <div className="container">
           <div className="specials-header">
-            <h2>This Week's Specials</h2>
-            <button>Online Menu</button>
+            <h2 id="specials-heading">This Week's Specials</h2>
+            <button aria-label="View full online menu">Online Menu</button>
           </div>
           <div className="specials-grid">
             {specials.map((item) => (
@@ -99,10 +99,10 @@ function MainSection() {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="testimonials">
+      {/* Testimonials Section */}
+      <section className="testimonials" aria-labelledby="testimonials-heading">
         <div className="container">
-          <h2>What our customers say!</h2>
+          <h2 id="testimonials-heading">What our customers say</h2>
           <div className="testimonials-grid">
             {reviews.map((review) => (
               <ReviewCard

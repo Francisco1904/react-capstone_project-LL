@@ -3,14 +3,14 @@ import logo from "../assets/lemon_logo.svg";
 
 function Footer() {
   return (
-    <footer className="footer">
+    <footer role="contentinfo" className="footer">
       <div className="footer-container">
         <div className="footer-logo">
-          <img src={logo} alt="Little Lemon Logo" width="220" />
+          <img src={logo} alt="Little Lemon Restaurant Logo" width="220" />
         </div>
-        <nav className="footer-nav">
-          <h3>Site</h3>
-          <ul>
+        <nav className="footer-nav" aria-label="Footer navigation">
+          <h3 id="footer-nav-heading">Site</h3>
+          <ul aria-labelledby="footer-nav-heading">
             <li>
               <Link to="/">Home</Link>
             </li>
@@ -32,19 +32,29 @@ function Footer() {
           </ul>
         </nav>
         <aside className="footer-contact">
-          <h3>Contact</h3>
-          <p>123 Lemon Street, Food City</p>
-          <p>Phone: (123) 456-7890</p>
-          <p>Email: contact@littlelemon.com</p>
+          <h3 id="contact-heading">Contact</h3>
+          <address aria-labelledby="contact-heading">
+            <p>123 Lemon Street, Food City</p>
+            <p>
+              Phone: <a href="tel:+11234567890">(123) 456-7890</a>
+            </p>
+            <p>
+              Email:{" "}
+              <a href="mailto:contact@littlelemon.com">
+                contact@littlelemon.com
+              </a>
+            </p>
+          </address>
         </aside>
         <aside className="footer-social">
-          <h3>Social Media</h3>
-          <ul>
+          <h3 id="social-heading">Social Media</h3>
+          <ul aria-labelledby="social-heading">
             <li>
               <a
                 href="https://instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Visit our Instagram page (opens in a new tab)"
               >
                 Instagram
               </a>
