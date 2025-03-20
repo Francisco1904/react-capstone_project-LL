@@ -2,14 +2,14 @@ import React from "react";
 
 function AboutPage() {
   return (
-    <div className="container">
-      <section className="page-section">
-        <h1>About Little Lemon</h1>
-        <p>
-          Little Lemon is a family-owned Mediterranean restaurant, focused on
-          traditional recipes served with a modern twist.
+    <div className="page-container">
+      <section className="about-page">
+        <h1>About Us</h1>
+        <p className="intro">
+          Little Lemon is a charming Mediterranean restaurant located in the
+          heart of Chicago.
         </p>
-        {/* Additional content can go here */}
+        {/* Additional content will go here */}
       </section>
     </div>
   );

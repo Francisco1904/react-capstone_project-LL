@@ -2,10 +2,10 @@
 @use "../mixins" as *;
 @use "../variables" as *;
 
-// Booking Confirmation Page Styles
+// Confirmation Page Styles - Updated for consistency
 
-// Container
 .confirmation-container {
+  @include container; // Use container mixin
   max-width: 800px;
   margin: 4rem auto;
   padding: 2rem;
@@ -17,14 +17,15 @@
     color: var(--primary-green);
     margin-top: 0;
     margin-bottom: 1rem;
+    text-align: center; // Align with home page
   }
 
   p {
     margin-bottom: 1.5rem;
+    text-align: center; // Align with home page
   }
 }
 
-// Reservation details section
 .reservation-details {
   margin: 2rem 0;
   padding: 1.5rem;
@@ -35,14 +36,16 @@
     margin-top: 0;
     color: var(--color-dark-grey);
     margin-bottom: 1.5rem;
+    text-align: center; // Center for consistency
   }
 
   p {
     margin-bottom: 0.75rem;
+    text-align: left; // Left align the details themselves
+  }
 
-    &:last-child {
-      margin-bottom: 0;
-    }
+  p:last-child {
+    margin-bottom: 0;
   }
 
   strong {
@@ -51,15 +54,13 @@
   }
 }
 
-// Confirmation actions
 .confirmation-actions {
-  display: flex;
-  gap: 1rem;
+  @include flex(row, center, center, 1rem); // Use flex mixin
   margin-top: 2rem;
 }
 
-// Responsive adjustments
-@media (max-width: 768px) {
+// Media Queries - Using standard breakpoints
+@include breakpoint(md) {
   .confirmation-container {
     margin: 2rem auto;
     padding: 1.5rem;

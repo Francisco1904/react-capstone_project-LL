@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import Header from "./Components/Header";
+import Footer from "./Components/Footer";
 import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
 import MenuPage from "./pages/MenuPage";
@@ -9,9 +9,6 @@ import ReservationsPage from "./pages/ReservationsPage";
 import OrderOnlinePage from "./pages/OrderOnlinePage";
 import ConfirmedBooking from "./Components/ConfirmedBooking";
 import { BookingProvider } from "./context/BookingContext";
-// Remove these CSS imports since we now use the compiled main.css
-// import "./styles/App.css";
-// import "./styles/variables.css";
 
 function App() {
   return (

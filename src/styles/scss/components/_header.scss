@@ -9,21 +9,29 @@ header {
   justify-content: center;
   background-color: white;
   padding: 23px 5%;
-  box-shadow: var(--shadow-small);
+  box-shadow: none; // Remove default shadow
   position: sticky;
   top: 0;
   z-index: var(--z-index-sticky);
   width: 100%;
+  height: var(--header-height); // Explicitly set height for consistency
+  box-sizing: border-box;
+
+  // Apply shadow instantly when scrolled
+  &.scrolled {
+    box-shadow: var(--shadow-small);
+  }
 
   .header-wrapper {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-between; // Changed from space-evenly for consistency
     width: 100%;
     max-width: var(--container-width);
     margin: 0 auto;
     position: relative; // Needed for absolute positioning
+    padding: 0 1rem; // Add consistent padding
   }
 }
 
@@ -78,7 +86,7 @@ nav[aria-label="Main navigation"] {
     display: flex;
     list-style: none;
     margin: 0;
-    padding: 0 40px 0 0;
+    padding: 0;
     width: 100%;
     max-width: 800px;
     justify-content: center;
@@ -157,6 +165,7 @@ nav[aria-label="Main navigation"] {
   // Show hamburger menu and center logo
   .header-wrapper {
     justify-content: center;
+    position: relative; // Ensure proper positioning context
   }
 
   .mobile-menu-toggle {
@@ -164,7 +173,16 @@ nav[aria-label="Main navigation"] {
   }
 
   .image-wrapper {
-    margin: 0; // Center the logo
+    position: absolute; // Position absolutely to center regardless of other elements
+    left: 0;
+    right: 0;
+    margin: 0 auto; // Center horizontally
+    text-align: center; // Ensure image is centered within wrapper
+    width: fit-content; // Make wrapper only as wide as the logo
+
+    img {
+      margin: 0 auto; // Center the image inside the wrapper
+    }
   }
 
   // Style the mobile navigation menu

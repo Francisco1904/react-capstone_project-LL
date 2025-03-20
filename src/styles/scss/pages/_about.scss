@@ -1,0 +1,88 @@
+// Import mixins and variables
+@use "../mixins" as *;
+@use "../variables" as *;
+
+// About Page Styles - Consistent with homepage
+
+.about-page {
+  @include container;
+  padding-top: 2rem;
+  padding-bottom: 3rem;
+
+  h1 {
+    text-align: center;
+    color: var(--primary-green);
+    margin-bottom: 1rem;
+  }
+
+  p.intro {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 2rem;
+  }
+}
+
+.about-section {
+  @include grid(repeat(2, 1fr), 2.5rem);
+  align-items: center;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+
+  h2 {
+    color: var(--color-dark-grey);
+    margin-bottom: 1.5rem;
+  }
+
+  p {
+    margin-bottom: 1.5rem;
+  }
+
+  &.reverse {
+    .about-content {
+      order: 2;
+    }
+
+    .about-image {
+      order: 1;
+    }
+  }
+}
+
+.about-image {
+  img {
+    width: 100%;
+    border-radius: var(--border-radius-medium);
+    box-shadow: var(--shadow-medium);
+  }
+}
+
+// Media Queries
+@include breakpoint(md) {
+  .about-page {
+    padding-top: 1.5rem;
+    padding-bottom: 2rem;
+  }
+
+  .about-section {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+
+    .about-content,
+    .about-image {
+      order: 0; // Reset ordering
+    }
+
+    .about-image {
+      margin-bottom: 1.5rem;
+    }
+
+    &.reverse {
+      .about-content,
+      .about-image {
+        order: 0; // Reset ordering
+      }
+    }
+  }
+}

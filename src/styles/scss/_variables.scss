@@ -5,6 +5,7 @@ $secondary-salmon: #ee9972;
 $secondary-peach: #fbdabb;
 $highlight-light: #edefee;
 $highlight-dark: #333333;
+$white: #ffffff;
 
 // Typography - UI Kit Font Sizes
 $font-size-display-title: 4rem; // 64px - Maps to existing display
@@ -52,7 +53,7 @@ $spacing-xxl: 3rem; // 48px
 // Layout
 $container-width: 1200px;
 $header-height: 80px;
-$footer-height: 200px;
+$footer-height: auto;
 
 // Borders
 $border-radius-small: 4px;

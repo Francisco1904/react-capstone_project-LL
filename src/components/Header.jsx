@@ -2,11 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/Logo.png";
 import hamburgerIcon from "../assets/hamburger_menu_icon.svg";
-// If you have a back arrow SVG, import it here:
-// import backArrowIcon from "../assets/back_arrow_icon.svg";
 
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   // Toggle menu state
   const toggleMenu = () => {
@@ -17,6 +16,23 @@ function Header() {
   const closeMenu = () => {
     setIsMenuOpen(false);
   };
+
+  // Add scroll detection
+  useEffect(() => {
+    const handleScroll = () => {
+      // Set scrolled state based on scroll position
+      setIsScrolled(window.scrollY > 0);
+    };
+
+    // Add event listener
+    window.addEventListener("scroll", handleScroll);
+
+    // Initial check (in case page loads already scrolled)
+    handleScroll();
+
+    // Clean up
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Prevent body scrolling when menu is open
   useEffect(() => {
@@ -32,7 +48,7 @@ function Header() {
   }, [isMenuOpen]);
 
   return (
-    <header>
+    <header className={isScrolled ? "scrolled" : ""}>
       <div className="header-wrapper">
         <button
           className={`mobile-menu-toggle ${isMenuOpen ? "menu-open" : ""}`}

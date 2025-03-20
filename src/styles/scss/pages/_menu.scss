@@ -1,0 +1,65 @@
+// Import mixins and variables
+@use "../mixins" as *;
+@use "../variables" as *;
+
+// Menu Page Styles - Consistent with homepage
+
+.menu-page {
+  @include container;
+  padding-top: 2rem;
+  padding-bottom: 3rem;
+
+  h1 {
+    text-align: center;
+    color: var(--primary-green);
+    margin-bottom: 1rem;
+  }
+
+  p {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 2rem;
+  }
+}
+
+.menu-categories {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+
+  button {
+    @include button(transparent, var(--primary-green));
+    border: 2px solid var(--primary-green);
+
+    &.active {
+      background-color: var(--primary-green);
+      color: white;
+    }
+  }
+}
+
+.menu-grid {
+  @include grid(repeat(3, 1fr), 2rem);
+  margin-bottom: 3rem;
+}
+
+// Media Queries
+@include breakpoint(lg) {
+  .menu-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@include breakpoint(md) {
+  .menu-page {
+    padding-top: 1.5rem;
+    padding-bottom: 2rem;
+  }
+
+  .menu-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}

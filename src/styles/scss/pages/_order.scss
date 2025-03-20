@@ -1,0 +1,91 @@
+// Import mixins and variables
+@use "../mixins" as *;
+@use "../variables" as *;
+
+// Order Online Page Styles - Consistent with homepage
+
+.order-page {
+  @include container;
+  padding-top: 2rem;
+  padding-bottom: 3rem;
+
+  h1 {
+    text-align: center;
+    color: var(--primary-green);
+    margin-bottom: 1rem;
+  }
+
+  p {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 2rem;
+  }
+}
+
+.order-categories {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+
+  button {
+    @include button(transparent, var(--primary-green));
+    border: 2px solid var(--primary-green);
+
+    &.active {
+      background-color: var(--primary-green);
+      color: white;
+    }
+  }
+}
+
+.order-grid {
+  @include grid(repeat(3, 1fr), 2rem);
+  margin-bottom: 3rem;
+}
+
+// Shopping cart styles
+.cart-summary {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: var(--highlight-light);
+  border-radius: var(--border-radius-medium);
+
+  h2 {
+    margin-top: 0;
+    color: var(--color-dark-grey);
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  .cart-empty {
+    text-align: center;
+    color: var(--color-dark-grey);
+    margin: 2rem 0;
+  }
+}
+
+// Media Queries
+@include breakpoint(lg) {
+  .order-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@include breakpoint(md) {
+  .order-page {
+    padding-top: 1.5rem;
+    padding-bottom: 2rem;
+  }
+
+  .order-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .cart-summary {
+    margin: 1.5rem 1rem;
+  }
+}
