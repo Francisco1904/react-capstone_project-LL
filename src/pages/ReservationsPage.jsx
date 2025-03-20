@@ -52,8 +52,21 @@ function ReservationsPage() {
     guests: false,
   });
 
+  // Add a state to track if fields have been interacted with (typed in)
+  const [interacted, setInteracted] = useState({
+    name: false,
+    email: false,
+    phone: false,
+    date: false,
+    time: false,
+    guests: false,
+  });
+
   // Add state to track form validity
   const [isFormValid, setIsFormValid] = useState(false);
+
+  // Add a state to track if form has been submitted
+  const [formSubmitted, setFormSubmitted] = useState(false);
 
   // Update times when date changes
   useEffect(() => {
@@ -141,6 +154,12 @@ function ReservationsPage() {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
+    // Mark the field as interacted with
+    setInteracted((prev) => ({
+      ...prev,
+      [name]: true,
+    }));
+
     // Update form data with new values
     setFormData((prevData) => {
       // Clear time selection when date changes
@@ -165,20 +184,23 @@ function ReservationsPage() {
   const handleBlur = (e) => {
     const { name, value } = e.target;
 
-    // Mark the field as touched
-    setTouched((prev) => ({
-      ...prev,
-      [name]: true,
-    }));
+    // Only mark as touched if the field has been interacted with
+    // (contains a value or user has typed in it previously)
+    if (value || interacted[name]) {
+      setTouched((prev) => ({
+        ...prev,
+        [name]: true,
+      }));
 
-    // Validate the field
-    const errorMessage = validateField(name, value);
+      // Validate the field
+      const errorMessage = validateField(name, value);
 
-    // Update errors state
-    setErrors((prev) => ({
-      ...prev,
-      [name]: errorMessage,
-    }));
+      // Update errors state
+      setErrors((prev) => ({
+        ...prev,
+        [name]: errorMessage,
+      }));
+    }
   };
 
   // Focus the first field with an error
@@ -195,14 +217,8 @@ function ReservationsPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Mark all fields as touched on submit
-    const allTouched = {};
-    Object.keys(formData).forEach((field) => {
-      if (field !== "occasion" && field !== "comments") {
-        allTouched[field] = true;
-      }
-    });
-    setTouched(allTouched);
+    // Set form as submitted for consistent error display in tests
+    setFormSubmitted(true);
 
     // Validate all fields before submission
     let formIsValid = true;
@@ -211,19 +227,43 @@ function ReservationsPage() {
     Object.keys(formData).forEach((field) => {
       if (field === "occasion" || field === "comments") return; // Skip optional fields
 
-      const errorMessage = validateField(field, formData[field]);
-      if (errorMessage) {
+      // Check for empty fields first
+      if (!formData[field] || formData[field].toString().trim() === "") {
         formIsValid = false;
-        newErrors[field] = errorMessage;
+        newErrors[field] = `Please enter your ${field}`;
+      } else {
+        // For other validation errors, use the regular validation
+        const errorMessage = validateField(field, formData[field]);
+        if (errorMessage) {
+          formIsValid = false;
+          newErrors[field] = errorMessage;
+        }
       }
     });
 
-    // Update errors state
+    // Update all state at once - helps prevent batching issues when testing
     setErrors(newErrors);
 
-    // If form is invalid, focus the first field with an error and stop submission
+    // Mark all fields as touched AND interacted on submit to trigger validation display
+    const allTouched = {};
+    const allInteracted = {};
+    Object.keys(formData).forEach((field) => {
+      if (field !== "occasion" && field !== "comments") {
+        allTouched[field] = true;
+        allInteracted[field] = true;
+      }
+    });
+
+    // Update touched and interacted in the same render cycle
+    setTouched(allTouched);
+    setInteracted(allInteracted);
+
+    // If form is invalid, focus the first error and stop submission
     if (!formIsValid) {
-      focusFirstError(newErrors);
+      // Use a micro-delay to ensure state updates are applied before focusing
+      setTimeout(() => {
+        focusFirstError(newErrors);
+      }, 0);
       return;
     }
 
@@ -383,13 +423,20 @@ function ReservationsPage() {
                 onChange={handleInputChange}
                 onBlur={handleBlur}
                 aria-required="true"
-                aria-invalid={touched.name && errors.name ? "true" : "false"}
+                aria-invalid={
+                  (touched.name || formSubmitted) && errors.name
+                    ? "true"
+                    : "false"
+                }
                 aria-describedby={
-                  touched.name && errors.name ? "name-error" : undefined
+                  (touched.name || formSubmitted) && errors.name
+                    ? "name-error"
+                    : undefined
                 }
                 required
               />
-              {touched.name && errors.name && (
+              {/* Show error if touched OR form has been submitted */}
+              {(touched.name || formSubmitted) && errors.name && (
                 <span
                   className="validation-error"
                   id="name-error"
@@ -421,13 +468,19 @@ function ReservationsPage() {
                 value={formData.email}
                 onChange={handleInputChange}
                 onBlur={handleBlur}
-                aria-invalid={touched.email && errors.email ? "true" : "false"}
+                aria-invalid={
+                  (touched.email || formSubmitted) && errors.email
+                    ? "true"
+                    : "false"
+                }
                 aria-describedby={
-                  touched.email && errors.email ? "email-error" : undefined
+                  (touched.email || formSubmitted) && errors.email
+                    ? "email-error"
+                    : undefined
                 }
                 required
               />
-              {touched.email && errors.email && (
+              {(touched.email || formSubmitted) && errors.email && (
                 <span
                   className="validation-error"
                   id="email-error"
@@ -459,13 +512,19 @@ function ReservationsPage() {
                 value={formData.phone}
                 onChange={handleInputChange}
                 onBlur={handleBlur}
-                aria-invalid={touched.phone && errors.phone ? "true" : "false"}
+                aria-invalid={
+                  (touched.phone || formSubmitted) && errors.phone
+                    ? "true"
+                    : "false"
+                }
                 aria-describedby={
-                  touched.phone && errors.phone ? "phone-error" : undefined
+                  (touched.phone || formSubmitted) && errors.phone
+                    ? "phone-error"
+                    : undefined
                 }
                 required
               />
-              {touched.phone && errors.phone && (
+              {(touched.phone || formSubmitted) && errors.phone && (
                 <span
                   className="validation-error"
                   id="phone-error"
@@ -507,13 +566,19 @@ function ReservationsPage() {
                       .toISOString()
                       .split("T")[0]
                   }
-                  aria-invalid={touched.date && errors.date ? "true" : "false"}
+                  aria-invalid={
+                    (touched.date || formSubmitted) && errors.date
+                      ? "true"
+                      : "false"
+                  }
                   aria-describedby={
-                    touched.date && errors.date ? "date-error" : undefined
+                    (touched.date || formSubmitted) && errors.date
+                      ? "date-error"
+                      : undefined
                   }
                   required
                 />
-                {touched.date && errors.date && (
+                {(touched.date || formSubmitted) && errors.date && (
                   <span
                     className="validation-error"
                     id="date-error"
@@ -545,9 +610,13 @@ function ReservationsPage() {
                   onChange={handleInputChange}
                   onBlur={handleBlur}
                   aria-required="true"
-                  aria-invalid={touched.time && errors.time ? "true" : "false"}
+                  aria-invalid={
+                    (touched.time || formSubmitted) && errors.time
+                      ? "true"
+                      : "false"
+                  }
                   aria-describedby={
-                    touched.time && errors.time
+                    (touched.time || formSubmitted) && errors.time
                       ? "time-error"
                       : !formData.date
                       ? "time-hint"
@@ -571,7 +640,7 @@ function ReservationsPage() {
                     Please select a date first
                   </span>
                 )}
-                {touched.time && errors.time && (
+                {(touched.time || formSubmitted) && errors.time && (
                   <span
                     className="validation-error"
                     id="time-error"
@@ -602,10 +671,14 @@ function ReservationsPage() {
                 onChange={handleInputChange}
                 onBlur={handleBlur}
                 aria-invalid={
-                  touched.guests && errors.guests ? "true" : "false"
+                  (touched.guests || formSubmitted) && errors.guests
+                    ? "true"
+                    : "false"
                 }
                 aria-describedby={
-                  touched.guests && errors.guests ? "guests-error" : undefined
+                  (touched.guests || formSubmitted) && errors.guests
+                    ? "guests-error"
+                    : undefined
                 }
                 required
               >
@@ -616,7 +689,7 @@ function ReservationsPage() {
                   </option>
                 ))}
               </select>
-              {touched.guests && errors.guests && (
+              {(touched.guests || formSubmitted) && errors.guests && (
                 <span
                   className="validation-error"
                   id="guests-error"

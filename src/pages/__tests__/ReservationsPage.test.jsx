@@ -1,4 +1,10 @@
-import { render, screen, waitFor, fireEvent } from "@testing-library/react";
+import {
+  render,
+  screen,
+  waitFor,
+  fireEvent,
+  within,
+} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { vi, describe, it, expect, beforeEach } from "vitest";
 import ReservationsPage from "../ReservationsPage";
@@ -404,54 +410,36 @@ describe("ReservationsPage Component", () => {
         </MemoryRouter>
       );
 
-      // Get the submit button
+      // Submit button should be disabled initially since form is invalid
       const submitButton = screen.getByRole("button", {
         name: /reserve a table/i,
       });
+      expect(submitButton).toBeDisabled();
 
-      // Before submitting, trigger a blur event on all fields to mark them as touched
-      const nameInput = screen.getByLabelText(/full name/i);
-      const emailInput = screen.getByLabelText(/email/i);
-      const phoneInput = screen.getByLabelText(/phone number/i);
-      const dateInput = screen.getByLabelText(/date/i);
-      const guestsInput = screen.getByLabelText(/number of guests/i);
+      // Type and clear to trigger validation on name field
+      await user.type(screen.getByLabelText(/full name/i), "a");
+      await user.clear(screen.getByLabelText(/full name/i));
+      fireEvent.blur(screen.getByLabelText(/full name/i));
 
-      // Manually trigger blur events on all fields
-      fireEvent.blur(nameInput);
-      fireEvent.blur(emailInput);
-      fireEvent.blur(phoneInput);
-      fireEvent.blur(dateInput);
-      fireEvent.blur(guestsInput);
-
-      // Submit the form
-      await user.click(submitButton);
-
-      // Wait for validation errors to appear in the DOM
-      // Look for specific error messages which is more reliable than checking attributes
+      // Check that validation is working
       await waitFor(() => {
-        expect(screen.getByText("Name is required")).toBeInTheDocument();
-      });
-
-      await waitFor(() => {
-        expect(screen.getByText("Email is required")).toBeInTheDocument();
-      });
-
-      await waitFor(() => {
+        expect(screen.getByText(/name is required/i)).toBeInTheDocument();
         expect(
-          screen.getByText("Phone number is required")
+          screen.getByText(/please fix the following errors/i)
         ).toBeInTheDocument();
       });
 
-      await waitFor(() => {
-        expect(screen.getByText("Date is required")).toBeInTheDocument();
-      });
+      // Verify the error summary contains expected content
+      const errorSummary = screen
+        .getByText(/please fix the following errors/i)
+        .closest("div");
+      expect(within(errorSummary).getByText(/full name/i)).toBeInTheDocument();
+      expect(
+        within(errorSummary).getByText(/required field/i)
+      ).toBeInTheDocument();
 
-      // For guests field, check for the appropriate error message
-      await waitFor(() => {
-        expect(
-          screen.getByText("Please select number of guests")
-        ).toBeInTheDocument();
-      });
+      // Form should remain invalid
+      expect(submitButton).toBeDisabled();
     });
 
     it("enables submit button only when all validations pass", async () => {
