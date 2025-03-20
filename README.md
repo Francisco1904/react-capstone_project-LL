@@ -1,5 +1,7 @@
 # Front-End Capstone Project Documentation
 
+![WIP](https://img.shields.io/badge/status-work--in--progress-yellow)
+
 ## 📌 Project Overview
 
 **Project Name:** "Little Lemon Restaurant App"
@@ -8,18 +10,18 @@
 
 This project was built using **React.js** to showcase my skills as a **Junior Front-End Developer**. It highlights best practices in UI/UX design, component-based architecture, scalability, and maintainability.
 
-### Key Features
+## 🌟 Key Features
 
-- Intuitive navigation and user-friendly interface
-- Responsive design with custom breakpoints for mobile, tablet and desktop
-- Consistent branded component styling using SCSS with variables and mixins
-- Interactive reservation form with validation
-- Featured menu items with dynamic card components
-- Customer testimonials section with star ratings
-- Modular and reusable components (Cards, Hero section, Review cards)
-- Clear information architecture with dedicated page routes
-- About section highlighting the restaurant's story and owners
-- Integration with modern tools like Vite for faster development
+- **Intuitive UI/UX**: Clean navigation and user-friendly interface with clear visual hierarchy
+- **Responsive Design**: Custom breakpoints for optimal viewing on mobile, tablet, and desktop devices
+- **Advanced Reservation System**: Full-featured booking functionality with time slot selection, party size options, and special requests
+- **Real-time Form Validation**: Interactive feedback during reservation process with accessibility features
+- **Styled Components**: Consistent branded styling using SCSS architecture with variables, mixins, and partials for maintainable styling across a growing component library
+- **Dynamic Menu Showcase**: Featured dishes with filtering options, descriptions, and vivid imagery
+- **Customer Testimonials**: Review section with star ratings and testimonial carousel
+- **Performance Optimization**: Built with Vite for near-instant HMR and optimized production bundles with automatic code splitting
+- **Modular Component Design**: Reusable UI elements with consistent props interfaces for Cards, Buttons, and Form elements
+- **Accessibility Compliant**: WCAG standards implementation for inclusive user experience
 
 ## 📑 Table of Contents
 
@@ -30,8 +32,6 @@ This project was built using **React.js** to showcase my skills as a **Junior Fr
 5. [Deployment](#-deployment)
 6. [License](#-license)
 7. [Contact Information](#-contact-information)
-8. [Acknowledgments](#-acknowledgments)
-9. [Additional Resources](#-additional-resources)
 
 ---
 
@@ -205,20 +205,6 @@ This project is licensed under the [MIT License](https://opensource.org/licenses
 ## 📬 Contact Information
 
 - **GitHub:** [Francisco1904](https://github.com/Francisco1904)
-- **LinkedIn:** [Your LinkedIn Profile]
 - **Email:** [franciscopontes94@gmail.com](mailto:franciscopontes94@gmail.com)
 
 ---
-
-## ⭐ Acknowledgments
-
-- Special thanks to **[Mentors, Resources, or Communities]** for guidance.
-- Inspiration from [any references you used].
-
----
-
-## 🔗 Additional Resources
-
-- [Figma Design Prototype](#)
-- [Live Demo](#)
-- [Project Case Study (if applicable)](#)
