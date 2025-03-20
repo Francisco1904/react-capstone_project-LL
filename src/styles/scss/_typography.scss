@@ -1,104 +1,83 @@
-// Import variables
+// Import variables and mixins
 @use "variables" as *;
+@use "typography-mixins" as *;
 
 /* Typography Styles */
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: var(--font-primary);
-  margin: 1rem 0 0.5rem;
-  line-height: var(--line-height-tight);
-  color: var(--highlight-dark);
-}
-
 h1 {
-  font-size: var(--font-size-heading-1);
-  font-weight: 700;
-  line-height: 1.1;
+  @include display-title;
 }
 
 h2 {
-  font-size: var(--font-size-heading-2);
-  font-weight: 700;
+  @include subtitle;
 }
 
 h3 {
   font-size: var(--font-size-heading-3);
-  font-weight: 500;
+  font-family: var(--font-primary);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-tight);
 }
 
 h4 {
   font-size: var(--font-size-heading-4);
-  font-weight: 500;
+  font-family: var(--font-primary);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-tight);
 }
 
 p {
+  @include paragraph;
   margin-bottom: 1rem;
-  line-height: var(--line-height-normal);
 }
 
 /* Hero specific typography */
 .hero-text h1 {
-  font-size: var(--font-size-display);
+  @include display-title;
   color: var(--primary-yellow);
   margin: 0 0 0.25rem 0;
-  font-family: var(--font-primary);
-  font-weight: 700;
 }
 
 .hero-text h2 {
-  font-size: var(--font-size-heading-2);
-  margin: 0 0 1rem 0;
-  font-family: var(--font-primary);
-  font-weight: 400;
+  @include subtitle;
   color: white;
+  margin: 0 0 1rem 0;
 }
 
 .hero-text p {
-  margin-bottom: 2rem;
-  max-width: 70%;
-  font-family: var(--font-primary);
-  font-size: 40px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+  @include lead-text;
   color: var(--highlight-light);
+  margin-bottom: 2rem;
+  font-size: 2.5rem; // 40px - Keeping original size for now to avoid breaking design
 }
 
 /* Section headings */
 .specials-header h2 {
-  font-size: var(--font-size-heading-3);
-  font-weight: 700;
+  @include section-title;
   color: var(--highlight-dark);
 }
 
 .testimonials h2 {
-  font-size: var(--font-size-heading-3);
+  @include section-title;
   margin-bottom: 2.5rem;
   color: var(--highlight-dark);
 }
 
 /* Card typography */
 .menu-card-title {
-  font-family: var(--font-primary);
-  font-weight: 700;
+  @include card-title;
   margin: 0;
-  font-size: 1.2rem;
 }
 
 .menu-card-price {
+  @include category-text;
   color: var(--secondary-salmon);
-  font-weight: 700;
 }
 
 .menu-card-description {
+  @include paragraph;
   flex-grow: 1;
   color: #555;
-  line-height: 1.5;
   margin-bottom: 1.5rem;
 }
 
@@ -108,18 +87,17 @@ p {
 }
 
 .footer h3 {
+  @include section-title;
   margin-top: 0;
   margin-bottom: 1rem;
-  font-size: var(--font-size-heading-4);
-  font-weight: 700;
 }
 
 /* Form validation typography */
 .validation-error {
   color: #d32f2f;
-  font-size: 0.85rem;
+  font-size: var(--font-size-small);
   margin-top: 5px;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
 }
 
 .helper-text {
@@ -129,18 +107,5 @@ p {
   margin-top: 0.5rem;
 }
 
-/* Responsive typography */
-@media (max-width: 768px) {
-  .hero-text p {
-    max-width: 100%;
-    font-size: 32px;
-  }
-
-  h1 {
-    font-size: calc(var(--font-size-heading-1) * 0.9);
-  }
-
-  h2 {
-    font-size: calc(var(--font-size-heading-2) * 0.9);
-  }
-}
+/* Apply responsive typography */
+@include responsive-typography;

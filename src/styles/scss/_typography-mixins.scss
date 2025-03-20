@@ -1,0 +1,79 @@
+@use "variables" as *;
+@use "mixins" as *; // Add this import to access the breakpoint mixin
+
+// Typography Mixins
+@mixin display-title {
+  font-size: var(--font-size-display-title);
+  font-family: var(--font-primary);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-tight);
+}
+
+@mixin subtitle {
+  font-size: var(--font-size-subtitle);
+  font-family: var(--font-primary);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-tight);
+}
+
+@mixin lead-text {
+  font-size: var(--font-size-lead-text);
+  font-family: var(--font-secondary);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-normal);
+}
+
+@mixin card-title {
+  font-size: var(--font-size-card-title);
+  font-family: var(--font-primary);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+}
+
+@mixin paragraph {
+  font-size: var(--font-size-paragraph);
+  font-family: var(--font-secondary);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-normal);
+}
+
+@mixin highlight {
+  font-size: var(--font-size-highlight);
+  font-family: var(--font-secondary);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-normal);
+}
+
+@mixin section-title {
+  font-size: var(--font-size-section-title);
+  font-family: var(--font-primary);
+  font-weight: var(--font-weight-extra-bold);
+  line-height: var(--line-height-tight);
+  text-transform: uppercase;
+}
+
+@mixin category-text {
+  font-size: var(--font-size-category-text);
+  font-family: var(--font-secondary);
+  font-weight: var(--font-weight-extra-bold);
+  line-height: var(--line-height-normal);
+}
+
+// Responsive Typography Mixins
+@mixin responsive-typography {
+  @include breakpoint(md) {
+    :root {
+      --font-size-display-title: 3.5rem; // 56px
+      --font-size-subtitle: 2.25rem; // 36px
+    }
+  }
+
+  @include breakpoint(sm) {
+    :root {
+      --font-size-display-title: 3rem; // 48px
+      --font-size-subtitle: 2rem; // 32px
+      --font-size-lead-text: 1rem; // 16px
+      --font-size-section-title: 1.125rem; // 18px
+    }
+  }
+}

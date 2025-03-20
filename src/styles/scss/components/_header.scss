@@ -23,6 +23,41 @@ header {
     width: 100%;
     max-width: var(--container-width);
     margin: 0 auto;
+    position: relative; // Needed for absolute positioning
+  }
+}
+
+// Mobile menu toggle button (hamburger and back arrow)
+.mobile-menu-toggle {
+  display: none; // Hidden by default on desktop
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1000; // Always on top
+
+  img {
+    width: 24px;
+    height: 24px;
+    display: block;
+  }
+
+  // Style for back arrow text if using the Unicode character
+  .back-arrow {
+    font-size: 24px;
+    display: block;
+    color: var(--primary-green);
+    font-weight: var(--font-weight-bold);
+    line-height: 1;
+  }
+
+  // Adding hover effect for the button
+  &:hover {
+    opacity: 0.8;
   }
 }
 
@@ -36,22 +71,47 @@ header {
 nav[aria-label="Main navigation"] {
   display: flex;
   align-items: center;
+  width: 100%;
+  justify-content: flex-end;
 
   ul {
     display: flex;
-    gap: 4rem;
     list-style: none;
     margin: 0;
     padding: 0 40px 0 0;
+    width: 100%;
+    max-width: 800px;
+    justify-content: center;
+    gap: 3vw; // Use viewport-based gap for equal spacing
+  }
+
+  li {
+    // Remove flex: 1 to prevent equal space distribution
+    text-align: center;
+    min-width: fit-content;
+    white-space: nowrap;
+
+    // Add proportional weighting to longer menu items
+    &:nth-child(4) {
+      // Reservations
+      margin-right: 0.5vw;
+    }
+
+    &:nth-child(5) {
+      // Order Online
+      margin-left: 0.5vw;
+    }
   }
 
   a {
     color: var(--color-dark-grey);
     text-decoration: none;
-    font-weight: 500;
+    font-weight: var(--font-weight-medium);
     font-family: var(--font-secondary);
-    transition: color var(--transition-fast);
-    font-size: 20px;
+    transition: color var(--transition-fast), padding var(--transition-normal);
+    font-size: var(--font-size-section-title);
+    padding: 0 calc(0.5vw + 0.25rem);
+    display: block;
 
     &:hover {
       color: var(--primary-yellow);
@@ -59,22 +119,117 @@ nav[aria-label="Main navigation"] {
   }
 }
 
-// Media queries - converted to use the breakpoint mixin
-@include breakpoint(md) {
+// Menu overlay for the dark background
+.menu-overlay {
+  display: none; // Hidden by default
+}
+
+// Responsive adjustments for larger tablets/small desktops
+@include breakpoint(lg) {
+  nav[aria-label="Main navigation"] {
+    ul {
+      max-width: 700px;
+    }
+  }
+}
+
+// Further adjustments for medium-sized tablets
+@media (max-width: 880px) {
+  nav[aria-label="Main navigation"] {
+    ul {
+      gap: 2vw; // Reduce the gap on smaller screens
+    }
+
+    a {
+      font-size: calc(0.9rem + 0.3vw); // Fluid typography
+      padding: 0 calc(0.3vw + 0.1rem);
+    }
+  }
+
   .header-wrapper {
-    flex-direction: column;
-    padding: 1rem 0;
+    justify-content: space-between; // Better spacing distribution
+    padding: 0 1rem; // Add some padding to prevent items touching edges
+  }
+}
+
+// Media queries for mobile view
+@include breakpoint(md) {
+  // Show hamburger menu and center logo
+  .header-wrapper {
+    justify-content: center;
+  }
+
+  .mobile-menu-toggle {
+    display: block; // Show hamburger on mobile
   }
 
   .image-wrapper {
-    margin-bottom: 1rem;
+    margin: 0; // Center the logo
   }
 
+  // Style the mobile navigation menu
   nav[aria-label="Main navigation"] {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0; // Initially collapsed
+    overflow: hidden;
+    background-color: white;
+    z-index: 900; // Above content but below hamburger
+    transition: height var(--transition-normal) ease;
+
     ul {
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1rem;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 1.5rem; // Reduced gap between items
+      padding: 5rem 1rem 2rem; // Reduced top padding
+      width: 100%;
+      max-width: 100%;
     }
+
+    li {
+      width: 100%;
+      text-align: center;
+      flex: none; // Override flex for mobile view
+    }
+
+    a {
+      font-size: 1.25rem;
+      padding: 0.5rem 1rem;
+      display: block;
+      width: 100%;
+      text-align: center;
+    }
+
+    // Show the menu when open - adjusted to appropriate size for 5 items
+    &.mobile-menu-open {
+      height: auto; // Let content determine the height
+      max-height: 24rem; // Approximate height needed for 5 items (~384px)
+      overflow-y: auto;
+      box-shadow: var(--shadow-medium);
+    }
+  }
+
+  // Style the dark overlay
+  .menu-overlay {
+    display: block; // Show when menu is open
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 800; // Above content but below menu
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition-normal);
+  }
+
+  // Show overlay when menu is open
+  .mobile-menu-open + .menu-overlay {
+    opacity: 1;
+    pointer-events: auto;
   }
 }

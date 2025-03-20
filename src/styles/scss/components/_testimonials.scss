@@ -1,6 +1,7 @@
 // Import mixins and variables
 @use "../mixins" as *;
 @use "../variables" as *;
+@use "../typography-mixins" as *;
 
 // Testimonials Section and Review Cards
 
@@ -11,7 +12,7 @@
   text-align: center;
 
   h2 {
-    font-size: var(--font-size-heading-3);
+    @include section-title;
     margin-bottom: 2.5rem;
     color: var(--color-dark-grey);
   }
@@ -37,7 +38,7 @@
   &-rating,
   .review-rating {
     color: var(--primary-yellow);
-    font-size: 1.25rem;
+    font-size: var(--font-size-section-title); // Instead of hardcoded 1.25rem
     margin-bottom: 1rem;
   }
 
@@ -59,13 +60,13 @@
 
   &-name,
   .review-name {
-    font-weight: 700;
+    @include category-text;
   }
 
   &-text,
   .review-text {
+    @include paragraph;
     flex-grow: 1;
-    font-size: var(--font-size-small);
     color: var(--color-dark-grey);
   }
 }

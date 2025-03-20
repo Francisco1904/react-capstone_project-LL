@@ -1,6 +1,7 @@
 // Use variables and mixins
 @use "../variables" as *;
 @use "../mixins" as *;
+@use "../typography-mixins" as *;
 
 // Card Styles - Menu Cards and Specials Section
 
@@ -14,8 +15,7 @@
     margin-bottom: 2rem;
 
     h2 {
-      font-size: var(--font-size-heading-3);
-      font-weight: 700;
+      @include section-title;
       color: var(--color-dark-grey);
     }
 
@@ -68,21 +68,18 @@
   }
 
   &-title {
-    font-family: var(--font-primary);
-    font-weight: 700;
-    margin: 0;
-    font-size: 1.2rem;
+    @include card-title;
   }
 
   &-price {
+    @include category-text;
     color: var(--secondary-salmon);
-    font-weight: 700;
   }
 
   &-description {
+    @include paragraph;
     flex-grow: 1;
     color: #555;
-    line-height: 1.5;
     margin-bottom: 1.5rem;
   }
 
