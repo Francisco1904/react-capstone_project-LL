@@ -20,6 +20,30 @@
     max-width: 800px;
     margin: 0 auto 2rem;
   }
+
+  // Add style for category titles
+  .menu-category-title {
+    color: var(--primary-green);
+    font-size: var(--font-size-heading-3);
+    margin: 2.5rem 0 1.5rem;
+    font-family: var(--font-primary);
+    font-weight: var(--font-weight-bold);
+    text-align: left;
+    border-bottom: 2px solid var(--primary-yellow);
+    padding-bottom: 0.5rem;
+  }
+
+  // Override the centered paragraph style for card descriptions
+  .menu-card-description {
+    text-align: left !important;
+    margin: 0 0 1.5rem 0;
+    max-width: none;
+  }
+
+  // Ensure all card content has left alignment
+  .menu-card-content {
+    text-align: left;
+  }
 }
 
 .menu-categories {
@@ -56,6 +80,11 @@
   .menu-page {
     padding-top: 1.5rem;
     padding-bottom: 2rem;
+
+    .menu-category-title {
+      margin: 2rem 0 1rem;
+      font-size: var(--font-size-heading-4);
+    }
   }
 
   .menu-grid {

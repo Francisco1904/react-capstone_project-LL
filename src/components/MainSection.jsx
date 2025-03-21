@@ -2,12 +2,12 @@ import React from "react";
 import Card from "./Card";
 import ReviewCard from "./ReviewCard";
 
-// Import food images - replace these paths with your actual image paths
-import greekSalad from "../assets/greek_salad.jpg";
-import bruschetta from "../assets/bruschettttte.jpg";
-import lemonDessert from "../assets/lemon_dessert.jpg";
+// Update food images to use menu_items subfolder
+import greekSalad from "../assets/menu_items/greek_salad.jpg";
+import bruschetta from "../assets/menu_items/bruschettttte.jpg";
+import lemonDessert from "../assets/menu_items/lemon_dessert.jpg";
 
-// Import about section images
+// Import about section images (these remain in the original location)
 import restaurant from "../assets/restaurant.jpg";
 import owners from "../assets/Mario and Adrian A.jpg";
 
