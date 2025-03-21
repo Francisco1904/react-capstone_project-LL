@@ -381,7 +381,18 @@ function ReservationsPage() {
 
                     return (
                       <li key={field}>
-                        <a href={`#${field}`}>
+                        <span
+                          className="error-link"
+                          id={`error-summary-${field}`}
+                          tabIndex={0}
+                          onClick={() => formRefs[field]?.current?.focus()}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter" || e.key === " ") {
+                              e.preventDefault();
+                              formRefs[field]?.current?.focus();
+                            }
+                          }}
+                        >
                           {field === "name"
                             ? "Full Name"
                             : field === "email"
@@ -396,7 +407,7 @@ function ReservationsPage() {
                             ? "Guest Count"
                             : field.charAt(0).toUpperCase() + field.slice(1)}
                           : {summaryMessage}
-                        </a>
+                        </span>
                       </li>
                     );
                   })}

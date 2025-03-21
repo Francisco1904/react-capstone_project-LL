@@ -1,7 +1,7 @@
 /* Global resets and base styles in index.css remain as is */
 
 :root {
-  --container-width: 1440px;
+  --container-width: 1200px;
   /* ...existing variables... */
 }
 
@@ -41,14 +41,12 @@ header {
 
 .header-wrapper {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between; /* Changed from space-evenly to space-between */
+  flex-direction: row; /* Changed from column to row */
+  align-items: center; /* Center items vertically */
+  justify-content: space-evenly; /* Logo left, nav right */
   width: 100%;
   max-width: var(--container-width);
   margin: 0 auto;
-  position: relative; /* Added to match SCSS styles */
-  padding: 0 1rem; /* Added to match SCSS styles */
 }
 
 .image-wrapper img {
@@ -64,13 +62,10 @@ nav[aria-label="Main navigation"] {
 
 nav[aria-label="Main navigation"] ul {
   display: flex;
-  gap: 3vw; /* Changed from 4rem to 3vw to match SCSS */
+  gap: 4rem; /* Slightly increased spacing between nav items */
   list-style: none;
   margin: 0;
-  padding: 0; /* Removed right padding to match SCSS */
-  width: 100%; /* Added to match SCSS */
-  max-width: 800px; /* Added to match SCSS */
-  justify-content: center; /* Added to match SCSS */
+  padding: 0 40px 0 0;
 }
 
 nav[aria-label="Main navigation"] a {
@@ -412,7 +407,7 @@ main {
 
 .menu-card-price {
   color: var(--secondary-salmon);
-  font-weight: 400; /* Changed from 700 to 400 for regular weight */
+  font-weight: 700;
 }
 
 .menu-card-description {
@@ -667,11 +662,11 @@ main {
 }
 
 .validation-error {
-  color: #d32f2f;
+  color: #ffebee; /* Changed from #d32f2f to #FFEBEE for better readability */
   font-size: 0.85rem;
   margin-top: 5px;
   margin-left: 0;
-  background-color: rgba(211, 47, 47, 0.08);
+  background-color: #323232; /* Maintaining light grey background */
   padding: 4px 8px;
   border-radius: 4px;
   white-space: normal;
@@ -680,15 +675,8 @@ main {
   outline: none;
   transition: all 0.2s ease;
   max-width: 100%;
-}
-
-.validation-error:focus {
-  box-shadow: 0 0 0 2px rgba(211, 47, 47, 0.4);
-  outline: 2px solid transparent;
-}
-
-.validation-error:hover {
-  background-color: rgba(211, 47, 47, 0.15);
+  border-left: 3px solid #d32f2f; /* Keep red border for visual indication */
+  box-shadow: var(--shadow-small);
 }
 
 /* Visual indicator for fields with errors */

@@ -55,6 +55,18 @@
       text-decoration: none;
     }
   }
+
+  // Style for error links that look like links but aren't actual links
+  .error-link {
+    color: #c62828;
+    text-decoration: underline;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+      text-decoration: none;
+    }
+  }
 }
 
 // Reduced motion

@@ -30,13 +30,20 @@
 .reservation-form {
   max-width: 800px;
   margin: 0 auto;
-  background-color: white;
+  background-color: var(--primary-green); // Changed to green background
   border-radius: var(--border-radius-medium);
   padding: 2rem;
   box-shadow: var(--shadow-medium);
+  color: white; // Added white text for better contrast
 
   h2 {
     margin-bottom: 1.5rem;
+    color: var(--primary-yellow); // Changed to yellow for better visibility
+  }
+
+  // Make required field indicators more visible
+  label span[style] {
+    color: var(--primary-yellow) !important; // Override inline style
   }
 }
 
@@ -48,6 +55,7 @@
     display: block;
     margin-bottom: 0.5rem;
     font-weight: 500;
+    color: white; // Ensure labels are white for contrast
   }
 
   input,
@@ -76,7 +84,9 @@
 .helper-text {
   display: block;
   font-size: var(--font-size-small);
-  color: var(--secondary-salmon);
+  color: var(
+    --highlight-light
+  ); // Changed from secondary-salmon for better contrast
   margin-top: 0.5rem;
 }
 
@@ -90,11 +100,11 @@
 }
 
 .validation-error {
-  color: #d32f2f;
+  color: #ffebee; // Changed from #d32f2f to #FFEBEE for better readability
   font-size: var(--font-size-small);
   margin-top: 5px;
   margin-left: 0;
-  background-color: rgba(211, 47, 47, 0.08);
+  background-color: #323232; // Maintaining light grey background
   padding: 4px 8px;
   border-radius: 4px;
   white-space: normal;
@@ -103,23 +113,20 @@
   outline: none;
   transition: all 0.2s ease;
   max-width: 100%;
+  border-left: 3px solid #d32f2f; // Keep red border for visual indication
 
   &:focus {
     box-shadow: 0 0 0 2px rgba(211, 47, 47, 0.4);
     outline: 2px solid transparent;
-  }
-
-  &:hover {
-    background-color: rgba(211, 47, 47, 0.15);
   }
 }
 
 // Visual indicator for fields with errors
 input[aria-invalid="true"],
 select[aria-invalid="true"] {
-  border: 2px solid #d32f2f;
-  background-color: #f9f9f9;
-  box-shadow: 0 0 0 1px rgba(211, 47, 47, 0.2);
+  border: 2px solid var(--primary-yellow); // Changed from red to yellow for better visibility
+  background-color: rgba(255, 255, 255, 0.9); // Slightly transparent white
+  box-shadow: 0 0 0 1px rgba(244, 206, 20, 0.4); // Yellow glow
 }
 
 // Date input styling
