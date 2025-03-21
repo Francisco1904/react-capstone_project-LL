@@ -9,10 +9,10 @@ function Hero() {
         <div className="hero-text">
           <h1>Little Lemon</h1>
           <h2>Chicago</h2>
-          <p>
+          <h3>
             We are a family-owned Mediterranean restaurant, focused on
             traditional recipes served with a modern twist.
-          </p>
+          </h3>
           <Link to="/reservations">
             <button>Reserve a Table</button>
           </Link>

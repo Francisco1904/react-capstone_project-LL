@@ -24,7 +24,7 @@
 }
 
 @mixin card-title {
-  font-size: var(--font-size-card-title);
+  font-size: 1.5rem; // Increased from var(--font-size-card-title) to a larger size
   font-family: var(--font-primary);
   font-weight: var(--font-weight-bold);
   line-height: var(--line-height-tight);

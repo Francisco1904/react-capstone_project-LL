@@ -26,9 +26,6 @@ function Footer() {
             <li>
               <Link to="/order-online">Order Online</Link>
             </li>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
           </ul>
         </nav>
         <aside className="footer-contact">

@@ -43,7 +43,7 @@ function MenuPage() {
       {
         id: 4,
         title: "Calamari",
-        price: 11.99,
+        price: 5.99,
         description:
           "Tender squid rings lightly coated in seasoned flour and fried to golden perfection. Served with our house-made lemon aioli dip.",
         image: calamari,
@@ -52,7 +52,7 @@ function MenuPage() {
       {
         id: 6,
         title: "Egg Crisps",
-        price: 8.99,
+        price: 5.99,
         description:
           "Delicate egg crisps topped with smoked salmon, dill cream, and capers. A delightful texture contrast in every bite.",
         image: eggCrisps,

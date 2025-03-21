@@ -2,12 +2,9 @@ import React from "react";
 import Card from "./Card";
 import ReviewCard from "./ReviewCard";
 
-// Update food images to use menu_items subfolder
 import greekSalad from "../assets/menu_items/greek_salad.jpg";
 import bruschetta from "../assets/menu_items/bruschettttte.jpg";
 import lemonDessert from "../assets/menu_items/lemon_dessert.jpg";
-
-// Import about section images (these remain in the original location)
 import restaurant from "../assets/restaurant.jpg";
 import owners from "../assets/Mario and Adrian A.jpg";
 
@@ -119,7 +116,7 @@ function MainSection() {
 
       {/* About */}
       <section className="about">
-        <div className="about-container">
+        <div className="container">
           <div className="about-content">
             <h2>Little Lemon</h2>
             <h3>Chicago</h3>

@@ -17,6 +17,8 @@
     h2 {
       @include section-title;
       color: var(--color-dark-grey);
+      font-size: 2rem; // Increased size for better visibility
+      text-transform: none; // Remove text transform to show as "This Week's Specials"
     }
 
     button {
@@ -69,15 +71,23 @@
 
   &-title {
     @include card-title;
+    font-size: 1.5rem; // Increased from original size for better visibility
+    margin: 0;
+    color: var(--color-dark-grey);
+    font-weight: var(--font-weight-bold);
   }
 
   &-price {
     @include category-text;
     color: var(--secondary-salmon);
+    font-weight: var(
+      --font-weight-regular
+    ); // Changed from font-weight-extra-bold to regular
   }
 
   &-description {
-    @include paragraph;
+    font-size: 1.0625rem; // Slightly increase from 1rem to 17px
+    line-height: 1.5;
     flex-grow: 1;
     color: #555;
     margin-bottom: 1.5rem;
