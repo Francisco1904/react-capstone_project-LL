@@ -718,6 +718,86 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   pointer-events: auto; /* Make sure it's clickable */
 }
 
+/* Floating cart button styles */
+.floating-cart-btn {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 50;
+  background-color: var(--primary-green);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius-medium);
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: transform var(--transition-fast),
+    background-color var(--transition-fast);
+}
+
+.floating-cart-btn:hover {
+  background-color: #3d4f49; /* Slightly darker green */
+  transform: translateY(-3px);
+}
+
+.floating-cart-btn:active {
+  transform: translateY(0);
+}
+
+.floating-cart-btn .cart-icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.floating-cart-btn .cart-text {
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-bottom: 0.25rem;
+}
+
+.floating-cart-btn .cart-count {
+  font-size: 0.85rem;
+  background-color: var(--primary-yellow);
+  color: var(--highlight-dark);
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  margin-top: 0.25rem;
+  font-weight: 600;
+}
+
+/* Responsive adjustments for the floating cart button */
+@media (max-width: 768px) {
+  .floating-cart-btn {
+    bottom: 1.5rem;
+    right: 1.5rem;
+    padding: 0.75rem 1rem;
+  }
+
+  .floating-cart-btn .cart-icon {
+    font-size: 1.25rem;
+  }
+
+  .floating-cart-btn .cart-text {
+    font-size: 0.8rem;
+  }
+
+  .floating-cart-btn .cart-count {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 425px) {
+  .floating-cart-btn {
+    bottom: 1rem;
+    right: 1rem;
+    padding: 0.6rem 0.8rem;
+  }
+}
+
 /* RESPONSIVE BREAKPOINTS */
 @media (max-width: 1200px) {
   .specials-grid {
@@ -800,6 +880,149 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   .form-row {
     grid-template-columns: 1fr;
     gap: 1rem;
+  }
+
+  /* Remove clickable card behavior on mobile */
+  .menu-card,
+  .menu-card-mobile {
+    cursor: default;
+  }
+
+  .menu-card:hover,
+  .menu-card-mobile:hover {
+    transform: none;
+    box-shadow: var(--shadow-medium);
+  }
+
+  .order-card-container {
+    cursor: default;
+  }
+
+  .order-card-container:hover {
+    transform: none;
+  }
+
+  .order-card-container:after {
+    content: none;
+  }
+
+  /* Make the Add to Cart hint more prominent */
+  .menu-card .add-to-cart-hint,
+  .menu-card-mobile .add-to-cart-hint {
+    color: var(--primary-yellow);
+    font-weight: 700;
+  }
+
+  /* Completely remove clickable card behavior on mobile */
+  .menu-card,
+  .menu-card-mobile {
+    cursor: default !important;
+    pointer-events: none !important;
+  }
+
+  /* Hide the "Add to cart" text on mobile */
+  .order-card-container .add-to-cart-hint,
+  .menu-card .add-to-cart-hint,
+  .menu-card-mobile .add-to-cart-hint {
+    display: none !important;
+  }
+
+  .menu-card:hover,
+  .menu-card-mobile:hover {
+    transform: none !important;
+    box-shadow: var(--shadow-medium) !important;
+  }
+
+  .order-card-container {
+    cursor: default !important;
+    pointer-events: none !important;
+  }
+
+  .order-card-container:hover {
+    transform: none !important;
+  }
+
+  .order-card-container:after {
+    content: none !important;
+  }
+
+  /* Make sure the Add to Cart button remains clickable */
+  .btn-add-to-cart,
+  .menu-card img,
+  .menu-card-mobile img {
+    pointer-events: auto !important;
+  }
+
+  /* Make the Add to Cart hint more prominent */
+  .menu-card .add-to-cart-hint,
+  .menu-card-mobile .add-to-cart-hint {
+    color: var(--primary-yellow);
+    font-weight: 700;
+  }
+
+  /* Only disable clickable behavior for Order Online page on mobile */
+  .order-page .menu-card,
+  .order-page .menu-card-mobile {
+    cursor: default !important;
+    pointer-events: none !important;
+  }
+
+  /* Hide the "Add to cart" text only in Order Online page */
+  .order-page .add-to-cart-hint,
+  .order-page .menu-card .add-to-cart-hint,
+  .order-page .menu-card-mobile .add-to-cart-hint {
+    display: none !important;
+  }
+
+  .order-page .menu-card:hover,
+  .order-page .menu-card-mobile:hover {
+    transform: none !important;
+    box-shadow: var(--shadow-medium) !important;
+  }
+
+  /* Keep the order card container styles (for the Order Online page) */
+  .order-card-container {
+    cursor: default !important;
+    pointer-events: none !important;
+  }
+
+  .order-card-container:hover {
+    transform: none !important;
+  }
+
+  .order-card-container:after {
+    content: none !important;
+  }
+
+  /* Make sure the Add to Cart button remains clickable */
+  .btn-add-to-cart,
+  .menu-card img,
+  .menu-card-mobile img {
+    pointer-events: auto !important;
+  }
+
+  /* Style for Home page and Menu page cards - keep them clickable */
+  .specials .menu-card,
+  .menu-page .menu-card,
+  .specials .menu-card-mobile,
+  .menu-page .menu-card-mobile {
+    cursor: pointer !important;
+    pointer-events: auto !important;
+  }
+
+  .specials .menu-card:hover,
+  .menu-page .menu-card:hover,
+  .specials .menu-card-mobile:hover,
+  .menu-page .menu-card-mobile:hover {
+    transform: translateY(-5px) !important;
+  }
+
+  /* Keep the "Order a delivery" text visible on homepage cards */
+  .specials .add-to-cart-hint,
+  .menu-page .add-to-cart-hint {
+    display: flex !important;
+    color: var(--primary-yellow);
+    font-weight: 700;
   }
 }
 

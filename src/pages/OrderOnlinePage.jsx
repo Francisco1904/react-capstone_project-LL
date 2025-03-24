@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Card from "../Components/Card";
 
 // Import the same food images used in MenuPage
@@ -204,6 +204,47 @@ function OrderOnlinePage() {
     localStorage.setItem("lemonCart", JSON.stringify(cart));
   }, [cart]);
 
+  // Add responsive listener to detect mobile viewport
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Add effect to show notification when new items are added via navigation
+  useEffect(() => {
+    // Check if this was a navigation from another page
+    // with an item already added to the cart
+    const params = new URLSearchParams(location.search);
+    const fromNav = params.get("fromNav") === "true";
+
+    if (fromNav) {
+      // Get the most recently added item
+      const cartItems = JSON.parse(localStorage.getItem("lemonCart") || "[]");
+      if (cartItems.length > 0) {
+        const latestItem = cartItems[cartItems.length - 1];
+
+        // Show notification about the added item
+        setNotification({
+          visible: true,
+          message: `${latestItem.title} added to your cart!`,
+          type: "success",
+        });
+
+        // Update internal cart state
+        setCart(cartItems);
+
+        // Clean up the URL
+        window.history.replaceState({}, document.title, "/order-online");
+      }
+    }
+  }, [location]);
+
   // Modify addToCart to show notification
   const addToCart = (item) => {
     setCart((prevCart) => {
@@ -274,6 +315,17 @@ function OrderOnlinePage() {
       .toFixed(2);
   };
 
+  // Add reference to cart summary section
+  const cartSummaryRef = useRef(null);
+
+  // Function to scroll to the cart section
+  const scrollToCart = () => {
+    cartSummaryRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  // Calculate total items in cart
+  const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+
   return (
     <main className="page-container" aria-live="polite">
       {/* Add notification component */}
@@ -284,6 +336,21 @@ function OrderOnlinePage() {
       >
         <div className="notification-content">{notification.message}</div>
       </div>
+
+      {/* Floating cart button */}
+      {totalItems > 0 && (
+        <button
+          className="floating-cart-btn"
+          onClick={scrollToCart}
+          aria-label={`View cart with ${totalItems} items`}
+        >
+          <span className="cart-icon">🛒</span>
+          <span className="cart-text">View Cart</span>
+          <span className="cart-count">
+            {totalItems} {totalItems === 1 ? "Item" : "Items"}
+          </span>
+        </button>
+      )}
 
       <section className="order-page">
         <h1>Order Online</h1>
@@ -341,16 +408,20 @@ function OrderOnlinePage() {
             <div
               key={item.id}
               className="order-card-container"
-              onClick={() => addToCart(item)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  addToCart(item);
-                }
-              }}
-              tabIndex={0}
-              role="button"
-              aria-label={`Add ${item.title} to cart`}
+              onClick={isMobile ? undefined : () => addToCart(item)}
+              onKeyDown={
+                isMobile
+                  ? undefined
+                  : (e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        addToCart(item);
+                      }
+                    }
+              }
+              tabIndex={isMobile ? undefined : 0}
+              role={isMobile ? undefined : "button"}
+              aria-label={isMobile ? undefined : `Add ${item.title} to cart`}
             >
               <Card
                 title={item.title}
@@ -374,7 +445,12 @@ function OrderOnlinePage() {
         </div>
 
         {/* Shopping cart */}
-        <div className="cart-summary" aria-live="polite">
+        <div
+          className="cart-summary"
+          aria-live="polite"
+          ref={cartSummaryRef}
+          id="cart-summary"
+        >
           <h2>Your Order Summary</h2>
 
           {cart.length === 0 ? (

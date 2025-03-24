@@ -145,6 +145,39 @@
       gap: 1rem;
     }
   }
+
+  // Only disable card click interaction for Order Online page on mobile
+  // Keep homepage and menu page cards clickable
+  .order-page .menu-card,
+  .order-page .menu-card-mobile {
+    cursor: default;
+    pointer-events: none;
+
+    &:hover {
+      transform: none;
+      box-shadow: var(--shadow-medium);
+    }
+
+    // Re-enable pointer events just for specific elements
+    img,
+    .btn-add-to-cart,
+    a {
+      pointer-events: auto;
+    }
+  }
+
+  // Ensure cards in specials section and menu page remain clickable
+  .specials .menu-card,
+  .menu-page .menu-card,
+  .specials .menu-card-mobile,
+  .menu-page .menu-card-mobile {
+    cursor: pointer !important;
+    pointer-events: auto !important;
+
+    &:hover {
+      transform: translateY(-5px) !important;
+    }
+  }
 }
 
 @include breakpoint(xs) {

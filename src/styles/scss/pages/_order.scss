@@ -325,6 +325,57 @@
   }
 }
 
+// Floating cart button
+.floating-cart-btn {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 50;
+  background-color: var(--primary-green);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius-medium);
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: transform var(--transition-fast),
+    background-color var(--transition-fast);
+
+  &:hover {
+    background-color: darken($primary-green, 5%);
+    transform: translateY(-3px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  .cart-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .cart-text {
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .cart-count {
+    font-size: 0.85rem;
+    background-color: var(--primary-yellow);
+    color: var(--highlight-dark);
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--border-radius-full);
+    margin-top: 0.25rem;
+    font-weight: 600;
+  }
+}
+
 // Media Queries
 @include breakpoint(lg) {
   .order-grid {
@@ -345,6 +396,62 @@
 
   .cart-summary {
     margin: 1.5rem 1rem;
+  }
+
+  // Completely remove clickable behavior on mobile - for order page only
+  .order-page .order-card-container,
+  .order-card-container {
+    cursor: default;
+    pointer-events: none;
+
+    &:hover {
+      transform: none;
+    }
+
+    &:after {
+      content: none; // Remove the hover text
+    }
+
+    // Hide the "Add to cart" text on mobile - only in Order Online page
+    .add-to-cart-hint {
+      display: none;
+    }
+
+    // Make the Add to Cart button more prominent
+    .btn-add-to-cart {
+      pointer-events: auto;
+      background-color: var(--primary-yellow);
+      color: var(--highlight-dark);
+      font-weight: 700;
+      padding: 0.75rem;
+      width: 100%;
+      text-align: center;
+      z-index: 10; // Ensure it's above other elements
+
+      &:hover {
+        background-color: darken(#f4ce14, 10%);
+        transform: translateY(-2px);
+      }
+    }
+  }
+
+  // Adjust floating cart button for mobile
+  .floating-cart-btn {
+    bottom: 1.5rem;
+    right: 1.5rem;
+    padding: 0.75rem 1rem;
+
+    .cart-icon {
+      font-size: 1.25rem;
+    }
+
+    .cart-text {
+      font-size: 0.8rem;
+    }
+
+    .cart-count {
+      font-size: 0.75rem;
+    }
   }
 }
 
@@ -406,5 +513,12 @@
   .checkout-btn {
     padding: 0.7rem;
     font-size: 1rem;
+  }
+
+  // Further adjust floating cart button for small mobile
+  .floating-cart-btn {
+    bottom: 1rem;
+    right: 1rem;
+    padding: 0.6rem 0.8rem;
   }
 }

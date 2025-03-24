@@ -1,15 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 function Card({ title, price, description, imageSrc, imageAlt }) {
   const location = useLocation();
   const navigate = useNavigate();
   const isOrderPage = location.pathname === "/order-online";
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  // Add responsive listener to detect mobile viewport
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const handleCardClick = () => {
+    // Skip only if we're on mobile AND on the order page
+    // This allows clicks on home page and menu page even on mobile
+    if (isMobile && isOrderPage) return;
+
     // Create item object
     const item = {
-      id: title.toLowerCase().replace(/\s+/g, "-"), // Generate an ID if not provided
+      id: title.toLowerCase().replace(/\s+/g, "-"),
       title,
       price,
       description,
@@ -40,12 +55,19 @@ function Card({ title, price, description, imageSrc, imageAlt }) {
 
     // Navigate to order page if not already there
     if (!isOrderPage) {
-      navigate("/order-online");
+      // Add a query parameter to indicate that we came from navigation
+      // and should show a notification
+      navigate("/order-online?fromNav=true");
     }
   };
 
   return (
-    <article className="menu-card" onClick={handleCardClick}>
+    <article
+      className={`menu-card ${isMobile ? "menu-card-mobile" : ""}`}
+      onClick={handleCardClick}
+      role={isMobile && isOrderPage ? undefined : "button"}
+      tabIndex={isMobile && isOrderPage ? undefined : 0}
+    >
       <img src={imageSrc} alt={imageAlt} className="menu-card-image" />
       <div className="menu-card-content">
         <div className="menu-card-header">
