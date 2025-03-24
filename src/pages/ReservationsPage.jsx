@@ -332,8 +332,10 @@ function ReservationsPage() {
       <section className="reservations-section container">
         <h1>Reservations</h1>
         <p>
-          Book your table at Little Lemon and enjoy our delicious Mediterranean
-          cuisine.
+ 
+            {" "}        Bok ryour table at Little Lemon and enjoy our delicious Medit
+ e          rranean
+     .
         </p>
 
         {/* Show error message when submission fails */}

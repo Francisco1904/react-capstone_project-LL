@@ -17,6 +17,21 @@
     font-size: var(--font-size-heading-4);
     font-weight: 700;
   }
+
+  // Add generic styling for all links within the footer
+  a {
+    color: var(
+      --color-light-grey
+    ) !important; // Use !important to override global link styles
+    text-decoration: underline; // Add underline to make links visibly clickable
+    transition: color var(--transition-fast),
+      text-decoration var(--transition-fast);
+
+    &:hover {
+      color: var(--primary-yellow) !important; // Keep hover state consistent
+      text-decoration: none; // Remove underline on hover for better interaction feedback
+    }
+  }
 }
 
 .footer-container {
@@ -49,7 +64,8 @@
 }
 
 .footer-nav,
-.footer-social {
+.footer-social,
+.footer-contact {
   ul {
     list-style: none;
     padding-left: 0;
@@ -58,12 +74,14 @@
 
   a {
     color: var(--color-light-grey);
-    text-decoration: none;
+    text-decoration: underline; // Add underline to all links
     line-height: 2;
-    transition: color var(--transition-fast);
+    transition: color var(--transition-fast),
+      text-decoration var(--transition-fast);
 
     &:hover {
       color: var(--primary-yellow);
+      text-decoration: none; // Remove underline on hover
     }
   }
 }

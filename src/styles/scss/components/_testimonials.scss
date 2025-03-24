@@ -7,20 +7,25 @@
 
 // Testimonials Section
 .testimonials {
+  width: 100%; // Add this to ensure full width
   background-color: var(--secondary-peach);
-  padding: 3rem 32px 5rem 32px;
+  padding: 3rem 0 5rem; // Remove horizontal padding
   text-align: center;
 
   h2 {
     @include section-title;
     margin-bottom: 2.5rem;
     color: var(--color-dark-grey);
+    padding: 0 2rem; // Add padding here instead
   }
 
   &-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1.5rem;
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 2rem; // Add padding here for consistent container feel
   }
 }
 

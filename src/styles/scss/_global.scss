@@ -51,6 +51,8 @@ body {
   padding-top: 2rem;
   padding-bottom: 3rem;
   box-sizing: border-box;
+  max-width: 100vw; // Use viewport width to ensure no overflow
+  overflow-x: hidden; // Prevent any horizontal scrolling
 
   h1 {
     color: var(--primary-green);
@@ -140,39 +142,5 @@ textarea {
 
   .page-section {
     padding: 1.5rem;
-  }
-}
-
-@include breakpoint(xs) {
-  .container,
-  .page-section,
-  .page-container {
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
-  }
-
-  .page-container {
-    padding-top: 1rem;
-    padding-bottom: 1.5rem;
-  }
-
-  .page-section {
-    padding: 1rem;
-  }
-
-  h1 {
-    font-size: 1.8rem;
-  }
-
-  h2 {
-    font-size: 1.5rem;
-  }
-
-  h3 {
-    font-size: 1.3rem;
-  }
-
-  p {
-    font-size: 0.9rem;
   }
 }

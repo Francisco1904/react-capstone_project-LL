@@ -6,7 +6,7 @@
 
 .about-page {
   @include container;
-  padding-top: 2rem;
+  padding-top: 0; // Changed from 2rem to 0
   padding-bottom: 3rem;
 
   h1 {
@@ -39,6 +39,7 @@
     margin-bottom: 1.5rem;
     font-size: 1.125rem; // 18px
     line-height: 1.6;
+    text-align: left; // Add explicit left alignment
   }
 
   &.reverse {
@@ -63,7 +64,7 @@
 // Media Queries
 @include breakpoint(md) {
   .about-page {
-    padding-top: 1.5rem;
+    padding-top: 0; // Changed from 1.5rem to 0
     padding-bottom: 2rem;
   }
 
@@ -93,7 +94,7 @@
 
 @include breakpoint(xs) {
   .about-page {
-    padding-top: 1rem;
+    padding-top: 0; // Changed from 1rem to 0
     padding-bottom: 1.5rem;
 
     h1 {

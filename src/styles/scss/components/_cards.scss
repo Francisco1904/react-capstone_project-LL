@@ -7,12 +7,14 @@
 
 // Specials Section
 .specials {
-  padding: 5rem 2rem 2rem;
+  width: 100%; // Add this to ensure full width
+  padding: 5rem 0 2rem; // Adjust padding to remove left/right padding
   background-color: white;
 
   &-header {
     @include flex(row, space-between, center);
     margin-bottom: 2rem;
+    padding: 0 2rem; // Add padding here instead
 
     h2 {
       @include section-title;
@@ -28,6 +30,7 @@
 
   &-grid {
     @include grid(repeat(3, 1fr), 2rem);
+    padding: 0 2rem; // Add padding here for consistent container feel
   }
 }
 

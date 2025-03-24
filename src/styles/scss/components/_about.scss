@@ -21,12 +21,12 @@
     h2 {
       font-size: var(--font-size-heading-2);
       color: var(--color-dark-grey);
-      margin-bottom: 1rem;
+      margin-bottom: 0rem; // Reduced to 0 to keep h3 very close
     }
 
     h3 {
       color: var(--highlight-dark);
-      margin-bottom: 1.5rem;
+      margin-bottom: 2.5rem; // Increased from 1.5rem to create more space before paragraph
     }
 
     p {

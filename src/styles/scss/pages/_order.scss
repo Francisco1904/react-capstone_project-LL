@@ -6,7 +6,7 @@
 
 .order-page {
   @include container;
-  padding-top: 2rem;
+  padding-top: 0; // Changed from 2rem to 0
   padding-bottom: 3rem;
 
   h1 {
@@ -291,8 +291,8 @@
 
 // Cart notification styles
 .cart-notification {
-  position: sticky;
-  top: var(--header-height);
+  position: fixed; // Change from sticky to fixed
+  top: var(--header-height); // Keep the top position
   left: 0;
   right: 0;
   z-index: 100;
@@ -385,7 +385,7 @@
 
 @include breakpoint(md) {
   .order-page {
-    padding-top: 1.5rem;
+    padding-top: 0; // Changed from 1.5rem to 0
     padding-bottom: 2rem;
   }
 
@@ -457,7 +457,7 @@
 
 @include breakpoint(xs) {
   .order-page {
-    padding-top: 1rem;
+    padding-top: 0; // Changed from 1rem to 0
     padding-bottom: 1.5rem;
 
     h1 {

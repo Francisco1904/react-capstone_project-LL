@@ -30,16 +30,20 @@
   h1 {
     @include display-title;
     color: var(--primary-yellow);
-    margin: 0 0 0rem 0; // Reduced bottom margin to bring h2 closer
-    font-size: 4.5rem; // Increased size
+    margin: 0; // Remove all margins
+    padding: 0; // Remove any padding
+    font-size: 4.5rem;
     font-weight: var(--font-weight-bold);
+    line-height: 0.9; // Tighten line height to bring h2 closer
   }
 
   h2 {
     @include subtitle;
     color: white;
-    margin: 0 0 2rem 0; // Increased bottom margin to create more space before h3
-    font-size: 3rem; // Increased size
+    margin: 0 0 3rem 0; // Keep bottom margin at 3rem for spacing after Chicago
+    padding: 0; // Remove any padding
+    font-size: 3rem;
+    line-height: 1; // Tighter line height
   }
 
   // Change p to h3 for better hierarchy and more prominence
@@ -116,43 +120,5 @@
       transform: translateY(0);
       max-width: 300px;
     }
-  }
-}
-
-@include breakpoint(xs) {
-  .hero {
-    height: auto;
-    padding: 10px 20px;
-  }
-
-  .hero-container {
-    gap: 1rem;
-  }
-
-  .hero-text {
-    text-align: center;
-    padding: 0.5rem 0;
-
-    h1 {
-      font-size: 2.5rem;
-    }
-
-    h2 {
-      font-size: 1.5rem;
-    }
-
-    p {
-      font-size: 24px; // Smaller subtitle text
-      margin-bottom: 1.5rem;
-    }
-
-    button {
-      padding: 0.6rem 1.2rem;
-      font-size: 0.9rem;
-    }
-  }
-
-  .hero-image img {
-    max-width: 220px; // Smaller hero image
   }
 }

@@ -6,7 +6,7 @@
 
 .menu-page {
   @include container;
-  padding-top: 2rem;
+  padding-top: 0; // Changed from 2rem to 0
   padding-bottom: 3rem;
 
   h1 {
@@ -78,7 +78,7 @@
 
 @include breakpoint(md) {
   .menu-page {
-    padding-top: 1.5rem;
+    padding-top: 0; // Changed from 1.5rem to 0
     padding-bottom: 2rem;
 
     .menu-category-title {
@@ -95,7 +95,7 @@
 
 @include breakpoint(xs) {
   .menu-page {
-    padding-top: 1rem;
+    padding-top: 0; // Changed from 1rem to 0
     padding-bottom: 1.5rem;
 
     h1 {
