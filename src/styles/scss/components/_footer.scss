@@ -49,8 +49,7 @@
 }
 
 .footer-nav,
-.footer-social,
-.footer-contact {
+.footer-social {
   ul {
     list-style: none;
     padding-left: 0;
@@ -83,5 +82,32 @@
 
   .footer-container {
     gap: 1.5rem;
+  }
+}
+
+@include breakpoint(xs) {
+  .footer {
+    padding: 1.5rem 0;
+  }
+
+  .footer-container {
+    gap: 1.2rem;
+  }
+
+  .footer-logo img {
+    max-width: 170px;
+    margin-bottom: 0.5rem;
+  }
+
+  .footer h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-nav a,
+  .footer-social a,
+  .footer-contact p {
+    font-size: 0.9rem;
+    line-height: 1.8;
   }
 }

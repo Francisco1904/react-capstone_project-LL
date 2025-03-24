@@ -21,215 +21,250 @@ import littleLemonSalad from "../assets/menu_items/the_little_lemon_salad.jpeg";
 function OrderOnlinePage() {
   // State management
   const [activeCategory, setActiveCategory] = useState("appetizers");
-  const [cart, setCart] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [menuItems, setMenuItems] = useState(null);
-
-  // Fetch menu data (simulated API call)
-  useEffect(() => {
-    setIsLoading(true);
-    setError(null);
-
-    // Simulate API fetch with timeout
-    const fetchTimeout = setTimeout(() => {
-      try {
-        // Using the same menu data structure as MenuPage
-        setMenuItems({
-          appetizers: [
-            {
-              id: "a1",
-              title: "Bruschetta",
-              price: 5.99,
-              description:
-                "Our Bruschetta is made from grilled bread that has been smeared with garlic and seasoned with salt and olive oil.",
-              image: bruschetta,
-              alt: "Bruschetta",
-            },
-            {
-              id: "a2",
-              title: "Garlic Bread",
-              price: 4.99,
-              description:
-                "Freshly baked bread topped with garlic butter, parsley, and a blend of Mediterranean herbs.",
-              image: garlicBread,
-              alt: "Garlic Bread",
-            },
-            {
-              id: "a3",
-              title: "Calamari",
-              price: 5.99,
-              description:
-                "Tender squid rings lightly coated in seasoned flour and fried to golden perfection.",
-              image: calamari,
-              alt: "Fried Calamari",
-            },
-            {
-              id: "a4",
-              title: "Egg Crisps",
-              price: 5.99,
-              description:
-                "Delicate egg crisps topped with smoked salmon, dill cream, and capers.",
-              image: eggCrisps,
-              alt: "Egg Crisps Appetizer",
-            },
-            {
-              id: "a5",
-              title: "Ricotta",
-              price: 9.99,
-              description:
-                "House-made ricotta served with toasted sourdough, drizzled with local honey.",
-              image: ricotta,
-              alt: "Fresh Ricotta Appetizer",
-            },
-          ],
-          mains: [
-            {
-              id: "m1",
-              title: "Greek Salad",
-              price: 12.99,
-              description:
-                "The famous greek salad of crispy lettuce, peppers, olives and our Chicago style feta cheese.",
-              image: greekSalad,
-              alt: "Greek Salad",
-            },
-            {
-              id: "m2",
-              title: "Little Lemon Salad",
-              price: 10.99,
-              description:
-                "Our signature salad featuring seasonal greens, citrus segments, avocado, pine nuts, and a refreshing lemon vinaigrette.",
-              image: littleLemonSalad,
-              alt: "The Little Lemon Salad",
-            },
-            {
-              id: "m3",
-              title: "Mediterranean Pasta",
-              price: 18.99,
-              description:
-                "Al dente pasta tossed with sun-dried tomatoes, olives, feta cheese, and fresh herbs.",
-              image: pasta,
-              alt: "Mediterranean Pasta",
-            },
-            {
-              id: "m4",
-              title: "Grilled Fish",
-              price: 22.99,
-              description:
-                "Catch of the day grilled to perfection with olive oil, lemon, and Mediterranean herbs.",
-              image: grilled_fish,
-              alt: "Grilled Fish",
-            },
-            {
-              id: "m5",
-              title: "Mediterranean Risotto",
-              price: 19.99,
-              description:
-                "Creamy arborio rice slowly cooked with white wine and vegetable broth.",
-              image: mediterranianRisotto,
-              alt: "Mediterranean Risotto",
-            },
-          ],
-          desserts: [
-            {
-              id: "d1",
-              title: "Lemon Dessert",
-              price: 5.0,
-              description:
-                "This comes straight from grandma's recipe book, every last ingredient has been sourced and is as authentic as can be imagined.",
-              image: lemonDessert,
-              alt: "Lemon Dessert",
-            },
-            {
-              id: "d2",
-              title: "Baklava",
-              price: 7.99,
-              description:
-                "Layers of flaky phyllo dough filled with chopped nuts and sweetened with honey syrup.",
-              image: baklava,
-              alt: "Baklava",
-            },
-            {
-              id: "d3",
-              title: "Tiramisu",
-              price: 8.99,
-              description:
-                "Classic Italian dessert made with layers of coffee-soaked ladyfingers and mascarpone cream.",
-              image: tiramisu,
-              alt: "Tiramisu",
-            },
-            {
-              id: "d4",
-              title: "Mousse au Chocolat",
-              price: 8.99,
-              description:
-                "Rich and airy chocolate mousse made with premium dark chocolate.",
-              image: mousseChocolat,
-              alt: "Chocolate Mousse",
-            },
-            {
-              id: "d5",
-              title: "Cheesecake",
-              price: 7.99,
-              description:
-                "Creamy New York style cheesecake with a buttery graham cracker crust.",
-              image: cheesecake,
-              alt: "Cheesecake",
-            },
-          ],
-        });
-        setIsLoading(false);
-      } catch (error) {
-        setError("Failed to load menu items. Please try again later.");
-        setIsLoading(false);
-      }
-    }, 500); // Simulate loading delay
-
-    // Clean up timeout
-    return () => clearTimeout(fetchTimeout);
-  }, []);
-
-  // Add item to cart
-  const addToCart = (item) => {
-    // Check if item is already in cart
-    const existingItemIndex = cart.findIndex(
-      (cartItem) => cartItem.id === item.id
-    );
-
-    if (existingItemIndex !== -1) {
-      // If item exists, increase quantity
-      const updatedCart = [...cart];
-      updatedCart[existingItemIndex] = {
-        ...updatedCart[existingItemIndex],
-        quantity: updatedCart[existingItemIndex].quantity + 1,
-      };
-      setCart(updatedCart);
-    } else {
-      // Otherwise add new item with quantity 1
-      setCart([...cart, { ...item, quantity: 1 }]);
+  const [cart, setCart] = useState(() => {
+    try {
+      // Get cart from localStorage when component mounts
+      const savedCart = localStorage.getItem("lemonCart");
+      return savedCart ? JSON.parse(savedCart) : [];
+    } catch (error) {
+      console.error("Error loading cart from localStorage:", error);
+      return [];
     }
+  });
+
+  // Initialize menu items directly instead of using a simulated API call
+  const [menuItems] = useState({
+    appetizers: [
+      {
+        id: "a1",
+        title: "Bruschetta",
+        price: 5.99,
+        description:
+          "Our Bruschetta is made from grilled bread that has been smeared with garlic and seasoned with salt and olive oil.",
+        image: bruschetta,
+        alt: "Bruschetta",
+      },
+      {
+        id: "a2",
+        title: "Garlic Bread",
+        price: 4.99,
+        description:
+          "Freshly baked bread topped with garlic butter, parsley, and a blend of Mediterranean herbs.",
+        image: garlicBread,
+        alt: "Garlic Bread",
+      },
+      {
+        id: "a3",
+        title: "Calamari",
+        price: 5.99,
+        description:
+          "Tender squid rings lightly coated in seasoned flour and fried to golden perfection.",
+        image: calamari,
+        alt: "Fried Calamari",
+      },
+      {
+        id: "a4",
+        title: "Egg Crisps",
+        price: 5.99,
+        description:
+          "Delicate egg crisps topped with smoked salmon, dill cream, and capers.",
+        image: eggCrisps,
+        alt: "Egg Crisps Appetizer",
+      },
+      {
+        id: "a5",
+        title: "Ricotta",
+        price: 9.99,
+        description:
+          "House-made ricotta served with toasted sourdough, drizzled with local honey.",
+        image: ricotta,
+        alt: "Fresh Ricotta Appetizer",
+      },
+    ],
+    mains: [
+      {
+        id: "m1",
+        title: "Greek Salad",
+        price: 12.99,
+        description:
+          "The famous greek salad of crispy lettuce, peppers, olives and our Chicago style feta cheese.",
+        image: greekSalad,
+        alt: "Greek Salad",
+      },
+      {
+        id: "m2",
+        title: "Little Lemon Salad",
+        price: 10.99,
+        description:
+          "Our signature salad featuring seasonal greens, citrus segments, avocado, pine nuts, and a refreshing lemon vinaigrette.",
+        image: littleLemonSalad,
+        alt: "The Little Lemon Salad",
+      },
+      {
+        id: "m3",
+        title: "Mediterranean Pasta",
+        price: 18.99,
+        description:
+          "Al dente pasta tossed with sun-dried tomatoes, olives, feta cheese, and fresh herbs.",
+        image: pasta,
+        alt: "Mediterranean Pasta",
+      },
+      {
+        id: "m4",
+        title: "Grilled Fish",
+        price: 22.99,
+        description:
+          "Catch of the day grilled to perfection with olive oil, lemon, and Mediterranean herbs.",
+        image: grilled_fish,
+        alt: "Grilled Fish",
+      },
+      {
+        id: "m5",
+        title: "Mediterranean Risotto",
+        price: 19.99,
+        description:
+          "Creamy arborio rice slowly cooked with white wine and vegetable broth.",
+        image: mediterranianRisotto,
+        alt: "Mediterranean Risotto",
+      },
+    ],
+    desserts: [
+      {
+        id: "d1",
+        title: "Lemon Dessert",
+        price: 5.0,
+        description:
+          "This comes straight from grandma's recipe book, every last ingredient has been sourced and is as authentic as can be imagined.",
+        image: lemonDessert,
+        alt: "Lemon Dessert",
+      },
+      {
+        id: "d2",
+        title: "Baklava",
+        price: 7.99,
+        description:
+          "Layers of flaky phyllo dough filled with chopped nuts and sweetened with honey syrup.",
+        image: baklava,
+        alt: "Baklava",
+      },
+      {
+        id: "d3",
+        title: "Tiramisu",
+        price: 8.99,
+        description:
+          "Classic Italian dessert made with layers of coffee-soaked ladyfingers and mascarpone cream.",
+        image: tiramisu,
+        alt: "Tiramisu",
+      },
+      {
+        id: "d4",
+        title: "Mousse au Chocolat",
+        price: 8.99,
+        description:
+          "Rich and airy chocolate mousse made with premium dark chocolate.",
+        image: mousseChocolat,
+        alt: "Chocolate Mousse",
+      },
+      {
+        id: "d5",
+        title: "Cheesecake",
+        price: 7.99,
+        description:
+          "Creamy New York style cheesecake with a buttery graham cracker crust.",
+        image: cheesecake,
+        alt: "Cheesecake",
+      },
+    ],
+  });
+
+  // Add notification state
+  const [notification, setNotification] = useState({
+    visible: false,
+    message: "",
+    type: "success", // could be "success", "error", etc.
+  });
+
+  // Add effect to hide notification after timeout
+  useEffect(() => {
+    let timeoutId;
+
+    if (notification.visible) {
+      timeoutId = setTimeout(() => {
+        setNotification((prev) => ({ ...prev, visible: false }));
+      }, 2000);
+    }
+
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+    };
+  }, [notification.visible]);
+
+  // Update localStorage whenever cart changes
+  useEffect(() => {
+    localStorage.setItem("lemonCart", JSON.stringify(cart));
+  }, [cart]);
+
+  // Modify addToCart to show notification
+  const addToCart = (item) => {
+    setCart((prevCart) => {
+      const existingItemIndex = prevCart.findIndex(
+        (cartItem) => cartItem.id === item.id
+      );
+
+      if (existingItemIndex !== -1) {
+        // If item exists, increase quantity
+        const updatedCart = [...prevCart];
+        updatedCart[existingItemIndex] = {
+          ...updatedCart[existingItemIndex],
+          quantity: updatedCart[existingItemIndex].quantity + 1,
+        };
+
+        // Show notification with quantity
+        setNotification({
+          visible: true,
+          message: `Added another ${item.title} to your cart!`,
+          type: "success",
+        });
+
+        return updatedCart;
+      } else {
+        // Otherwise add new item with quantity 1
+        setNotification({
+          visible: true,
+          message: `${item.title} added to your cart!`,
+          type: "success",
+        });
+
+        return [...prevCart, { ...item, quantity: 1 }];
+      }
+    });
   };
 
   // Remove item from cart
   const removeFromCart = (id) => {
-    const existingItemIndex = cart.findIndex((cartItem) => cartItem.id === id);
+    setCart((prevCart) => {
+      const existingItemIndex = prevCart.findIndex(
+        (cartItem) => cartItem.id === id
+      );
 
-    if (existingItemIndex !== -1) {
-      const updatedCart = [...cart];
+      if (existingItemIndex !== -1) {
+        const updatedCart = [...prevCart];
 
-      if (updatedCart[existingItemIndex].quantity === 1) {
-        // If quantity is 1, remove the item
-        updatedCart.splice(existingItemIndex, 1);
-      } else {
-        // Otherwise decrease quantity
-        updatedCart[existingItemIndex] = {
-          ...updatedCart[existingItemIndex],
-          quantity: updatedCart[existingItemIndex].quantity - 1,
-        };
+        if (updatedCart[existingItemIndex].quantity === 1) {
+          // If quantity is 1, remove the item
+          updatedCart.splice(existingItemIndex, 1);
+        } else {
+          // Otherwise decrease quantity
+          updatedCart[existingItemIndex] = {
+            ...updatedCart[existingItemIndex],
+            quantity: updatedCart[existingItemIndex].quantity - 1,
+          };
+        }
+
+        return updatedCart;
       }
-
-      setCart(updatedCart);
-    }
+      return prevCart;
+    });
   };
 
   // Calculate cart total
@@ -239,47 +274,17 @@ function OrderOnlinePage() {
       .toFixed(2);
   };
 
-  // Handle error/loading states with proper accessibility
-  if (isLoading) {
-    return (
-      <main className="page-container" aria-live="polite">
-        <section className="order-page">
-          <h1>Order Online</h1>
-          <p>Loading our delicious menu options...</p>
-          <div
-            className="loading-spinner"
-            aria-busy="true"
-            aria-label="Loading menu items"
-          >
-            <div className="spinner"></div>
-          </div>
-        </section>
-      </main>
-    );
-  }
-
-  if (error) {
-    return (
-      <main className="page-container" aria-live="polite">
-        <section className="order-page">
-          <h1>Order Online</h1>
-          <div className="error-message" role="alert">
-            <p>{error}</p>
-            <button
-              className="btn-primary"
-              onClick={() => window.location.reload()}
-              aria-label="Reload page"
-            >
-              Try Again
-            </button>
-          </div>
-        </section>
-      </main>
-    );
-  }
-
   return (
     <main className="page-container" aria-live="polite">
+      {/* Add notification component */}
+      <div
+        className={`cart-notification ${notification.visible ? "visible" : ""}`}
+        role="status"
+        aria-live="polite"
+      >
+        <div className="notification-content">{notification.message}</div>
+      </div>
+
       <section className="order-page">
         <h1>Order Online</h1>
         <p>
@@ -332,41 +337,40 @@ function OrderOnlinePage() {
           id={`panel-${activeCategory}`}
           aria-labelledby={`tab-${activeCategory}`}
         >
-          {menuItems &&
-            menuItems[activeCategory]?.map((item) => (
-              <div
-                key={item.id}
-                className="order-card-container"
-                onClick={() => addToCart(item)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    addToCart(item);
-                  }
+          {menuItems[activeCategory]?.map((item) => (
+            <div
+              key={item.id}
+              className="order-card-container"
+              onClick={() => addToCart(item)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  addToCart(item);
+                }
+              }}
+              tabIndex={0}
+              role="button"
+              aria-label={`Add ${item.title} to cart`}
+            >
+              <Card
+                title={item.title}
+                price={item.price}
+                description={item.description}
+                imageSrc={item.image}
+                imageAlt={item.alt}
+              />
+              <button
+                className="btn-add-to-cart"
+                onClick={(e) => {
+                  e.stopPropagation(); // Prevent triggering the parent's onClick
+                  addToCart(item);
                 }}
-                tabIndex={0}
-                role="button"
                 aria-label={`Add ${item.title} to cart`}
               >
-                <Card
-                  title={item.title}
-                  price={item.price}
-                  description={item.description}
-                  imageSrc={item.image}
-                  imageAlt={item.alt}
-                />
-                <button
-                  className="btn-add-to-cart"
-                  onClick={(e) => {
-                    e.stopPropagation(); // Prevent triggering the parent's onClick
-                    addToCart(item);
-                  }}
-                  aria-label={`Add ${item.title} to cart`}
-                >
-                  Add to Cart
-                </button>
-              </div>
-            ))}
+                Add to Cart
+              </button>
+            </div>
+          ))}
         </div>
 
         {/* Shopping cart */}

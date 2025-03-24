@@ -146,3 +146,37 @@
     }
   }
 }
+
+@include breakpoint(xs) {
+  .specials {
+    padding: 2rem 1rem 1.5rem;
+
+    &-header {
+      margin-bottom: 1.5rem;
+
+      h2 {
+        font-size: 1.75rem;
+      }
+
+      button {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+      }
+    }
+  }
+
+  .menu-card {
+    &-title {
+      font-size: 1.2rem;
+    }
+
+    &-description {
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    &-image {
+      height: 180px; // Shorter image for smaller screens
+    }
+  }
+}

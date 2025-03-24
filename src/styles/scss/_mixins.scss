@@ -20,6 +20,10 @@
     @media (max-width: $breakpoint-sm) {
       @content;
     }
+  } @else if $point == xs {
+    @media (max-width: $breakpoint-xs) {
+      @content;
+    }
   }
 }
 

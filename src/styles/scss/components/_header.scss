@@ -26,7 +26,7 @@ header {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between; // Ensure this is consistent with App.css
+    justify-content: space-between; // Changed from space-evenly for consistency
     width: 100%;
     max-width: var(--container-width);
     margin: 0 auto;
@@ -90,7 +90,7 @@ nav[aria-label="Main navigation"] {
     width: 100%;
     max-width: 800px;
     justify-content: center;
-    gap: 3vw; // Use consistent gap measurement
+    gap: 3vw; // Use viewport-based gap for equal spacing
   }
 
   li {
@@ -263,5 +263,43 @@ nav[aria-label="Main navigation"] {
   .mobile-menu-open + .menu-overlay {
     opacity: 1;
     pointer-events: auto;
+  }
+}
+
+// Extra small devices (mobile phones)
+@include breakpoint(xs) {
+  header {
+    padding: 15px 0;
+  }
+
+  .image-wrapper img {
+    max-height: 50px; // Smaller logo on mobile
+  }
+
+  // Adjust mobile menu
+  nav[aria-label="Main navigation"] {
+    ul {
+      padding: 4.5rem 1rem 1.5rem;
+    }
+
+    li {
+      margin-bottom: 0.5rem;
+    }
+
+    a {
+      font-size: 1.1rem;
+      padding: 0.4rem 0.5rem;
+    }
+  }
+
+  // Smaller toggle button
+  .mobile-menu-toggle {
+    padding: 0.3rem;
+    left: 0.75rem;
+
+    img {
+      width: 22px;
+      height: 22px;
+    }
   }
 }

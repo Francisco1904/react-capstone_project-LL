@@ -78,6 +78,7 @@ $z-index-modal: 300;
 $z-index-overlay: 400;
 
 // Breakpoints
+$breakpoint-xs: 425px; // New mobile breakpoint
 $breakpoint-sm: 576px;
 $breakpoint-md: 768px;
 $breakpoint-lg: 992px;
@@ -169,6 +170,7 @@ $breakpoint-xl: 1200px;
   --z-index-overlay: #{$z-index-overlay};
 
   // Breakpoints
+  --breakpoint-xs: #{$breakpoint-xs};
   --breakpoint-sm: #{$breakpoint-sm};
   --breakpoint-md: #{$breakpoint-md};
   --breakpoint-lg: #{$breakpoint-lg};

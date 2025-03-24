@@ -662,11 +662,11 @@ main {
 }
 
 .validation-error {
-  color: #ffebee; /* Changed from #d32f2f to #FFEBEE for better readability */
+  color: #d32f2f;
   font-size: 0.85rem;
   margin-top: 5px;
   margin-left: 0;
-  background-color: #323232; /* Maintaining light grey background */
+  background-color: rgba(211, 47, 47, 0.08);
   padding: 4px 8px;
   border-radius: 4px;
   white-space: normal;
@@ -675,8 +675,15 @@ main {
   outline: none;
   transition: all 0.2s ease;
   max-width: 100%;
-  border-left: 3px solid #d32f2f; /* Keep red border for visual indication */
-  box-shadow: var(--shadow-small);
+}
+
+.validation-error:focus {
+  box-shadow: 0 0 0 2px rgba(211, 47, 47, 0.4);
+  outline: 2px solid transparent;
+}
+
+.validation-error:hover {
+  background-color: rgba(211, 47, 47, 0.15);
 }
 
 /* Visual indicator for fields with errors */
@@ -793,5 +800,64 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   .form-row {
     grid-template-columns: 1fr;
     gap: 1rem;
+  }
+}
+
+@media (max-width: 425px) {
+  header {
+    padding: 15px 0;
+  }
+
+  .image-wrapper img {
+    max-height: 50px;
+  }
+
+  .hero {
+    padding: 10px 20px;
+  }
+
+  .hero-text p {
+    font-size: 24px;
+    max-width: 100%;
+  }
+
+  .hero-image img {
+    max-width: 220px;
+  }
+
+  .specials-header h2 {
+    font-size: 1.75rem;
+  }
+
+  .specials-header button,
+  .hero-text button,
+  .btn-primary,
+  .btn-secondary {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .menu-card-title {
+    font-size: 1.2rem;
+  }
+
+  .menu-card-description {
+    font-size: 0.9rem;
+  }
+
+  .testimonials h2 {
+    font-size: 1.75rem;
+  }
+
+  .form-group {
+    margin-bottom: 1rem;
+  }
+
+  .validation-error {
+    font-size: 0.8rem;
+  }
+
+  .footer {
+    padding: 1.5rem 0;
   }
 }

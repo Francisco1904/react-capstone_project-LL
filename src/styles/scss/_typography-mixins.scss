@@ -76,4 +76,15 @@
       --font-size-section-title: 1.125rem; // 18px
     }
   }
+
+  @include breakpoint(xs) {
+    :root {
+      --font-size-display-title: 2.5rem; // 40px
+      --font-size-subtitle: 1.75rem; // 28px
+      --font-size-lead-text: 0.95rem; // 15px
+      --font-size-section-title: 1rem; // 16px
+      --font-size-heading-2: 2rem; // 32px
+      --font-size-heading-3: 1.75rem; // 28px
+    }
+  }
 }
