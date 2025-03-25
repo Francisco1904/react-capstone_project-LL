@@ -28,10 +28,11 @@ This project was built using **React.js** to showcase my skills as a **Junior Fr
 1. [Installation Guide](#-installation-guide)
 2. [Project Architecture](#-project-architecture)
 3. [Styling Architecture](#-styling-architecture)
-4. [Challenges & Solutions](#-challenges--solutions)
-5. [Deployment](#-deployment)
-6. [License](#-license)
-7. [Contact Information](#-contact-information)
+4. [Testing & Performance](#-testing--performance)
+5. [Challenges & Solutions](#-challenges--solutions)
+6. [Deployment](#-deployment)
+7. [License](#-license)
+8. [Contact Information](#-contact-information)
 
 ---
 
@@ -78,6 +79,12 @@ This project was built using **React.js** to showcase my skills as a **Junior Fr
 - **Build Tool:** Vite (v6.2.0)
 - **Version Control:** Git & GitHub
 - **Deployment Platform:** Vercel (or Netlify, if applicable)
+
+### 🔒 Security
+
+This project follows security best practices for a React application. For details on how we handle dependency vulnerabilities and our security policy, please see [SECURITY.md](./SECURITY.md).
+
+---
 
 ### Architecture Overview
 
@@ -163,6 +170,39 @@ Run `npm run scss:build` to compile a production-ready version for deployment.
 
 ---
 
+## 🧪 Testing & Performance
+
+### Testing Framework
+
+- **Vitest:** For unit and component testing
+- **React Testing Library:** For component-focused testing
+- **User Event:** For simulating user interactions
+
+### Performance Testing
+
+The project includes several performance test suites to ensure optimal user experience:
+
+- **Component Render Performance:** Measures render time for key components
+- **Page Load Performance:** Measures CLS, FID, and LCP metrics
+- **React Profiler Tests:** Uses React Profiler for detailed rendering analysis
+- **Memory Usage Tests:** Ensures components don't introduce memory leaks
+- **Navigation Performance:** Measures routing transition times
+
+### Running Tests
+
+```sh
+# Run all tests
+npm run test
+
+# Run performance tests only
+npm run test:performance
+
+# Run specific test file
+npm run test src/tests/performance/ComponentRenderTests.test.jsx
+```
+
+---
+
 ## 🔥 Challenges & Solutions
 
 ### Roadblocks Faced & Fixes:
@@ -177,6 +217,18 @@ Run `npm run scss:build` to compile a production-ready version for deployment.
    - ✅ **Solution:** Created custom validation system with error handling and accessibility features.
 5. **Issue: Git conflicts during collaborative work**
    - ✅ **Solution:** Implemented proper Git branching strategies and resolved merge conflicts.
+6. **Issue: Router context missing in component tests**
+   - ✅ **Solution:** Implemented proper BrowserRouter wrapping for components using navigation hooks during testing.
+7. **Issue: Performance bottlenecks in component rendering**
+   - ✅ **Solution:** Created custom performance measurement utilities and established render time thresholds for key components.
+8. **Issue: Accessibility for form validation errors**
+   - ✅ **Solution:** Implemented ARIA attributes and screen reader announcements for improved error messaging.
+9. **Issue: Mobile responsiveness breaking at specific breakpoints**
+   - ✅ **Solution:** Refactored to a mobile-first approach with strategic breakpoints and fluid typography.
+10. **Issue: State management complexity in booking flow**
+    - ✅ **Solution:** Implemented React Context API with custom hooks for centralized booking state management.
+11. **Issue: Memory leaks in components with timers/subscriptions**
+    - ✅ **Solution:** Added proper cleanup with useEffect return functions and designed comprehensive memory usage tests.
 
 ---
 
