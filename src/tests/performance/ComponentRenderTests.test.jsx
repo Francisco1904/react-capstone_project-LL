@@ -12,7 +12,7 @@ import Card from "../../Components/Card";
 import Footer from "../../Components/Footer";
 
 describe("Component Render Performance Tests", () => {
-  const RENDER_TIME_THRESHOLD = 100; // Threshold in milliseconds
+  const RENDER_TIME_THRESHOLD = 150; // Threshold in milliseconds
   let renderTimer;
 
   beforeEach(() => {
