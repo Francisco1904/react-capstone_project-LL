@@ -10,6 +10,7 @@ import OrderOnlinePage from "./pages/OrderOnlinePage";
 import ConfirmedBooking from "./Components/ConfirmedBooking";
 import { BookingProvider } from "./context/BookingContext";
 import ScrollToTop from "./Components/ScrollToTop";
+import SkipLink from "./Components/SkipLink"; // Import the SkipLink component
 
 function App() {
   return (
@@ -17,8 +18,9 @@ function App() {
       <BrowserRouter>
         <ScrollToTop />
         <div className="App">
+          <SkipLink /> {/* Add the SkipLink component before the Header */}
           <Header />
-          <main className="main-content">
+          <main className="main-content" id="main-content" tabIndex="-1">
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/about" element={<AboutPage />} />

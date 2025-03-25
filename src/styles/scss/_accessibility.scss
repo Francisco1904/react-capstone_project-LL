@@ -27,6 +27,32 @@
   outline-color: white;
 }
 
+// Skip link styling
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  z-index: 9999;
+  background-color: var(--primary-green);
+  color: white;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  font-weight: bold;
+
+  &:focus {
+    left: 50%;
+    transform: translateX(-50%);
+    top: 5px;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    border-radius: var(--border-radius-small);
+  }
+}
+
 // Error summary styles
 .error-summary {
   padding: 1rem;
