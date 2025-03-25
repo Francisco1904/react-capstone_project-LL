@@ -14,7 +14,8 @@
     "coverage": "vitest run --coverage",
     "scss": "sass --quiet-deps --no-source-map --watch src/styles/scss:src/styles/css",
     "scss:build": "sass --quiet-deps --no-source-map src/styles/scss:src/styles/css --style compressed",
-    "prebuild": "npm run scss:build"
+    "prebuild": "npm run scss:build",
+    "test:performance": "vitest run src/tests/performance"
   },
   "dependencies": {
     "react": "^18.3.1",
@@ -37,7 +38,9 @@
     "globals": "^15.15.0",
     "jest-axe": "^10.0.0",
     "jsdom": "^24.1.3",
+    "react-performance-testing": "^2.0.0",
     "vite": "^6.2.0",
-    "vitest": "^1.6.1"
+    "vitest": "^1.6.1",
+    "web-vitals": "^3.5.2"
   }
 }

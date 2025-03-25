@@ -13,5 +13,9 @@ export default defineConfig({
       reporter: ["text", "json", "html"],
       exclude: ["node_modules/"],
     },
+    include: [
+      "**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}",
+      "**/tests/performance/**/*.{test,spec}.{jsx,tsx}",
+    ],
   },
 });
