@@ -9,32 +9,36 @@ import ReservationsPage from "./pages/ReservationsPage";
 import OrderOnlinePage from "./pages/OrderOnlinePage";
 import ConfirmedBooking from "./Components/ConfirmedBooking";
 import { BookingProvider } from "./context/BookingContext";
+import ScrollToTop from "./Components/ScrollToTop";
 
 function App() {
   return (
-    <div className="App">
+    <>
       <BrowserRouter>
-        <Header />
-        <main className="main-content">
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/menu" element={<MenuPage />} />
-            <Route
-              path="/reservations"
-              element={
-                <BookingProvider>
-                  <ReservationsPage />
-                </BookingProvider>
-              }
-            />
-            <Route path="/confirmed-booking" element={<ConfirmedBooking />} />
-            <Route path="/order-online" element={<OrderOnlinePage />} />
-          </Routes>
-        </main>
-        <Footer />
+        <ScrollToTop />
+        <div className="App">
+          <Header />
+          <main className="main-content">
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/about" element={<AboutPage />} />
+              <Route path="/menu" element={<MenuPage />} />
+              <Route
+                path="/reservations"
+                element={
+                  <BookingProvider>
+                    <ReservationsPage />
+                  </BookingProvider>
+                }
+              />
+              <Route path="/confirmed-booking" element={<ConfirmedBooking />} />
+              <Route path="/order-online" element={<OrderOnlinePage />} />
+            </Routes>
+          </main>
+          <Footer />
+        </div>
       </BrowserRouter>
-    </div>
+    </>
   );
 }
 
