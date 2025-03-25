@@ -329,13 +329,11 @@ function ReservationsPage() {
 
   return (
     <main id="main-content" className="page-container" role="main">
-      <section className="reservations-section container">
+      <section className="reservations-section">
         <h1>Reservations</h1>
         <p>
- 
-            {" "}        Bok ryour table at Little Lemon and enjoy our delicious Medit
- e          rranean
-     .
+          Book your table at Little Lemon and enjoy our delicious Mediterranean
+          cuisine.
         </p>
 
         {/* Show error message when submission fails */}
