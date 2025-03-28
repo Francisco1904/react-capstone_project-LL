@@ -1,6 +1,7 @@
 import React from "react";
 import Card from "./Card";
 import ReviewCard from "./ReviewCard";
+import { Link } from "react-router-dom";
 
 import greekSalad from "../assets/menu_items/greek_salad.jpg";
 import bruschetta from "../assets/menu_items/bruschettttte.jpg";
@@ -9,7 +10,6 @@ import restaurant from "../assets/restaurant.jpg";
 import owners from "../assets/Mario and Adrian A.jpg";
 
 function MainSection() {
-  // Menu items data
   const specials = [
     {
       id: 1,
@@ -40,7 +40,6 @@ function MainSection() {
     },
   ];
 
-  // Reviews data
   const reviews = [
     {
       id: 1,
@@ -74,12 +73,13 @@ function MainSection() {
 
   return (
     <main id="main-content">
-      {/* Specials Section */}
       <section className="specials" aria-labelledby="specials-heading">
         <div className="container">
           <div className="specials-header">
             <h2 id="specials-heading">This Week's Specials</h2>
-            <button aria-label="View full online menu">Online Menu</button>
+            <Link to="/menu">
+              <button aria-label="View full online menu">Online Menu</button>
+            </Link>
           </div>
           <div className="specials-grid">
             {specials.map((item) => (
@@ -96,7 +96,6 @@ function MainSection() {
         </div>
       </section>
 
-      {/* Testimonials Section */}
       <section className="testimonials" aria-labelledby="testimonials-heading">
         <div className="container">
           <h2 id="testimonials-heading">What our customers say</h2>
@@ -114,7 +113,6 @@ function MainSection() {
         </div>
       </section>
 
-      {/* About */}
       <section className="about">
         <div className="container">
           <div className="about-content">

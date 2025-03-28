@@ -77,6 +77,19 @@ function Footer() {
           </ul>
         </aside>
       </div>
+      <div className="footer-credit">
+        <p>
+          App built by{" "}
+          <a
+            href="https://github.com/Francisco1904"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Francisco1904
+          </a>{" "}
+          &copy; {new Date().getFullYear()}
+        </p>
+      </div>
     </footer>
   );
 }

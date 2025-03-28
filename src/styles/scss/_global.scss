@@ -51,8 +51,11 @@ body {
   padding-top: 2rem;
   padding-bottom: 3rem;
   box-sizing: border-box;
-  max-width: 100vw; // Use viewport width to ensure no overflow
+  max-width: var(--container-width); // Ensure consistent container width
+  margin: 0 auto; // Center align all pages
   overflow-x: hidden; // Prevent any horizontal scrolling
+  position: relative;
+  z-index: 1; // Ensure consistent z-index for all page containers
 
   h1 {
     color: var(--primary-green);
@@ -82,6 +85,8 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
+  z-index: 1; // Ensure main content doesn't interfere with navigation
 }
 
 /* Links */

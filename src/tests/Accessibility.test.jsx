@@ -3,7 +3,7 @@ import { render, screen, within, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import { axe, toHaveNoViolations } from "jest-axe";
-import { vi } from "vitest"; // Add import for vi
+import { vi } from "vitest";
 import App from "../App";
 import HomePage from "../pages/HomePage";
 import ReservationsPage from "../pages/ReservationsPage";
@@ -12,19 +12,14 @@ import Footer from "../Components/Footer";
 import SkipLink from "../Components/SkipLink";
 import { BookingProvider } from "../context/BookingContext";
 
-// Add jest-axe matchers
 expect.extend(toHaveNoViolations);
 
-// Mock scrollIntoView which is not implemented in JSDOM
-Element.prototype.scrollIntoView = vi.fn(); // Changed jest.fn() to vi.fn()
+Element.prototype.scrollIntoView = vi.fn();
 
 describe("Accessibility Tests", () => {
-  // General axe tests for each major component
   describe("Automated axe testing", () => {
-    // Add a configuration object to disable specific rules for testing
     const axeConfig = {
       rules: {
-        // Disable the rules that are causing the test to fail
         "aria-allowed-role": { enabled: false },
         "landmark-complementary-is-top-level": { enabled: false },
         "landmark-unique": { enabled: false },
@@ -38,7 +33,6 @@ describe("Accessibility Tests", () => {
         </MemoryRouter>
       );
 
-      // Pass the axe configuration to ignore specific violations
       const results = await axe(container, axeConfig);
       expect(results).toHaveNoViolations();
     });
@@ -74,13 +68,11 @@ describe("Accessibility Tests", () => {
         </MemoryRouter>
       );
 
-      // Pass the axe configuration to ignore specific violations
       const results = await axe(container, axeConfig);
       expect(results).toHaveNoViolations();
     });
   });
 
-  // Specific accessibility tests
   describe("Navigation Accessibility", () => {
     it("Header navigation has correct ARIA attributes", () => {
       render(
@@ -96,16 +88,13 @@ describe("Accessibility Tests", () => {
       expect(navigation).toHaveAttribute("aria-label", "Main navigation");
     });
 
-    // Modified test to avoid Router nesting issue
     it("Skip to content link is available and functioning", async () => {
       const user = userEvent.setup();
 
-      // Create a simple mock setup instead of using the full App component
       const mockMainContent = document.createElement("main");
       mockMainContent.id = "main-content";
       mockMainContent.setAttribute("tabIndex", "-1");
 
-      // Properly mock the focus method using Object.defineProperty
       const focusSpy = vi.fn();
       Object.defineProperty(mockMainContent, "focus", {
         value: focusSpy,
@@ -114,23 +103,17 @@ describe("Accessibility Tests", () => {
 
       document.body.appendChild(mockMainContent);
 
-      // Render just the SkipLink component, not the entire app
       render(<SkipLink />);
 
-      // Tab once to focus the skip link
       await user.tab();
 
-      // Check if the skip link exists and is focused
       const skipLink = document.activeElement;
       expect(skipLink).toHaveTextContent(/skip to content/i);
 
-      // When the skip link is clicked, it should set focus to the main content
       await user.click(skipLink);
 
-      // Check if the focus function was called on the main content element
-      expect(focusSpy).toHaveBeenCalled(); // Using our spy instead of the element's method
+      expect(focusSpy).toHaveBeenCalled();
 
-      // Clean up
       document.body.removeChild(mockMainContent);
     });
   });
@@ -145,7 +128,6 @@ describe("Accessibility Tests", () => {
         </MemoryRouter>
       );
 
-      // Check common form fields
       const formFields = [
         { label: /full name/i, type: "text" },
         { label: /email/i, type: "email" },
@@ -178,21 +160,17 @@ describe("Accessibility Tests", () => {
         </MemoryRouter>
       );
 
-      // Fill out form with invalid data to trigger validation errors
       const emailInput = screen.getByLabelText(/email/i);
       await user.type(emailInput, "invalid-email");
-      await user.tab(); // Move focus away to trigger validation
+      await user.tab();
 
-      // Wait for validation error
       await waitFor(() => {
         const emailError = screen.getByText(/valid email/i);
         expect(emailError).toBeInTheDocument();
         expect(emailError).toHaveAttribute("role", "alert");
 
-        // Check if the input has aria-invalid attribute
         expect(emailInput).toHaveAttribute("aria-invalid", "true");
 
-        // Check if error is associated with the input via aria-describedby
         const errorId = emailError.getAttribute("id");
         expect(emailInput).toHaveAttribute("aria-describedby", errorId);
       });
@@ -209,15 +187,12 @@ describe("Accessibility Tests", () => {
         </MemoryRouter>
       );
 
-      // Start from the beginning of the document
       document.body.focus();
 
-      // Tab through elements - simplified to avoid failing tests
       let foundInteractiveElement = false;
       for (let i = 0; i < 10; i++) {
         await user.tab();
 
-        // Check if we found a focusable element (link or button)
         const activeElement = document.activeElement;
         if (activeElement !== document.body) {
           foundInteractiveElement = true;
@@ -228,10 +203,7 @@ describe("Accessibility Tests", () => {
       expect(foundInteractiveElement).toBe(true);
     });
 
-    it("Modal and dialogs trap focus appropriately", async () => {
-      // To be implemented for any modals/dialogs in the application
-      // This is a placeholder for future implementation
-    });
+    it("Modal and dialogs trap focus appropriately", async () => {});
   });
 
   describe("Images and Media", () => {
@@ -244,10 +216,9 @@ describe("Accessibility Tests", () => {
 
       const images = screen.getAllByRole("img");
 
-      // Check each image has alt text
       images.forEach((img) => {
         expect(img).toHaveAttribute("alt");
-        expect(img.alt).not.toBe(""); // Alt text should not be empty
+        expect(img.alt).not.toBe("");
       });
     });
   });
@@ -262,10 +233,8 @@ describe("Accessibility Tests", () => {
 
       const navigationLinks = screen.getAllByRole("link");
 
-      // Verify links exist without strict size checking
       expect(navigationLinks.length).toBeGreaterThan(0);
 
-      // Simply check if the links are in the document
       navigationLinks.forEach((link) => {
         expect(link).toBeInTheDocument();
       });

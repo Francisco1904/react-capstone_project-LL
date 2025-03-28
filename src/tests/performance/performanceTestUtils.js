@@ -7,28 +7,21 @@
  * @returns {Promise<number>} Memory usage in MB
  */
 export const measureMemoryUsage = async () => {
-  // Check if performance.memory is available (Chrome only)
   if (window.performance && window.performance.memory) {
     const memoryInfo = window.performance.memory;
     return memoryInfo.usedJSHeapSize / (1024 * 1024); // Convert to MB
   }
 
-  // Fallback for browsers that don't support performance.memory
   try {
-    // Use performance.measureUserAgentSpecificMemory when available
     if (performance.measureUserAgentSpecificMemory) {
       const memoryMeasurement =
         await performance.measureUserAgentSpecificMemory();
       return memoryMeasurement.bytes / (1024 * 1024); // Convert to MB
     }
   } catch (error) {
-    console.warn("Memory measurement not supported:", error);
+    // Memory measurement not supported
   }
 
-  // Return a mock value for environments where memory measurement isn't supported
-  console.warn(
-    "Memory measurement not supported in this environment. Using mock value."
-  );
   return 0;
 };
 
@@ -40,15 +33,11 @@ export const forceGarbageCollection = () => {
   if (window.gc) {
     window.gc();
   } else {
-    console.warn("Manual garbage collection not available in this environment");
-
-    // Alternative approach: try to force garbage collection indirectly
     try {
-      // Create and release a large array to prompt garbage collection
       const largeArray = new Array(10000000).fill(0);
       largeArray.length = 0;
     } catch (e) {
-      console.error("Failed to force garbage collection:", e);
+      // Failed to force garbage collection
     }
   }
 };

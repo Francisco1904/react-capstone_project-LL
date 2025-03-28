@@ -81,6 +81,8 @@ nav[aria-label="Main navigation"] {
   align-items: center;
   width: 100%;
   justify-content: flex-end;
+  position: relative;
+  z-index: 20; // Increased from 10 to ensure it's above all page content
 
   ul {
     display: flex;
@@ -94,20 +96,15 @@ nav[aria-label="Main navigation"] {
   }
 
   li {
-    // Remove flex: 1 to prevent equal space distribution
     text-align: center;
     min-width: fit-content;
     white-space: nowrap;
 
-    // Add proportional weighting to longer menu items
-    &:nth-child(4) {
-      // Reservations
-      margin-right: 0.5vw;
-    }
-
+    // Remove the custom margins that cause inconsistent spacing
+    &:nth-child(4),
     &:nth-child(5) {
-      // Order Online
-      margin-left: 0.5vw;
+      margin-left: 0;
+      margin-right: 0;
     }
   }
 
@@ -118,7 +115,7 @@ nav[aria-label="Main navigation"] {
     font-family: var(--font-secondary);
     transition: color var(--transition-fast), padding var(--transition-normal);
     font-size: var(--font-size-section-title);
-    padding: 0 calc(0.5vw + 0.25rem);
+    padding: 0 0.5rem; // Add consistent padding to all links
     display: block;
 
     &:hover {

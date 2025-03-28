@@ -29,7 +29,6 @@ describe("Component Render Performance Tests", () => {
     );
 
     const headerRenderTime = renderTimer.end("Header");
-    console.log(`Header render time: ${headerRenderTime.toFixed(2)}ms`);
     expect(headerRenderTime).toBeLessThan(RENDER_TIME_THRESHOLD);
   });
 
@@ -43,7 +42,6 @@ describe("Component Render Performance Tests", () => {
     );
 
     const heroRenderTime = renderTimer.end("Hero");
-    console.log(`Hero render time: ${heroRenderTime.toFixed(2)}ms`);
     expect(heroRenderTime).toBeLessThan(RENDER_TIME_THRESHOLD);
   });
 
@@ -57,9 +55,6 @@ describe("Component Render Performance Tests", () => {
     );
 
     const mainSectionRenderTime = renderTimer.end("MainSection");
-    console.log(
-      `MainSection render time: ${mainSectionRenderTime.toFixed(2)}ms`
-    );
     expect(mainSectionRenderTime).toBeLessThan(RENDER_TIME_THRESHOLD * 2); // Give more time for complex components
   });
 
@@ -81,7 +76,6 @@ describe("Component Render Performance Tests", () => {
     );
 
     const cardRenderTime = renderTimer.end("Card");
-    console.log(`Card render time: ${cardRenderTime.toFixed(2)}ms`);
     expect(cardRenderTime).toBeLessThan(RENDER_TIME_THRESHOLD);
   });
 
@@ -95,7 +89,6 @@ describe("Component Render Performance Tests", () => {
     );
 
     const footerRenderTime = renderTimer.end("Footer");
-    console.log(`Footer render time: ${footerRenderTime.toFixed(2)}ms`);
     expect(footerRenderTime).toBeLessThan(RENDER_TIME_THRESHOLD);
   });
 });

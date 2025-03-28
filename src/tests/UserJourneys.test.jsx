@@ -15,14 +15,12 @@ import OrderOnlinePage from "../pages/OrderOnlinePage";
 import AboutPage from "../pages/AboutPage";
 import { BookingProvider } from "../context/BookingContext";
 
-// Create mock for the submission function
 const mockSubmitReservation = vi.fn().mockResolvedValue({
   success: true,
   message: "Reservation submitted successfully!",
   reservationId: 12345,
 });
 
-// Mock the BookingContext
 vi.mock("../context/BookingContext", () => ({
   useBooking: () => ({
     availableTimes: ["17:00", "18:00", "19:00", "20:00", "21:00"],

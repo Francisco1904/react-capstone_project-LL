@@ -1,10 +1,24 @@
-# Front-End Capstone Project Documentation
+# Little Lemon Capstone Project
 
 ![WIP](https://img.shields.io/badge/status-work--in--progress-yellow)
 
 ## 📌 Project Overview
 
 **Project Name:** "Little Lemon Restaurant App"
+
+## 🌟 Preview
+
+![Hero Section](./screenshots/hero-section.png)
+![Menu Page](./screenshots/menu-page.png)
+![Reservations Page](./screenshots/reservations-page.png)
+
+## 🚀 Live Demo
+
+Coming soon - project currently in development.
+
+## 🏗️ Project Role
+
+This project was developed as a solo effort. Design assets were provided as part of the project requirements.
 
 ## ✨ Description
 
@@ -16,9 +30,9 @@ This project was built using **React.js** to showcase my skills as a **Junior Fr
 - **Responsive Design**: Custom breakpoints for optimal viewing on mobile, tablet, and desktop devices
 - **Advanced Reservation System**: Full-featured booking functionality with time slot selection, party size options, and special requests
 - **Real-time Form Validation**: Interactive feedback during reservation process with accessibility features
-- **Styled Components**: Consistent branded styling using SCSS architecture with variables, mixins, and partials for maintainable styling across a growing component library
+- **SCSS Architecture**: Consistent branded styling using SCSS architecture with variables, mixins, and partials for maintainable styling across a growing component library
 - **Dynamic Menu Showcase**: Featured dishes with filtering options, descriptions, and vivid imagery
-- **Customer Testimonials**: Review section with star ratings and testimonial carousel
+- **Customer Testimonials**: Review section with star ratings
 - **Performance Optimization**: Built with Vite for near-instant HMR and optimized production bundles with automatic code splitting
 - **Modular Component Design**: Reusable UI elements with consistent props interfaces for Cards, Buttons, and Form elements
 - **Accessibility Compliant**: WCAG standards implementation for inclusive user experience
@@ -42,7 +56,7 @@ This project was built using **React.js** to showcase my skills as a **Junior Fr
 
 - **Node.js** (v18.0.0 or higher)
 - **Git** (for cloning the repository)
-- **React.js** (v19.0.0 or higher)
+- **React.js** (v18.3.0 or higher)
 
 ### Setup Instructions
 
@@ -72,13 +86,14 @@ This project was built using **React.js** to showcase my skills as a **Junior Fr
 ### Tech Stack
 
 - **Frontend:**
-  - React.js (v19.0.0)
-  - React Router (v7.3.0) for page navigation
+  - React.js (v18.3.1)
+  - React Router for page navigation
   - SCSS for enhanced styling capabilities
   - CSS Custom Properties for theming
 - **Build Tool:** Vite (v6.2.0)
 - **Version Control:** Git & GitHub
-- **Deployment Platform:** Vercel (or Netlify, if applicable)
+- **Testing:** Vitest with React Testing Library
+- **Deployment Platform:** Vercel
 
 ### 🔒 Security
 
@@ -130,7 +145,15 @@ The project follows a **component-based architecture** with clear separation of 
 
 ## 🎨 Styling Architecture
 
-The project uses SCSS for enhanced CSS capabilities and better organization:
+### Modern SCSS Architecture
+
+This project follows modern front-end development best practices by implementing a clean, organized SCSS architecture:
+
+- **Single Source of Truth**: All styles are managed through SCSS and compiled into a single CSS file
+- **Component-Based Organization**: Styles are organized by component and feature
+- **Consistent Variables**: Design tokens are centralized in \_variables.scss for easy theming
+- **Responsive Design**: Mobile-first approach with consistent breakpoint mixins
+- **Performance**: CSS is optimized during build process
 
 ### SCSS Structure
 
@@ -170,6 +193,36 @@ Run `npm run scss:build` to compile a production-ready version for deployment.
 
 ---
 
+## 🎨 CSS Architecture
+
+This project follows modern front-end development best practices by implementing a clean, organized SCSS architecture:
+
+### Structure
+
+- **Single Source of Truth**: All styles are managed through SCSS files in `src/styles/scss/` and compiled into a single CSS file (`src/styles/css/main.css`)
+- **Component-Based Organization**: Styles are organized by component and feature
+- **Consistent Variables**: Design tokens are centralized in `_variables.scss` for easy theming
+- **Responsive Design**: Mobile-first approach with consistent breakpoint mixins
+- **Performance**: CSS is optimized during build process
+
+### Key Files
+
+- `src/styles/scss/` - Source SCSS files
+  - `_variables.scss` - Design tokens and theme variables
+  - `_mixins.scss` - Reusable style patterns
+  - `_global.scss` - Global styles and utilities
+  - `components/` - Component-specific styles
+  - `pages/` - Page-specific layouts and styles
+
+### Benefits
+
+- **Maintainability**: Easier to maintain and update styles
+- **Consistency**: Enforces design system consistency across components
+- **Developer Experience**: Better organization for multiple developers
+- **Performance**: Single CSS file reduces HTTP requests
+
+---
+
 ## 🧪 Testing & Performance
 
 ### Testing Framework
@@ -183,7 +236,7 @@ Run `npm run scss:build` to compile a production-ready version for deployment.
 The project includes several performance test suites to ensure optimal user experience:
 
 - **Component Render Performance:** Measures render time for key components
-- **Page Load Performance:** Measures CLS, FID, and LCP metrics
+- **Page Load Performance:** Measures CLS, FID, and LCP metrics using web-vitals
 - **React Profiler Tests:** Uses React Profiler for detailed rendering analysis
 - **Memory Usage Tests:** Ensures components don't introduce memory leaks
 - **Navigation Performance:** Measures routing transition times
@@ -250,7 +303,7 @@ npm run test src/tests/performance/ComponentRenderTests.test.jsx
 
 ## 📝 License
 
-This project is licensed under the [MIT License](https://opensource.org/licenses/MIT). Feel free to use, modify, and distribute this project as per the terms of the license.
+This project is licensed under the [MIT License](./LICENSE). Feel free to use, modify, and distribute this project as per the terms of the license.
 
 ---
 

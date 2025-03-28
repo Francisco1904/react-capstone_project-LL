@@ -6,7 +6,7 @@
 .footer {
   background-color: var(--color-dark-grey);
   color: var(--color-light-grey);
-  padding: 3rem 0; // Changed from 3rem 2rem for consistency
+  padding: 3rem 0 0 0; // Changed from 3rem 2rem for consistency
   width: 100%;
   box-sizing: border-box;
   height: var(--footer-height);
@@ -86,6 +86,32 @@
   }
 }
 
+// Footer credit section
+.footer-credit {
+  width: 100%;
+  text-align: center;
+  padding: 1rem 0;
+  margin-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+  p {
+    font-size: 0.85rem;
+    color: var(--highlight-light);
+    opacity: 0.8;
+    margin: 0;
+  }
+
+  a {
+    color: var(--highlight-light) !important;
+    text-decoration: underline;
+
+    &:hover {
+      color: var(--primary-yellow) !important;
+      text-decoration: none;
+    }
+  }
+}
+
 // Media queries - Using breakpoint mixin for consistency
 @include breakpoint(lg) {
   .footer-container {
@@ -95,7 +121,7 @@
 
 @include breakpoint(sm) {
   .footer {
-    padding: 2rem 0;
+    padding: 2rem 0 0 0;
   }
 
   .footer-container {
@@ -105,7 +131,7 @@
 
 @include breakpoint(xs) {
   .footer {
-    padding: 1.5rem 0;
+    padding: 1.5rem 0 0 0;
   }
 
   .footer-container {
@@ -127,5 +153,14 @@
   .footer-contact p {
     font-size: 0.9rem;
     line-height: 1.8;
+  }
+
+  .footer-credit {
+    margin-top: 1rem;
+    padding: 0.75rem 0;
+
+    p {
+      font-size: 0.8rem;
+    }
   }
 }

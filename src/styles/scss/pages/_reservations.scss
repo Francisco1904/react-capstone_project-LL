@@ -7,8 +7,11 @@
 // Page container
 .reservations-section {
   @include container; // Use the container mixin for consistency
-  padding-top: 2rem;
   padding-bottom: 2rem;
+
+  // Ensure this has lower z-index than navigation
+  position: relative;
+  z-index: 1;
 
   h1 {
     margin-bottom: 1rem;
@@ -35,15 +38,32 @@
   padding: 2rem;
   box-shadow: var(--shadow-medium);
   color: white; // Added white text for better contrast
+  position: relative;
+  z-index: 1; // Ensure form elements don't interfere with navigation
 
   h2 {
     margin-bottom: 1.5rem;
     color: var(--primary-yellow); // Changed to yellow for better visibility
   }
 
+  // Make form elements stay within their stacking context
+  input,
+  select,
+  textarea,
+  button,
+  .validation-error {
+    position: relative;
+    z-index: 5; // High enough to be above the form but below navigation
+  }
+
   // Make required field indicators more visible
   label span[style] {
     color: var(--primary-yellow) !important; // Override inline style
+  }
+
+  &.loading {
+    opacity: 0.6; // Dim the form during submission
+    pointer-events: none; // Disable interactions
   }
 }
 
