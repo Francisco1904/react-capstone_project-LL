@@ -27,3 +27,4 @@ src/styles/css/
 *.sln
 *.sw?
 coverage/
+.vercel
