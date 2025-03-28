@@ -1,6 +1,6 @@
 # Little Lemon Capstone Project
 
-![WIP](https://img.shields.io/badge/status-work--in--progress-yellow)
+![Completed](https://img.shields.io/badge/status-completed-green)
 
 ## 📌 Project Overview
 

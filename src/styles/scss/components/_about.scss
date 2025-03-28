@@ -11,6 +11,7 @@
 
   .container {
     @include container;
+    padding: 0 4rem; // Increased padding from default 2rem to 4rem
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 2.5rem;
