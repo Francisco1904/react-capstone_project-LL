@@ -14,8 +14,6 @@
 
 ## 🚀 Live Demo
 
-## 🚀 Live Demo
-
 [View Live Demo](https://littlelemon-capstone-app.vercel.app/) - Experience the app in action!
 
 ## 🏗️ Project Role
