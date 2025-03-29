@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import Card from "../Components/Card";
+import Card from "../components/Card";
 
 // Import the same food images used in MenuPage
 import greekSalad from "../assets/menu_items/greek_salad.jpg";

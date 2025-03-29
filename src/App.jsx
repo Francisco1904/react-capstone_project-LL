@@ -1,17 +1,16 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-// Change back to match the actual folder structure casing
-import Header from "./Components/Header";
-import Footer from "./Components/Footer";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
 import MenuPage from "./pages/MenuPage";
 import ReservationsPage from "./pages/ReservationsPage";
 import OrderOnlinePage from "./pages/OrderOnlinePage";
-import ConfirmedBooking from "./Components/ConfirmedBooking";
+import ConfirmedBooking from "./components/ConfirmedBooking";
 import { BookingProvider } from "./context/BookingContext";
-import ScrollToTop from "./Components/ScrollToTop";
-import SkipLink from "./Components/SkipLink";
+import ScrollToTop from "./components/ScrollToTop";
+import SkipLink from "./components/SkipLink";
 import "./styles/css/main.css";
 
 function App() {

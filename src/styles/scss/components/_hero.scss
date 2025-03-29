@@ -14,8 +14,8 @@
 }
 
 .hero-container {
-  @include container;
   display: grid;
+  @include container;
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
   height: 100%;

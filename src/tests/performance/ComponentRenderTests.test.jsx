@@ -4,12 +4,12 @@ import { describe, it, expect, beforeEach } from "vitest";
 import { MemoryRouter, BrowserRouter } from "react-router-dom";
 import { createRenderTimer } from "../../utils/performanceTracking";
 
-// Import components to test
-import Header from "../../Components/Header";
-import Hero from "../../Components/Hero";
-import MainSection from "../../Components/MainSection";
-import Card from "../../Components/Card";
-import Footer from "../../Components/Footer";
+// Update import paths to use lowercase components
+import Header from "../../components/Header";
+import Hero from "../../components/Hero";
+import MainSection from "../../components/MainSection";
+import Card from "../../components/Card";
+import Footer from "../../components/Footer";
 
 describe("Component Render Performance Tests", () => {
   const RENDER_TIME_THRESHOLD = 150; // Threshold in milliseconds

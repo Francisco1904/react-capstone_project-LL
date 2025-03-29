@@ -1,5 +1,5 @@
 import React from "react";
-import Card from "../Components/Card";
+import Card from "../components/Card";
 
 // Updated imports to use the menu_items subfolder
 import greekSalad from "../assets/menu_items/greek_salad.jpg";
