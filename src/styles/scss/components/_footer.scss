@@ -1,12 +1,11 @@
-// Import mixins and variables
 @use "../mixins" as *;
 @use "../variables" as *;
+@use "sass:color";
 
-// Footer Styles
 .footer {
   background-color: var(--color-dark-grey);
   color: var(--color-light-grey);
-  padding: 3rem 0 0 0; // Changed from 3rem 2rem for consistency
+  padding: 3rem 0 0 0;
   width: 100%;
   box-sizing: border-box;
   height: var(--footer-height);
@@ -18,28 +17,25 @@
     font-weight: 700;
   }
 
-  // Add generic styling for all links within the footer
   a {
-    color: var(
-      --color-light-grey
-    ) !important; // Use !important to override global link styles
-    text-decoration: underline; // Add underline to make links visibly clickable
+    color: var(--color-light-grey) !important;
+    text-decoration: underline;
     transition: color var(--transition-fast),
       text-decoration var(--transition-fast);
 
     &:hover {
-      color: var(--primary-yellow) !important; // Keep hover state consistent
-      text-decoration: none; // Remove underline on hover for better interaction feedback
+      color: var(--primary-yellow) !important;
+      text-decoration: none;
     }
   }
 }
 
 .footer-container {
-  @include container; // Use container mixin for consistency
+  @include container;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 2rem;
-  margin: 0 auto; // Fixed margin for consistency
+  margin: 0 auto;
 
   @include breakpoint(lg) {
     grid-template-columns: repeat(2, 1fr);
@@ -74,19 +70,18 @@
 
   a {
     color: var(--color-light-grey);
-    text-decoration: underline; // Add underline to all links
+    text-decoration: underline;
     line-height: 2;
     transition: color var(--transition-fast),
       text-decoration var(--transition-fast);
 
     &:hover {
       color: var(--primary-yellow);
-      text-decoration: none; // Remove underline on hover
+      text-decoration: none;
     }
   }
 }
 
-// Footer credit section
 .footer-credit {
   width: 100%;
   text-align: center;
@@ -112,7 +107,7 @@
   }
 }
 
-// Media queries - Using breakpoint mixin for consistency
+// Media queries
 @include breakpoint(lg) {
   .footer-container {
     grid-template-columns: repeat(2, 1fr);

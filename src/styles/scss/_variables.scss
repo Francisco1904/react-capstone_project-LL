@@ -1,3 +1,5 @@
+@use "sass:color";
+
 // Brand Colors
 $primary-green: #495e57;
 $primary-yellow: #f4ce14;
@@ -7,16 +9,16 @@ $highlight-light: #edefee;
 $highlight-dark: #333333;
 $white: #ffffff;
 
-// Typography - UI Kit Font Sizes
-$font-size-display-title: 4rem; // 64px - Maps to existing display
-$font-size-subtitle: 2.5rem; // 40px - Maps to existing heading-2
-$font-size-lead-text: 1.125rem; // 18px - New
-$font-size-hero-text: 2.5rem; // 40px - Special size for hero paragraph
-$font-size-card-title: 1.125rem; // 18px - New
-$font-size-paragraph: 1rem; // 16px - Maps to existing body
-$font-size-highlight: 1rem; // 16px - Same size as paragraph
-$font-size-section-title: 1.25rem; // 20px - New
-$font-size-category-text: 1rem; // 16px - Same size as paragraph
+// Typography
+$font-size-display-title: 4rem; // 64px
+$font-size-subtitle: 2.5rem; // 40px
+$font-size-lead-text: 1.125rem; // 18px
+$font-size-hero-text: 2.5rem; // 40px
+$font-size-card-title: 1.125rem; // 18px
+$font-size-paragraph: 1rem; // 16px
+$font-size-highlight: 1rem; // 16px
+$font-size-section-title: 1.25rem; // 20px
+$font-size-category-text: 1rem; // 16px
 
 // Typography - Backward compatibility
 $font-size-display: $font-size-display-title; // 64px
@@ -51,7 +53,7 @@ $spacing-xl: 2rem; // 32px
 $spacing-xxl: 3rem; // 48px
 
 // Layout
-$container-width: 1200px; // Changed from 1440px to 1200px for consistency with App.css
+$container-width: 1200px;
 $header-height: 100px;
 $footer-height: auto;
 
@@ -78,13 +80,13 @@ $z-index-modal: 300;
 $z-index-overlay: 400;
 
 // Breakpoints
-$breakpoint-xs: 425px; // New mobile breakpoint
+$breakpoint-xs: 425px;
 $breakpoint-sm: 576px;
 $breakpoint-md: 768px;
 $breakpoint-lg: 992px;
 $breakpoint-xl: 1200px;
 
-// For compatibility with existing CSS, we also define CSS variables
+// For compatibility with existing CSS, I've also defined CSS variables
 :root {
   // Brand Colors
   --primary-green: #{$primary-green};

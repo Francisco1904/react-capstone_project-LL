@@ -1,8 +1,7 @@
-// Use variables from variables file
 @use "variables" as *;
+@use "sass:color";
 
 // Responsive Breakpoint Mixins
-// Use breakpoint variables from _variables.scss for consistency
 @mixin breakpoint($point) {
   @if $point == xl {
     @media (max-width: $breakpoint-xl) {
@@ -28,7 +27,6 @@
 }
 
 // Card styling mixin
-// Creates a consistent card appearance across components
 @mixin card(
   $padding: 1.5rem,
   $radius: var(--border-radius-medium),
@@ -48,7 +46,6 @@
 }
 
 // Form field styling mixin
-// Creates consistent form field appearance
 @mixin form-field {
   width: 100%;
   padding: 0.75rem;
@@ -66,7 +63,6 @@
 }
 
 // Button styling mixin
-// Creates consistent button styling with variants
 @mixin button(
   $bg-color: var(--primary-yellow),
   $text-color: var(--highlight-dark)
@@ -84,6 +80,7 @@
     transform var(--transition-fast), box-shadow var(--transition-fast);
 
   &:hover:not(:disabled) {
+    background-color: color.adjust($bg-color, $lightness: -10%);
     transform: translateY(-2px);
     box-shadow: var(--shadow-medium);
   }
@@ -95,7 +92,6 @@
 }
 
 // Flex container mixin
-// Quickly create flex layouts with common patterns
 @mixin flex($direction: row, $justify: center, $align: center, $gap: 1rem) {
   display: flex;
   flex-direction: $direction;
@@ -105,7 +101,6 @@
 }
 
 // Grid container mixin
-// Quickly create grid layouts
 @mixin grid($columns: 1fr, $gap: 1rem) {
   display: grid;
   grid-template-columns: $columns;
@@ -128,7 +123,6 @@
 }
 
 // Container mixin
-// Standard container with responsive padding
 @mixin container {
   width: 100%;
   max-width: var(--container-width);
@@ -142,12 +136,10 @@
 }
 
 // Section padding mixin
-// Consistent padding for page sections
 @mixin section-padding($top: 3rem, $bottom: 3rem) {
   padding: $top 0 $bottom;
 }
 
-// Visually hidden but accessible elements
 @mixin visually-hidden {
   position: absolute;
   width: 1px;

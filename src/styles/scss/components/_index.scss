@@ -1,5 +1,6 @@
+@use "sass:color";
+
 // Forward all component partials
-// Each component must @use '../mixins' and '../variables' directly
 @forward "header";
 @forward "footer";
 @forward "hero";

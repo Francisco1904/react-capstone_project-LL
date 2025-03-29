@@ -1,26 +1,26 @@
-// Use variables and mixins
 @use "../variables" as *;
 @use "../mixins" as *;
 @use "../typography-mixins" as *;
+@use "sass:color";
 
 // Card Styles - Menu Cards and Specials Section
 
 // Specials Section
 .specials {
-  width: 100%; // Add this to ensure full width
-  padding: 5rem 0 2rem; // Adjust padding to remove left/right padding
+  width: 100%;
+  padding: 5rem 0 2rem;
   background-color: white;
 
   &-header {
     @include flex(row, space-between, center);
     margin-bottom: 2rem;
-    padding: 0 2rem; // Add padding here instead
+    padding: 0 2rem;
 
     h2 {
       @include section-title;
       color: var(--color-dark-grey);
-      font-size: 2rem; // Increased size for better visibility
-      text-transform: none; // Remove text transform to show as "This Week's Specials"
+      font-size: 2rem;
+      text-transform: none;
     }
 
     button {
@@ -30,7 +30,7 @@
 
   &-grid {
     @include grid(repeat(3, 1fr), 2rem);
-    padding: 0 2rem; // Add padding here for consistent container feel
+    padding: 0 2rem;
   }
 }
 
@@ -74,7 +74,7 @@
 
   &-title {
     @include card-title;
-    font-size: 1.5rem; // Increased from original size for better visibility
+    font-size: 1.5rem;
     margin: 0;
     color: var(--color-dark-grey);
     font-weight: var(--font-weight-bold);
@@ -83,13 +83,11 @@
   &-price {
     @include category-text;
     color: var(--secondary-salmon);
-    font-weight: var(
-      --font-weight-regular
-    ); // Changed from font-weight-extra-bold to regular
+    font-weight: var(--font-weight-regular);
   }
 
   &-description {
-    font-size: 1.0625rem; // Slightly increase from 1rem to 17px
+    font-size: 1.0625rem;
     line-height: 1.5;
     flex-grow: 1;
     color: #555;
@@ -212,7 +210,7 @@
     }
 
     &-image {
-      height: 180px; // Shorter image for smaller screens
+      height: 180px;
     }
   }
 }

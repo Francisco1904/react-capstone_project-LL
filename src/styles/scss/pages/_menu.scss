@@ -1,12 +1,10 @@
-// Import mixins and variables
 @use "../mixins" as *;
 @use "../variables" as *;
-
-// Menu Page Styles - Consistent with homepage
+@use "sass:color";
 
 .menu-page {
   @include container;
-  padding-top: 0; // Changed from 2rem to 0
+  padding-top: 0;
   padding-bottom: 3rem;
 
   h1 {
@@ -21,7 +19,6 @@
     margin: 0 auto 2rem;
   }
 
-  // Add style for category titles
   .menu-category-title {
     color: var(--primary-green);
     font-size: var(--font-size-heading-3);
@@ -33,14 +30,12 @@
     padding-bottom: 0.5rem;
   }
 
-  // Override the centered paragraph style for card descriptions
   .menu-card-description {
     text-align: left !important;
     margin: 0 0 1.5rem 0;
     max-width: none;
   }
 
-  // Ensure all card content has left alignment
   .menu-card-content {
     text-align: left;
   }
@@ -78,7 +73,7 @@
 
 @include breakpoint(md) {
   .menu-page {
-    padding-top: 0; // Changed from 1.5rem to 0
+    padding-top: 0;
     padding-bottom: 2rem;
 
     .menu-category-title {
@@ -95,7 +90,7 @@
 
 @include breakpoint(xs) {
   .menu-page {
-    padding-top: 0; // Changed from 1rem to 0
+    padding-top: 0;
     padding-bottom: 1.5rem;
 
     h1 {

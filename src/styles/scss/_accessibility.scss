@@ -1,5 +1,6 @@
 @use "variables" as *;
 @use "mixins" as *;
+@use "sass:color";
 
 // Visually hidden class (screen reader only)
 .visually-hidden {
@@ -82,7 +83,6 @@
     }
   }
 
-  // Style for error links that look like links but aren't actual links
   .error-link {
     color: #c62828;
     text-decoration: underline;

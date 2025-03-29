@@ -1,20 +1,19 @@
-// Import mixins and variables
 @use "../mixins" as *;
 @use "../variables" as *;
+@use "sass:color";
 
-// Header Styles
 header {
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: white;
   padding: 23px 5%;
-  box-shadow: none; // Remove default shadow
+  box-shadow: none;
   position: sticky;
   top: 0;
   z-index: var(--z-index-sticky);
   width: 100%;
-  height: var(--header-height); // Explicitly set height for consistency
+  height: var(--header-height);
   box-sizing: border-box;
 
   // Apply shadow instantly when scrolled
@@ -26,16 +25,15 @@ header {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between; // Changed from space-evenly for consistency
+    justify-content: space-between;
     width: 100%;
     max-width: var(--container-width);
     margin: 0 auto;
-    position: relative; // Needed for absolute positioning
-    padding: 0 1rem; // Add consistent padding
+    position: relative;
+    padding: 0 1rem;
   }
 }
 
-// Mobile menu toggle button (hamburger and back arrow)
 .mobile-menu-toggle {
   display: none; // Hidden by default on desktop
   background: none;
@@ -46,7 +44,7 @@ header {
   left: 1rem;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 1000; // Always on top
+  z-index: 1000;
 
   img {
     width: 24px;
@@ -63,7 +61,6 @@ header {
     line-height: 1;
   }
 
-  // Adding hover effect for the button
   &:hover {
     opacity: 0.8;
   }
@@ -82,7 +79,7 @@ nav[aria-label="Main navigation"] {
   width: 100%;
   justify-content: flex-end;
   position: relative;
-  z-index: 20; // Increased from 10 to ensure it's above all page content
+  z-index: 20;
 
   ul {
     display: flex;
@@ -92,7 +89,7 @@ nav[aria-label="Main navigation"] {
     width: 100%;
     max-width: 800px;
     justify-content: center;
-    gap: 3vw; // Use viewport-based gap for equal spacing
+    gap: 3vw;
   }
 
   li {
@@ -115,7 +112,7 @@ nav[aria-label="Main navigation"] {
     font-family: var(--font-secondary);
     transition: color var(--transition-fast), padding var(--transition-normal);
     font-size: var(--font-size-section-title);
-    padding: 0 0.5rem; // Add consistent padding to all links
+    padding: 0 0.5rem;
     display: block;
 
     &:hover {
@@ -129,7 +126,6 @@ nav[aria-label="Main navigation"] {
     // Style for active navigation item - text only highlight
     &.active {
       color: var(--primary-yellow);
-      // Remove any background/box properties that were here
       background-color: transparent;
       box-shadow: none;
       border: none;
@@ -140,7 +136,7 @@ nav[aria-label="Main navigation"] {
 
 // Menu overlay for the dark background
 .menu-overlay {
-  display: none; // Hidden by default
+  display: none;
 }
 
 // Responsive adjustments for larger tablets/small desktops
@@ -156,7 +152,7 @@ nav[aria-label="Main navigation"] {
 @media (max-width: 880px) {
   nav[aria-label="Main navigation"] {
     ul {
-      gap: 2vw; // Reduce the gap on smaller screens
+      gap: 2vw;
     }
 
     a {
@@ -166,17 +162,16 @@ nav[aria-label="Main navigation"] {
   }
 
   .header-wrapper {
-    justify-content: space-between; // Better spacing distribution
-    padding: 0 1rem; // Add some padding to prevent items touching edges
+    justify-content: space-between;
+    padding: 0 1rem;
   }
 }
 
 // Media queries for mobile view
 @include breakpoint(md) {
-  // Show hamburger menu and center logo
   .header-wrapper {
     justify-content: center;
-    position: relative; // Ensure proper positioning context
+    position: relative;
   }
 
   .mobile-menu-toggle {
@@ -184,15 +179,15 @@ nav[aria-label="Main navigation"] {
   }
 
   .image-wrapper {
-    position: absolute; // Position absolutely to center regardless of other elements
+    position: absolute
     left: 0;
     right: 0;
-    margin: 0 auto; // Center horizontally
-    text-align: center; // Ensure image is centered within wrapper
-    width: fit-content; // Make wrapper only as wide as the logo
+    margin: 0 auto;
+    text-align: center; 
+    width: fit-content;
 
     img {
-      margin: 0 auto; // Center the image inside the wrapper
+      margin: 0 auto;
     }
   }
 
@@ -205,15 +200,15 @@ nav[aria-label="Main navigation"] {
     height: 0; // Initially collapsed
     overflow: hidden;
     background-color: white;
-    z-index: 900; // Above content but below hamburger
+    z-index: 900;
     transition: height var(--transition-normal) ease;
 
     ul {
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
-      gap: 1.5rem; // Reduced gap between items
-      padding: 5rem 1rem 2rem; // Reduced top padding
+      gap: 1.5rem;
+      padding: 5rem 1rem 2rem;
       width: 100%;
       max-width: 100%;
     }
@@ -250,7 +245,7 @@ nav[aria-label="Main navigation"] {
     right: 0;
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.7);
-    z-index: 800; // Above content but below menu
+    z-index: 800;
     opacity: 0;
     pointer-events: none;
     transition: opacity var(--transition-normal);

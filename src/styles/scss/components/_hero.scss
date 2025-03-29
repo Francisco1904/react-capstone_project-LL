@@ -1,9 +1,8 @@
-// Import dependencies
 @use "../mixins" as *;
 @use "../variables" as *;
 @use "../typography-mixins" as *;
+@use "sass:color";
 
-// Hero Section Styles
 .hero {
   width: 99.999%;
   height: 565px;
@@ -15,7 +14,7 @@
 }
 
 .hero-container {
-  @include container; // Ensures consistent container styling
+  @include container;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2rem;

@@ -1,5 +1,3 @@
-// Use modern @use instead of deprecated @import
-// Load variables and mixins first since they're used by everything else
 @use "variables";
 @use "mixins";
 @use "typography-mixins";
@@ -9,11 +7,13 @@
 @use "global";
 @use "typography";
 @use "buttons";
-@use "accessibility"; // Add accessibility styles
+@use "accessibility";
 
 // Use component and page index files
 @use "components";
 @use "pages";
+
+@use "sass:color";
 
 // Global styles
 body {
