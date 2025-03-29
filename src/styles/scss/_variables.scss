@@ -3,6 +3,7 @@
 // Brand Colors
 $primary-green: #495e57;
 $primary-yellow: #f4ce14;
+$primary-yellow-dark: #e0bb00;
 $secondary-salmon: #ee9972;
 $secondary-peach: #fbdabb;
 $highlight-light: #edefee;
@@ -91,7 +92,7 @@ $breakpoint-xl: 1200px;
   // Brand Colors
   --primary-green: #{$primary-green};
   --primary-yellow: #{$primary-yellow};
-  --primary-yellow-dark: #{color.adjust($primary-yellow, $lightness: -10%)};
+  --primary-yellow-dark: #{$primary-yellow-dark};
   --secondary-salmon: #{$secondary-salmon};
   --secondary-peach: #{$secondary-peach};
   --highlight-light: #{$highlight-light};

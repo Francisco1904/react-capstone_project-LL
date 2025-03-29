@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+// Change back to match the actual folder structure casing
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
 import HomePage from "./pages/HomePage";

@@ -1,5 +1,6 @@
 @use "variables" as *;
 @use "sass:color";
+@use "sass:meta"; // Add this import
 
 // Responsive Breakpoint Mixins
 @mixin breakpoint($point) {
@@ -80,7 +81,7 @@
     transform var(--transition-fast), box-shadow var(--transition-fast);
 
   &:hover:not(:disabled) {
-    @if type-of($bg-color) == color {
+    @if meta.type-of($bg-color) == color {
       background-color: color.adjust($bg-color, $lightness: -10%);
     } @else {
       background-color: var(--primary-yellow-dark, #e0bb00);
