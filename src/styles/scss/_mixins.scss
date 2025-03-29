@@ -80,7 +80,11 @@
     transform var(--transition-fast), box-shadow var(--transition-fast);
 
   &:hover:not(:disabled) {
-    background-color: color.adjust($bg-color, $lightness: -10%);
+    @if type-of($bg-color) == color {
+      background-color: color.adjust($bg-color, $lightness: -10%);
+    } @else {
+      background-color: var(--primary-yellow-dark, #e0bb00);
+    }
     transform: translateY(-2px);
     box-shadow: var(--shadow-medium);
   }
