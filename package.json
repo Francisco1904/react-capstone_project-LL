@@ -18,6 +18,7 @@
     "test:performance": "vitest run src/tests/performance"
   },
   "dependencies": {
+    "@vercel/analytics": "^1.5.0",
     "ip": "^2.0.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
