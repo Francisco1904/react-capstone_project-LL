@@ -94,6 +94,7 @@ This project was built using **React.js** to showcase my skills as a **Junior Fr
 - **Version Control:** Git & GitHub
 - **Testing:** Vitest with React Testing Library
 - **Deployment Platform:** Vercel
+- **Analytics:** Vercel Web Analytics for tracking visitor metrics without compromising user privacy
 
 ### 🔒 Security
 
